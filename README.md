@@ -46,4 +46,4 @@
 	- A central server which collects jobs in a queue and dispatches them to its collection of workers, on a first-available basis. The server returns the worker's results to the original caller.
 	- Use cases:
 		- Async URL unfurling for links shared in chat
-    - User mention notifications
+		- User mention notifications
