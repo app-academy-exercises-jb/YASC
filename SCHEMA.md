@@ -10,12 +10,11 @@
 `updated_at` | datetime | not null
 
 	has_many :memberships, dependent: :destroy
+	has_many :messages
 	has_many :workspaces, through: memberships,
 		source: :membershipable, source_type: :workspace
 	has_many :channels, through: memberships
 		source: :membershipable, source_type: :channel
-	has_many :messages, through: memberships
-		source: :membershipable, source_type: :message
 
 ## workspaces
 
@@ -46,6 +45,7 @@
 
 	has_many :members, as: :membershipable
 	has_many :users, through: :members
+	has_many :messages
 	belongs_to :workspace
 
 ## messages
@@ -59,9 +59,8 @@
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
 
-	has_many :members, as: :membershipable
-	has_many :users, through: :members
-	belongs_to :users, as: :author
+	belongs_to :user, as: :author
+	belongs_to :channel
 
 ## memberships
 
@@ -73,7 +72,7 @@
 `membershipable_type` | string | not null, foreign key, indexed
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
-`users` can be members of `workspaces`, `channels`, and `messages`
+`users` can be members of both `workspaces` and `channels`
 
 	belongs_to :membershipable, polymorphic: true
 	belongs_to :user
