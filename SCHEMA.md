@@ -41,6 +41,8 @@
 *Unique only in workspace.
 
 	has_many :members, as: :membershipable
+	belongs_to :users, as: :owner
+	belongs_to :workspaces
 
 ## messages
 
@@ -54,7 +56,7 @@
 `updated_at` | datetime | not null
 
 	has_many :members, as: :membershipable
-  belongs_to :users, as: :author
+	belongs_to :users, as: :author
 
 ## memberships
 
