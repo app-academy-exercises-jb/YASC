@@ -47,3 +47,37 @@
 	- Use cases:
 		- Async URL unfurling for links shared in chat
 		- User mention notifications
+
+### <u>Architectural Design:</u>
+
+**React (on Rails) Client** - connects to:
+1. WebApp (Rails Main API)
+2. Messaging Server (Rails Messaging API)
+
+**Messaging Server** - connects to:
+1. WebApp
+
+**WebApp** - controls
+1. PostgreSQL database
+2. __BONUS:__ Job Queue for async actions
+
+This isn't much more than an attempt to clone Slack's architecture as presented in reference [[1]](https://www.infoq.com/presentations/slack-scalability/), minute 2:10. 
+
+**React Client**: Responsible for rendering all views for the client. Speaks HTTP with WebApp (thru React), websocket with Messaging Server
+
+**WebApp**: Responsible for implementing all business logic. It keeps records in a PostgreSQL database, and uses a job queue system to execute async jobs.
+
+**Messaging Server**: Uses the WebSocket protocol (ActionCable in our case) to send real-time messages to users. Specifically, it listens for events that happen in the WebApp/db, and then fans those events out to the relevant users
+
+### <u>Atomic Broadcast Notes:</u>
+- If a valid user broadcasts a message to the channel, all valid users will eventually receive it
+- If a valid user receives a message, all valid users eventually receive it
+- Uniform integrity of messages: a message is received at most once by each valid users, if it was broadcast
+- Uniform order of messages: all valid users receive all messages in the same order
+
+Strictly satisfying all of these requirements seems to be impossible (see [[2]](https://softwareengineeringdaily.com/wp-content/uploads/2018/11/SED722-Slack-Architecture-2.0.pdf)). For more detail please consult [[3]](https://en.wikipedia.org/wiki/Atomic_broadcast). 
+
+### <u>References:</u>
+- [1] [Bing Wei's (on Slack's Infrastructure Team) presentation on Slack's scalability considerations](https://www.infoq.com/presentations/slack-scalability/)
+- [2] [Keith Adam's (Slack's Chief Architect) podcast on Slack's messaging architecture](https://softwareengineeringdaily.com/wp-content/uploads/2018/11/SED722-Slack-Architecture-2.0.pdf)
+- [3] [Wikipedia Atomic Broadcast](https://en.wikipedia.org/wiki/Atomic_broadcast)

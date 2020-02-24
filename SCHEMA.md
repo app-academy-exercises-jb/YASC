@@ -72,6 +72,7 @@
 `membershipable_type` | string | not null, foreign key, indexed
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
+
 `users` can be members of both `workspaces` and `channels`
 
 	belongs_to :membershipable, polymorphic: true
