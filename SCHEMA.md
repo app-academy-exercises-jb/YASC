@@ -9,10 +9,13 @@
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
 
-	has_one :memberships
-	has_many :workspaces, through: memberships
+	has_many :memberships, dependent: :destroy
+	has_many :workspaces, through: memberships,
+		source: :membershipable, source_type: :workspace
 	has_many :channels, through: memberships
+		source: :membershipable, source_type: :channel
 	has_many :messages, through: memberships
+		source: :membershipable, source_type: :message
 
 ## workspaces
 
@@ -25,7 +28,8 @@
 `updated_at` | datetime | not null
 
 	has_many :members, as: :membershipable
-	belongs_to :users, as: owner
+	has_many :users, through: :members
+	belongs_to :user, as: owner
 
 ## channels
 
@@ -41,8 +45,8 @@
 *Unique only in workspace.
 
 	has_many :members, as: :membershipable
-	belongs_to :users, as: :owner
-	belongs_to :workspaces
+	has_many :users, through: :members
+	belongs_to :workspace
 
 ## messages
 
@@ -56,6 +60,7 @@
 `updated_at` | datetime | not null
 
 	has_many :members, as: :membershipable
+	has_many :users, through: :members
 	belongs_to :users, as: :author
 
 ## memberships
