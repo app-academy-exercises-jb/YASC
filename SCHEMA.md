@@ -6,15 +6,18 @@
 `email` | string | not null, unique (indexed)
 `auth_token` | string | not null
 `session_token` | string | not null, unique (indexed)
+`avatar_url` | string |
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
 
 	has_many :memberships, dependent: :destroy
 	has_many :messages
-	has_many :workspaces, through: memberships,
+	has_many :teams, through: memberships,
 		source: :membershipable, source_type: :workspace
 	has_many :channels, through: memberships
 		source: :membershipable, source_type: :channel
+	has_many :threads, through: memberships
+		source: :membershipable, source_type: :message
 
 ## workspaces
 
@@ -59,6 +62,8 @@
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
 
+	has_many :members, as: :membershipable
+	has_many :users, through: :members
 	belongs_to :user, as: :author
 	belongs_to :channel
 
@@ -73,7 +78,7 @@
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
 
-`users` can be members of both `workspaces` and `channels`
+`users` can be members of `workspaces`, and `channels`, and `messages`
 
 	belongs_to :membershipable, polymorphic: true
 	belongs_to :user
