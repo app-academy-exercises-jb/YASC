@@ -6,64 +6,74 @@ Sample set of state
   entities: {
     workspaces: {
       32: {
-        workspace_id: 32,
-        workspace_name: "Indigo Blue",
-        channel_ids: [4, 7, 12, 18]
+        id: 32,
+        name: "Indigo Blue",
+        channels: [4, 7, 12, 18]
       }, 
       ...
     },
     channels: {
       4: {
-        channel_id: 4,
-        channel_type: "public",
-        channel_name: "Shades of Blue",
-        channel_users: [13, 23, 24, 27, 34, 53],
-        channel_messages: [3, 4, 6, 8, 12, 15]
+        id: 4,
+        type: "public",
+        name: "Shades of Blue",
+        users: [13, 23, 24, 27, 34, 53],
+        messages: [3, 4, 6, 8, 12, 15]
       },
       17: {
-        channel_id: 17,
-        channel_type: "direct",
-        channel_name: "Tameka Leuschke",
-        channel_users: [23, 42],
-        channel_messages: [84, 86, 87, 91, 93]
+        id: 17,
+        type: "direct",
+        name: "Tameka Leuschke",
+        users: [23, 42],
+        messages: [84, 86, 87, 91, 93]
       },
       ...
     },
     messages: {
       8: {
-        message_id: 8,
-        message_text: "I think we should include verdant in the discussion",
-        message_replies: [92],
-        message_ts: 1582641194140,
-        author_id: 27
+        id: 8,
+        text: "I think we should include verdant in the discussion",
+        is_reply: false,
+        replies: [92],
+        ts: 1582641194140,
+        channel_id: 4,
+        author_id: 23
       },
       92: {
-        message_id: 92,
-        message_text: "Look at the channel name.....",
-        message_replies: false,
-        message_ts: 1582641332077,
-        author_id: 53
+        id: 92,
+        text: "Look at the channel name.....",
+        is_reply: true,
+        ts: 1582641332077,
+        channel_id: 4,
+        author_id: 57
       },
       ...
     },
     users: {
-      53: {
-        user_id: 53,
-        user_name: "Fredrick Muller",
+      23: {
+        id: 23,
+        name: "Fredrick Muller",
         avatar_url: "aws.s3"
       },
       ...
     }
   },
   session: {
-    currentUser: 23
+    current_user: 23,
+    current_teams: [32],
+    current_channels: [4, 17],
+    current_threads: [8]
   },
   ui: {
     loading: false
   },
   errors: {
-    login: ["Incorrect username or password"],
-    registration: ["Form <detail> cannot be blank"]
+    login: {
+      [key]: "Error message"
+    },
+    registration: {
+      name: "Name field cannot be blank"
+    }
   }
 }
 ```
