@@ -32,6 +32,7 @@
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
 
+	has_many :channels
 	has_many :memberships, as: :membershipable
 	has_many :users, through: :memberships, source: :user
 	belongs_to :user, as: owner
