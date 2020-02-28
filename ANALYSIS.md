@@ -1,6 +1,6 @@
 Here is a rough analysis of the bootstrapping process which the web-based Slack client seems to go through. We hope to model our process after this.
 
-NB: The following includes only xhr calls to Slack's API. There is presumably a lot going on over the WSS connectionn.
+## API analysis
 
 ---
 	api/client.boot
@@ -121,4 +121,128 @@ returns information to populate SideBar component headers.
 		ok: true,
 		channel_sections:[{id:, name:"Channels", type:, last_updated_ts:, }, ...]
 	}
+```
+
+
+---
+---
+
+## WS analysis
+The following is a list of chronologically ordered messages.
+
+```javascript
+[INC]{
+  type: "hello",
+  self: {
+    id: "<id_hash>",
+    team_id: "<team_id_hash>",
+    display_name: "JB",
+    name: "Jorge Barreto",
+    profile: {name, avatar, email, team},
+    is_admin: false,
+    is_owner: false,
+    updated: 1572650797
+  },
+  start: {
+    rtm_start: {
+      ok: true,
+      url: <wss://...>
+    }
+  }
+}
+```
+
+```javascript
+[OUT]{
+  type: "flannel",
+  subtype: "user_unsubscribe_request",
+  ids: [<"channel_id>", ...],
+  id: 16385
+}
+```
+NB: `id` in the above refers to the message id.
+
+```javascript
+[INC]{
+  type: "reconnect_url",
+  url: <wss://...>
+}
+```
+
+```javascript
+[INC]{
+  ok: false,
+  reply_to: 16385,
+  error: {msg:, code:, source:}
+}
+```
+
+```javascript
+[OUT]{
+  type: "presence_sub",
+  ids: ["<user_id>", ...],
+  id: 16386
+}
+```
+
+```javascript
+[INC]{
+  type: "presence_change",
+  presence: "active",
+  users: ["<user_id>", ...]
+}
+```
+
+```javascript
+[OUT]{
+  type: "presence_sub",
+  ids: ["<user_id>", ...],
+  id: 16387
+}
+```
+
+```javascript
+[OUT]{
+  type: "flannel",
+  presence: "user_subscribe_request",
+  updated_ids: {"<channel_id>":, "<last_read_ts?>"},
+  id: 16392
+}
+```
+
+```javascript
+[INC]{
+  ok: true,
+  reply_to: 16392,
+  type: "flannel",
+  subtype: "user_subscribe_response",
+  error: {msg:, code:, source:},
+  updated_ids: {"<channel_id>":, "<latest_event_ts?>"}
+}
+```
+
+```javascript
+[OUT]{
+  type: "ping",
+  id: 16394
+}
+```
+
+```javascript
+[INC]{
+  type: "pong",
+  reply_to: 16394
+}
+```
+
+```javascript
+[INC]{
+  type: "im_marked",
+  channel: "<channel_id>",
+  ts: "<ts_as_sent?>",
+  dm_count: 0,
+  unread_count_display: 0,
+  num_mentions_display: 0,
+  event_ts: "<ts_as_logged?>"
+}
 ```
