@@ -38,7 +38,7 @@ The following is a schema for the organization of React components in our fronte
 ## API
 
 ### Users
-* `POST api/v1/users` => `Api::V1::UsersController#index`
+* `GET api/v1/users` => `Api::V1::UsersController#index`
 	* get list of users according to params
 * `POST api/v1/users` => `Api::V1::UsersController#create`
 	* register new user
@@ -82,3 +82,13 @@ The following is a schema for the organization of React components in our fronte
 	* edit a message
 * `DELETE api/v1/channels/:id` => `Api::V1::MessagesController#delete`
 	* delete a message
+
+### Memberships
+* `POST api/v1/workspaces/:id/memberships` => `Api::V1::MembershipsController#create`
+	* make a user a member of a workspace
+* `DELETE api/v1/workspaces/:id/memberships` => `Api::V1::MembershipsController#delete`
+	* delete a user from a workspace
+* `POST api/v1/channels/:id/memberships` => `Api::V1::MembershipsController#create`
+	* make a user a member of a channel
+* `DELETE api/v1/channels/:id/memberships` => `Api::V1::MembershipsController#delete`
+	* delete a user from a channel

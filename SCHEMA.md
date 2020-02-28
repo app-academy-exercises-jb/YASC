@@ -62,14 +62,16 @@
 `body` | text | not null, primary key
 `author_id` | integer | not null, unique (indexed), foreign key
 `channel_id` | integer | not null, unique (indexed), foreign key
-`parent_message_id` | integer | foreign key
+`parent_message_id` | integer | not null*, foreign key
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
+*By default `parent_message_id` will be set to `id`
 
 	has_many :memberships, as: :membershipable
 	has_many :users, through: :memberships, source: :user
 	belongs_to :user, as: :author
 	belongs_to :channel
+	has_many :replies, -> { where.not.(parent_message_id: self.id) }, class_name: :Message, foreign_key: :parent_message_id
 
 ## memberships
 
