@@ -31,7 +31,7 @@ returns snapshot of current connection:
 		latest_event_ts: 1582908788.000000,
 		cache_ts: 1582909388,
 		prefs: { ... },
-		ws_url: <wss://...>,
+		ws_url: <"wss://...">,
 		is_open: ["<channel id>", ...],
 		last_read: { [channel_id]: "<last_read_in_channel_ts>", ... },
 		channels_latest: { [channel_id]: "<latest_event_in_channel_ts>", ... }
@@ -123,6 +123,16 @@ returns information to populate SideBar component headers.
 	}
 ```
 ---
+	api/users.info
+gets user info according to params
+```javascript
+	{
+		ok: true,
+    results: [{"<same as users section items in conversations.view, above>"}, ...],
+    presence_active_ids: ["<user_id>", ...]
+	}
+```
+---
 	api/conversations.history
 this is hit every time we switch channels, followed by `api/users.counts`.
 ```javascript
@@ -135,27 +145,36 @@ this is hit every time we switch channels, followed by `api/users.counts`.
 this is hit every time we post a message (why?), sometime after(?) the WS event is sent. form data is sent containing the message content, and the server responds with the published message event:
 ```javascript
 	{
-    ok: true,
-    channel: "<channel_id>",
-    ts: "1582917798.015000",
-    message: {
-      client_msg_id:,
-      type: "message",
-      text: "this is the msg",
-      user: "<user_id>",
-      ts: "1582917798.015000",
-      team: "<team_id>",
-      blocks: "rich_text"::"rich_text_section"::"text"::":message_content"
-    }
+		ok: true,
+		channel: "<channel_id>",
+		ts: "1582917798.015000",
+		message: {
+			client_msg_id:,
+			type: "message",
+			text: "this is the msg",
+			user: "<user_id>",
+			ts: "1582917798.015000",
+			team: "<team_id>",
+			blocks: "rich_text"::"rich_text_section"::"text"::":message_content"
+		}
 	}
 ```
-
+---
+	api/conversations.mark
+this is hit every time that we mark a message as "seen"
+```javascript
+	{
+		ok: true
+  }
+```
 ---
 ---
 ---
 
 ## WS analysis
 The following is a list of chronologically ordered messages.
+  * [INC] === "incoming"
+  * [OUT] === "outgoing"
 
 ```javascript
 [INC]{
@@ -173,7 +192,7 @@ The following is a list of chronologically ordered messages.
   start: {
     rtm_start: {
       ok: true,
-      url: <wss://...>
+      url: <"wss://..".>
     }
   }
 }
@@ -192,7 +211,7 @@ NB: `id` in the above refers to the message id.
 ```javascript
 [INC]{
   type: "reconnect_url",
-  url: <wss://...>
+  url: <"wss://..".>
 }
 ```
 
@@ -292,5 +311,17 @@ NB: `id` in the above refers to the message id.
   channel: "<channel_id>",
   event_ts: "1582917798.015000",
   ts: "1582917798.015000"
+}
+```
+
+```javascript
+[INC]{
+  type: "channel_marked",
+  channel: "<channel_id>",
+  ts:,
+  unread_count: 0,
+  num_mentions: 0,
+  mention_count: 0,
+  event_ts:
 }
 ```
