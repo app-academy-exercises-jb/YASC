@@ -63,7 +63,7 @@ return result of cache coherency protocol:
 ```
 ---
 	api/conversations.view
-return current view for requested channel/thread:
+return current view for requested channel/thread. seemingly, this is only hit on initial page load, not when switching channels
 ```javascript
 	{
 		ok: true,
@@ -122,8 +122,35 @@ returns information to populate SideBar component headers.
 		channel_sections:[{id:, name:"Channels", type:, last_updated_ts:, }, ...]
 	}
 ```
+---
+	api/conversations.history
+this is hit every time we switch channels, followed by `api/users.counts`.
+```javascript
+	{
+		<same_as_conversations.view[history], above>
+	}
+```
+---
+	api/chat.postMessage
+this is hit every time we post a message (why?), sometime after(?) the WS event is sent. form data is sent containing the message content, and the server responds with the published message event:
+```javascript
+	{
+    ok: true,
+    channel: "<channel_id>",
+    ts: "1582917798.015000",
+    message: {
+      client_msg_id:,
+      type: "message",
+      text: "this is the msg",
+      user: "<user_id>",
+      ts: "1582917798.015000",
+      team: "<team_id>",
+      blocks: "rich_text"::"rich_text_section"::"text"::":message_content"
+    }
+	}
+```
 
-
+---
 ---
 ---
 
@@ -244,5 +271,26 @@ NB: `id` in the above refers to the message id.
   unread_count_display: 0,
   num_mentions_display: 0,
   event_ts: "<ts_as_logged?>"
+}
+```
+
+```javascript
+[OUT]{
+  type: "typing",
+  id: 16417
+}
+```
+
+```javascript
+[INC]{
+  type: "message",
+  client_msg_id:,
+  text: "this is the message",
+  user: "<user_id>",
+  team: "<team_id>",
+  blocks: "<see above, `api/chat.postMessage`>",
+  channel: "<channel_id>",
+  event_ts: "1582917798.015000",
+  ts: "1582917798.015000"
 }
 ```
