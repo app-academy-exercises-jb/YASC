@@ -31,7 +31,7 @@ returns snapshot of current connection:
 		latest_event_ts: 1582908788.000000,
 		cache_ts: 1582909388,
 		prefs: { ... },
-		ws_url: <"wss://...">,
+		ws_url: "<wss://...>",
 		is_open: ["<channel id>", ...],
 		last_read: { [channel_id]: "<last_read_in_channel_ts>", ... },
 		channels_latest: { [channel_id]: "<latest_event_in_channel_ts>", ... }
@@ -128,8 +128,8 @@ gets user info according to params
 ```javascript
 	{
 		ok: true,
-    results: [{"<same as users section items in conversations.view, above>"}, ...],
-    presence_active_ids: ["<user_id>", ...]
+		results: [{"<same as users section items in conversations.view, above>"}, ...],
+		presence_active_ids: ["<user_id>", ...]
 	}
 ```
 ---
@@ -137,7 +137,7 @@ gets user info according to params
 this is hit every time we switch channels, followed by `api/users.counts`.
 ```javascript
 	{
-		<same_as_conversations.view[history], above>
+		"<same_as_conversations.view[history], above>"
 	}
 ```
 ---
@@ -165,7 +165,7 @@ this is hit every time that we mark a message as "seen"
 ```javascript
 	{
 		ok: true
-  }
+	}
 ```
 ---
 ---
@@ -192,7 +192,7 @@ The following is a list of chronologically ordered messages.
   start: {
     rtm_start: {
       ok: true,
-      url: <"wss://..".>
+      url: "<wss://...>"
     }
   }
 }
@@ -211,7 +211,7 @@ NB: `id` in the above refers to the message id.
 ```javascript
 [INC]{
   type: "reconnect_url",
-  url: <"wss://..".>
+  url: "<wss://...>"
 }
 ```
 
