@@ -6,7 +6,7 @@ class Api::SessionsController < ApplicationController
       render json: {login: 'incorrect credentials'}, status: 401
     else
       login!(@user)
-      redirect_to api_v1_user_url(@user), status: :found
+      redirect_to api_user_url(@user), status: :found
     end
   end
 

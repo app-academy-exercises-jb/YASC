@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  get '*path', to: 'application#index', contraints: lambda { |req| 
+  get '*path', to: 'application#root', contraints: lambda { |req| 
     !req.xhr? && req.format.html?
   }
 end
