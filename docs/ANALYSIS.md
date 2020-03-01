@@ -1,6 +1,17 @@
 Here is a rough analysis of the bootstrapping process which the web-based Slack client seems to go through. We hope to model our process after this.
 
 ## API analysis
+NB: all of the following routes are hit with a `POST` method using `xhr`
+
+order of api hits:
+------------------
+- `client.boot` -> gets current workspace snapshot
+- `conversations.view` -> gets current channel info
+- `users.channelSections.list` -> gets sidebar headers to populate
+- `users.info` -> grabs users mentioned in `client.boot` + `conversations.view`
+- `users.counts` -> current channel counts
+- `client.counts` -> global channel counts
+
 
 ---
 	api/client.boot
@@ -19,15 +30,36 @@ returns snapshot of current connection:
 			updated: 1572650797
 		},
 		team: {
-			id: "<id_hash>",
-			name: "<team_id_hash>",
+			id: "<id>",
+			name: "<team_id>",
 			prefs: {default_channels: ["<channel_id>", ...], ...},
 			icon: "url",
 			messages_count: 6064330,
 			onboarding_channel_id: "<channel_id_hash>",
 			date_created: 1479234539,
 			limit_ts: 1582502400000000
-		},
+    },
+    channels:[{
+      id:,
+      name:,
+      is_channel:,
+      is_private:,
+      is_dm:,
+      created_ts:,
+      parent_conversation:,
+      creator_id:,
+      topic:,
+      purpose:
+    }, ...],
+    dms: [{
+      id:,
+      created_ts:,
+      is_dm:,
+      user_id:,
+      last_read_ts:,
+      latest_ts:,
+      is_open:
+    }, ...],
 		latest_event_ts: 1582908788.000000,
 		cache_ts: 1582909388,
 		prefs: { ... },
@@ -38,6 +70,7 @@ returns snapshot of current connection:
 	}
 ```
 ---
+__MISSING__
 	api/client.counts
 return result of cache coherency protocol:
 ```javascript
@@ -114,6 +147,7 @@ return current view for requested channel/thread. seemingly, this is only hit on
 	}
 ```
 ---
+__MISSING__
 	api/users.channelSections.list
 returns information to populate SideBar component headers.
 ```javascript
@@ -160,8 +194,9 @@ this is hit every time we post a message (why?), sometime after(?) the WS event 
 	}
 ```
 ---
-	api/conversations.mark
-this is hit every time that we mark a message as "seen"
+__MISSING__
+	api/channels.mark
+this is hit every time that we mark a message as "seen". evidently, we send the `team_id`, `channel_id`, `last_seen_ts`, and our bearer `token`, and get this back:
 ```javascript
 	{
 		ok: true
