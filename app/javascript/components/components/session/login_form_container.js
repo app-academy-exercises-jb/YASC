@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SessionForm from './session_form'
-import { loginUser } from '../../actions/session'
+import { loginUser, clearSessionErrors } from '../../actions/session'
 
 const mapStateToProps = (state) => ({
   type: "login",
@@ -9,4 +9,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { processForm: loginUser })(SessionForm)
+  { 
+    processForm: loginUser,
+    clearErrors: clearSessionErrors
+  })(SessionForm)

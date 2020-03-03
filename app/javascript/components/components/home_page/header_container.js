@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import Greeting from './greeting'
+import Header from './header'
 import { logoutUser } from '../../actions/session'
 
 const mapStateToProps = (state) => ({
@@ -8,4 +8,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser })(Greeting)
+  { logoutUser })(Header)

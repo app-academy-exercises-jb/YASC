@@ -1,25 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-
-class Greeting extends React.Component {
-  render() {
-    const user = this.props.user;
-    return (
-      <div>
-        {user 
-          ? <>
-            Hello {user.email}
-            <button onClick={() => {this.props.logoutUser(user)}}>Log out</button>
-          </>
-          : <div style={{display:"flex", flexDirection: "column"}}>
-            <Link to="/login">Sign in</Link>
-            <Link to="/signup">Sign up</Link>
-          </div>
-        }
-      </div>
-    )
+export default function Greeting({ user }) {
+  if (user) {
+    return (<div className='greeting'>
+      Hello {user.email}
+      <button onClick={() => {this.props.logoutUser(user)}}>Log out</button>
+    </div>)
+  } else {
+    return (<div className='greeting'>
+      <NavLink activeStyle={{display: "none"}} to="/login">Sign in</NavLink>
+      <NavLink id="get-started" activeStyle={{display: "none"}} to="/signup">Get Started</NavLink>
+    </div>)
   }
 }
-
-export default Greeting

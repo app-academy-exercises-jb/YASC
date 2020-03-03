@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :sessions
   root 'application#root'
 
   namespace :api, defaults: {format: :json} do

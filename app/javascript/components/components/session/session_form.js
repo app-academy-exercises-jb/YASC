@@ -1,4 +1,5 @@
 import React from 'react'
+import HeaderContainer from '../home_page/header_container'
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -10,6 +11,10 @@ class SessionForm extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.clearErrors();
   }
 
   handleChange(e) {
@@ -27,26 +32,29 @@ class SessionForm extends React.Component {
   render() {
     const { errors, type } = this.props;
     return (
-      <div>
-        <ul>
-          {Object.keys(errors).map(err => (
-            <li>{err}: {errors[err]}</li>
-          ))}
-        </ul>
-    
-        <form onSubmit={this.handleSubmit}>
-            <label>
-              Email:
-              <input type="text" name="email" onChange={this.handleChange}/>
-            </label>
+      <div className="front-page">
+        <HeaderContainer />
+        <div>
+          <ul>
+            {Object.keys(errors).map((err,idx) => (
+              <li key={idx}>{err}: {errors[err]}</li>
+            ))}
+          </ul>
+      
+          <form onSubmit={this.handleSubmit}>
+              <label>
+                Email:
+                <input type="text" name="email" onChange={this.handleChange}/>
+              </label>
 
-            <label>
-              Password:
-              <input type="password" name="password" onChange={this.handleChange}/>
-            </label>
+              <label>
+                Password:
+                <input type="password" name="password" onChange={this.handleChange}/>
+              </label>
 
-            <input type="submit" value={type}/>
-        </form>
+              <input type="submit" value={type}/>
+          </form>
+        </div>
       </div>
     )
   } 

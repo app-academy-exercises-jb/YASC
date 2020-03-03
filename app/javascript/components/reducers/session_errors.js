@@ -1,4 +1,4 @@
-import { RECEIVE_ERRORS, RECEIVE_CURRENT_USER } from '../actions/session'
+import { RECEIVE_ERRORS, CLEAR_ERRORS, RECEIVE_CURRENT_USER } from '../actions/session'
 
 export default (state={}, action) => {
   switch (action.type) {
@@ -6,6 +6,8 @@ export default (state={}, action) => {
       return {};
     case RECEIVE_ERRORS:
       return Object.assign({}, state, action.errors);
+    case CLEAR_ERRORS:
+      return {};
     default:
       return state;
   }

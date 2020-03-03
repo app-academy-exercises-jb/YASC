@@ -22,6 +22,18 @@
 	has_many :threads, through: memberships
 		source: :membershipable, source_type: :message
 
+## sessions
+
+<b> column name | data type | details </b>
+:--|:-:|--:
+`id` | integer | not null, primary key
+`user_id` | integer | not null, foreign key, indexed
+`session_token` | string | not null, indexed
+`created_at` | datetime | not null
+`updated_at` | datetime | not null
+
+	belongs_to :user
+
 ## workspaces
 
 <b> column name | data type | details </b>
@@ -91,14 +103,14 @@
 	belongs_to :membershipable, polymorphic: true
 	belongs_to :user
 
-## sessions
+## roles
 
 <b> column name | data type | details </b>
 :--|:-:|--:
 `id` | integer | not null, primary key
-`user_id` | integer | not null, foreign key, indexed
-`session_token` | string | not null, indexed
+`role` | string | not null, in (user/workspace_admin/channel_admin)
 `created_at` | datetime | not null
 `updated_at` | datetime | not null
 
-	belongs_to :user
+	has_many :memberships, as: :membershipable
+	has_many :users, through: :memberships, source: :user
