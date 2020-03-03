@@ -17,6 +17,13 @@
   text-decoration: none;
 }
 
+.greeting>a:hover {
+  color: #1264a3;
+  text-decoration: none;
+  border-bottom: 1px solid #1264a3;
+  padding-bottom: 1px;
+}
+
 .greeting>a:nth-of-type(1) {
   margin-right: 1rem;
 }
@@ -52,8 +59,11 @@
   font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
+  transition: background 420ms cubic-bezier(.165,.84,.44,1)
 }
 
 #get-started:hover {
   background-color: #4a154b;
+  padding: 0.8rem;
+  border: 0;
 }

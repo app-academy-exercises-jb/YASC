@@ -1,6 +1,6 @@
 .banner {
-  overflow: hidden;
   max-height: 31rem;
+  min-height: fit-content;
   max-width: 100vw;
   position: relative;
 }
@@ -49,10 +49,13 @@
   padding-bottom: 1px;
 }
 
+.banner-header>p>a:hover {
+  border-bottom: 2px solid #1264a3;
+}
+
 .banner-header>p>a:visited {
   color: #1264a3;
 }
-
 
 .button-box {
   display: flex;
@@ -69,6 +72,7 @@
   font-weight: 700;
   letter-spacing: .8px;
   font-size: .875rem;
+  transition: box-shadow 420ms cubic-bezier(.165,.84,.44,1),background 420ms cubic-bezier(.165,.84,.44,1)
 }
 
 #try-us {
@@ -76,7 +80,15 @@
   color: white;
 }
 
+#try-us:hover {
+  background-color: #4a154b;
+}
+
 #demo {
   margin-left: .5rem;
   border: 1px solid #611f69;
+}
+
+#demo:hover {
+  box-shadow: inset 0 0 0 1px #611f69;
 }
