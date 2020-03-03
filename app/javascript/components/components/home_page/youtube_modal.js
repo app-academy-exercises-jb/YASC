@@ -30,6 +30,7 @@ class YoutubeModal extends React.Component {
   }
 
   onYouTubeIframeAPIReady() {
+    console.log("api running")
     this.player = new YT.Player('player', {
       height: '360',
       width: '640',
@@ -43,6 +44,10 @@ class YoutubeModal extends React.Component {
   }
 
   onPlayerReady(e) {
+    setTimeout(() => {
+      e.target.seekTo(0, true);
+      e.target.pauseVideo();
+    }, 250);
   }
 
   render() {
