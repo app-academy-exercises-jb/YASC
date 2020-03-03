@@ -4,6 +4,8 @@ class YoutubeModal extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = { playable: false }
+
     this.ExitModal = this.ExitModal.bind(this);
     this.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady.bind(this);
     this.onPlayerReady = this.onPlayerReady.bind(this);
@@ -44,14 +46,11 @@ class YoutubeModal extends React.Component {
   }
 
   onPlayerReady(e) {
-    setTimeout(() => {
-      e.target.seekTo(0, true);
-      e.target.pauseVideo();
-    }, 250);
+    this.setState({ playable: true })
   }
 
   render() {
-    if (this.props.play) {
+    if (this.props.play && this.state.playable) {
       document.getElementById("youtube-modal").className = "active"
       this.player.playVideo();
     }
