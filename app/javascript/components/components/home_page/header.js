@@ -9,7 +9,7 @@ class Header extends React.Component {
     const user = this.props.user;
 
     return (
-      <header className="header">
+      <header className="top-header">
         <Link to="/" id="logo">
           <img src={slackLogo} /> 
           <span>yasc</span>

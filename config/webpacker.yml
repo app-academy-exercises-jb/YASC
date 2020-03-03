@@ -20,6 +20,7 @@ default: &default
   extract_css: false
 
   static_assets_extensions:
+    - .mp4
     - .svg
     - .jpg
     - .jpeg
@@ -49,6 +50,7 @@ default: &default
     - .gif
     - .jpeg
     - .jpg
+    - .mp4
 
 development:
   <<: *default
