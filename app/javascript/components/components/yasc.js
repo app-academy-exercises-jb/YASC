@@ -7,12 +7,12 @@ import { ProtectedRoute, PublicRoute } from '../util/routes'
 
 class YASC extends React.Component {
   render() {
-    return (<div>
+    return (<>
       <Route exact path="/" component={HomePage} />
       <PublicRoute path="/login" component={LoginFormContainer} />
       <PublicRoute path="/signup" component={SignupFormContainer} />
       <Redirect from="*" to="/" />
-    </div>)
+    </>)
   }
 }
 

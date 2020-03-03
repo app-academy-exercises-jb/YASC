@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Greeting from './greeting';
+import slackLogo from 'images/slack'
 
 
 class Header extends React.Component {
@@ -8,13 +9,13 @@ class Header extends React.Component {
     const user = this.props.user;
 
     return (
-      <div className="header">
+      <header className="header">
         <Link to="/" id="logo">
-          <img src="https://image.flaticon.com/icons/svg/2111/2111615.svg"/> 
+          <img src={slackLogo} /> 
           <span>yasc</span>
         </Link>
         <Greeting user={user} />
-      </div>
+      </header>
     )
   }
 }
