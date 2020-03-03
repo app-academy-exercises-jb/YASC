@@ -81,7 +81,13 @@ module.exports = function(api) {
         {
           removeImport: true
         }
-      ]
+      ],
+      [require("babel-plugin-module-resolver").default, {
+        "root": ["./app"],
+        "alias": {
+          "assets": "./assets"
+        }
+      }]
     ].filter(Boolean)
   }
 }
