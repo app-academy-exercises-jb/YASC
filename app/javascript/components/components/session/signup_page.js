@@ -32,7 +32,14 @@ class SignupPage extends React.Component {
           <div className="session-content">
             <div className="signup-page">
               <Route exact path="/signup" component={SignupWrapper} />
-              <Route path="/signup/create" component={SignupFormContainer} />
+
+              <Route path="/signup/create" render={() => (
+                <>
+                  <h2>Start using yasc today</h2>
+                  <SignupFormContainer />
+                </>
+              )} />
+
               <Route path="/signup/find" component={LoginFormContainer} />
             </div>
           </div>

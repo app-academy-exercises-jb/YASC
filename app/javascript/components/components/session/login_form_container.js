@@ -11,5 +11,6 @@ export default connect(
   mapStateToProps,
   { 
     processForm: loginUser,
-    clearErrors: clearSessionErrors
+    clearErrors: clearSessionErrors,
+    loginUser
   })(SessionForm)

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SessionForm from './session_form'
-import { createNewUser, clearSessionErrors } from '../../actions/session'
+import { createNewUser, clearSessionErrors, loginUser } from '../../actions/session'
 
 const mapStateToProps = (state) => ({
   type: "signup",
@@ -10,4 +10,5 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { processForm: createNewUser,
-    clearErrors: clearSessionErrors })(SessionForm)
+    clearErrors: clearSessionErrors,
+    loginUser })(SessionForm)

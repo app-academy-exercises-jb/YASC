@@ -11,6 +11,12 @@ class SessionForm extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.demoLogin = this.demoLogin.bind(this);
+  }
+
+  demoLogin(e) {
+    e.preventDefault();
+    this.props.loginUser({ email: "demo@example.com", password: "abcd1234" });
   }
 
   componentWillUnmount() {
@@ -34,22 +40,17 @@ class SessionForm extends React.Component {
     return (
       <>
         <form onSubmit={this.handleSubmit} className="signup-form">
-            <label>
-              Workspace Name:
-              <input type="text" name="workspace" disabled={true}/>
-            </label>
+          <span>Enter your <b>email address</b> and <b>password.</b></span>
+          <label>
+            <input type="text" name="email" placeholder="name@example.com" onChange={this.handleChange}/>
+          </label>
 
-            <label>
-              Email:
-              <input type="text" name="email" onChange={this.handleChange}/>
-            </label>
+          <label>
+            <input type="password" name="password" placeholder="password" onChange={this.handleChange}/>
+          </label>
 
-            <label>
-              Password:
-              <input type="password" name="password" onChange={this.handleChange}/>
-            </label>
-
-            <input type="submit" value={type}/>
+          <input type="submit" value={type}/>
+          <input type="submit" value="Demo Login" onClick={this.demoLogin}/>
         </form>
 
         <ul>
