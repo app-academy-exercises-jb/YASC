@@ -2,7 +2,6 @@ import React from 'react'
 import YoutubeVid from 'images/channels_video'
 import YoutubeModal from './youtube_modal'
 import Banner from './banner'
-import Footer from './footer'
 
 class MainContent extends React.Component {
   constructor(props) {
@@ -38,8 +37,6 @@ class MainContent extends React.Component {
           </svg>
         </a>
       </div>
-
-      <Footer />
 
       <YoutubeModal 
         pauseVideo={() => {this.toggleModal()}}

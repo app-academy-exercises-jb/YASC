@@ -20,7 +20,7 @@ const Footer = (props) => {
           Choose a better way to work
           <div id="footer-buttons" className="button-box" style={{flexDirection: "column"}}>
             <Link id="try-us-2" to="/signup">try yasc</Link>
-            <Link id="contact-us" to="/" onClick={highlightContacts}>contact us</Link>
+            <Link id="contact-us" to="#" onClick={highlightContacts}>contact us</Link>
           </div>
           <div id="contact-me" className="button-box">
             <a className="contact-me" href="https://github.com/jorge-barreto"><img src={Octocat}></img></a>
