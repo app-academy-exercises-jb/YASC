@@ -32,7 +32,6 @@ class YoutubeModal extends React.Component {
   }
 
   onYouTubeIframeAPIReady() {
-    console.log("api running")
     this.player = new YT.Player('player', {
       height: '360',
       width: '640',
