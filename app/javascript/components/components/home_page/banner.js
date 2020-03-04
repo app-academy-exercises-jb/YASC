@@ -24,7 +24,7 @@ const Banner = (props) => {
           </span>
           <div className="button-box">
             <Link id="try-us" to="/signup">try yasc</Link>
-            <Link id="demo">see the demo</Link>
+            <Link id="demo" to="/">see the demo</Link>
           </div>
           <p>
             Already using yasc? <Link to="/login">Log on</Link>.
