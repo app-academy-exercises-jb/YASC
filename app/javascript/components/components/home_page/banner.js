@@ -9,11 +9,6 @@ class Banner extends React.Component {
 
     this.demoLogin = this.demoLogin.bind(this);
   }
-
-  componentWillUnmount() {
-    if (this.props.user.email !== "demo@example.com") return;
-    this.props.logoutUser(this.props.user.session_token);
-  }
   
   demoLogin(e) {
     e.preventDefault();
