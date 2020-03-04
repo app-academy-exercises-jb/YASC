@@ -6,10 +6,11 @@ import slackLogo from 'images/slack'
 
 class Header extends React.Component {
   render() {
-    const user = this.props.user;
+    const user = this.props.user,
+      className = this.props.className;
 
     return (
-      <header className="top-header">
+      <header className={className}>
         <Link to="/" id="logo">
           <img src={slackLogo} /> 
           <span>yasc</span>

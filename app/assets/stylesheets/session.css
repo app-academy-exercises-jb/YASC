@@ -10,7 +10,7 @@
 
 .session-content {
   background-color: white;
-  width: 25%;
+  max-width: 29.25rem;
   min-width: fit-content;
   border-radius: 10px;
   border: 1px solid #ddd;
@@ -19,6 +19,13 @@
   align-content: center;
   justify-content: center;
   padding: 4rem 4rem 1rem;
+  box-shadow: 0 10px 25px #ddd;
+}
+
+.session-content h2 {
+  align-self: center;
+  font-weight: 500;
+  font-size: 2rem;
 }
 
 .signup-page {
@@ -26,8 +33,19 @@
   flex-direction: column;
 }
 
-.signup-page>h2 {
+.signup-wrapper>#signup-buttons>a>div {
+  display: flex;
+  flex-direction: column;
+  min-width: 12.5rem;
+}
+
+.signup-wrapper>#signup-buttons>a {
+  display: flex;
+}
+
+.signup-wrapper>.signup-page>h2 {
   align-self: center;
+  margin-bottom: 2rem;
 }
 
 .signup-form {
@@ -51,7 +69,7 @@
   background-color: #007a5a;
   color: white;
   height: 2.875rem;
-  font-weight: 900;
+  font-weight: 500;
   font-size: 1.25rem;;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -93,11 +111,13 @@
   font-size: 0.9rem;
 }
 
-.session-content h2 {
+.signup-wrapper>h2 {
   align-self: flex-start;
-  margin-bottom: 1rem;
-  font-weight: 900;
-  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+#signup-buttons {
+  max-width: 25.375rem;
 }
 
 #signup-buttons>a {
@@ -106,19 +126,45 @@
   text-transform: none;
   margin-bottom: 1rem;
   width: 100%;
-  border: 1px solid;
-  border-color: rgba(29,29,29,.13);
+  border: 1px solid rgba(29,28,29,.5);
+  padding-bottom: 1.75rem;
+  padding-top: 1.25rem;
+  padding-left: 1.75rem;
+  transition: none;
 }
 
-#signup-buttons>a:hover {
-  background-color: rgba(161, 157, 161, 0.28);
-  border-color: black;
+.signup-wrapper>#signup-buttons>a:hover, #signup-buttons>#create-team:hover {
+  box-shadow: 0 0 0 1px rgba(29,28,29,.13), 0 4px 12px 0 rgba(0,0,0,.08);
+  border-color: #0b4c8c;
 }
 
-#signup-buttons>a>h3 {
+#signup-buttons>a h3 {
+  margin-top: 0;
   color: #1264a3;
+  font-weight: 900;
+  font-size: 1.25rem;
 }
 
-#signup-buttons>a>span {
+#signup-buttons>a span {
   color: rgba(29,28,29,.7);
+}
+
+#signup-buttons>#find-team {
+  padding-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+#signup-buttons>#find-team>img {
+  margin-right: -1rem;
+}
+
+#signup-buttons>#create-team {
+  flex-direction: column;
+  justify-items: center;
+  border-color: rgba(255, 255, 255, 0);
+}
+
+#signup-buttons>#create-team > h3 {
+  font-size: 1rem;
 }

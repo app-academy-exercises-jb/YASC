@@ -7,7 +7,7 @@ class HomePage extends React.Component {
 
   render() {
     return (<div className="front-page">
-      <HeaderContainer />
+      <HeaderContainer className="front-page-header" />
       <MainContent />
       <Footer />
     </div>)

@@ -1,11 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 export default function Greeting({ user, logoutUser }) {
+  function workspacesModal(e) {
+    e.preventDefault();
+  }
+
   if (user) {
     return (<div className='greeting'>
-      Hello {user.email}
-      <button onClick={() => {logoutUser(user)}}>Log out</button>
+      <Link id="your-workspaces" onClick={workspacesModal} to="#">Your Workspaces</Link>
     </div>)
   } else {
     return (<div className='greeting'>
