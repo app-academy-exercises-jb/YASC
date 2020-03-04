@@ -1,0 +1,71 @@
+.session-wrapper {
+  width: 100%;
+  background-color: rgba(29,28,29,0.08);
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 8rem;
+}
+
+.session-content {
+  background-color: white;
+  width: 25%;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  padding: 4rem 4rem 1rem;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.signup-form > * {
+  margin-bottom: 1rem;
+}
+
+.signup-form > input[type=submit] {
+  background-color: #007a5a;
+  color: white;
+  font-weight: 900;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  border: none;
+  text-transform: capitalize;
+}
+
+.signup-page>h2 {
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}
+
+#signup-buttons>a {
+  background-color: rgba(29,28,29,0.02);
+  box-sizing: border-box;
+  text-transform: none;
+  margin-bottom: 1rem;
+  width: 100%;
+  border: 1px solid;
+  border-color: rgba(29,29,29,.13);
+}
+
+#signup-buttons>a:hover {
+  background-color: rgba(161, 157, 161, 0.28);
+  border-color: black;
+}
+
+#signup-buttons>a>h3 {
+  color: #1264a3;
+}
+
+#signup-buttons>a>span {
+  color: rgba(29,28,29,.7);
+}

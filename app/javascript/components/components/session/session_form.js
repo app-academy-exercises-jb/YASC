@@ -32,30 +32,32 @@ class SessionForm extends React.Component {
   render() {
     const { errors, type } = this.props;
     return (
-      <div className="front-page">
-        <HeaderContainer />
-        <div>
-          <ul>
-            {Object.keys(errors).map((err,idx) => (
-              <li key={idx}>{err}: {errors[err]}</li>
-            ))}
-          </ul>
-      
-          <form onSubmit={this.handleSubmit}>
-              <label>
-                Email:
-                <input type="text" name="email" onChange={this.handleChange}/>
-              </label>
+      <>
+        <form onSubmit={this.handleSubmit} className="signup-form">
+            <label>
+              Workspace Name:
+              <input type="text" name="workspace" disabled={true}/>
+            </label>
 
-              <label>
-                Password:
-                <input type="password" name="password" onChange={this.handleChange}/>
-              </label>
+            <label>
+              Email:
+              <input type="text" name="email" onChange={this.handleChange}/>
+            </label>
 
-              <input type="submit" value={type}/>
-          </form>
-        </div>
-      </div>
+            <label>
+              Password:
+              <input type="password" name="password" onChange={this.handleChange}/>
+            </label>
+
+            <input type="submit" value={type}/>
+        </form>
+
+        <ul>
+          {Object.keys(errors).map((err,idx) => (
+            <li key={idx}>{err}: {errors[err]}</li>
+          ))}
+        </ul>
+      </>
     )
   } 
 }

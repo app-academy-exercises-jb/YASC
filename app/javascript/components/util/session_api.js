@@ -1,5 +1,5 @@
 export const signup = async user => {
-  const res = await fetch('api/users', {
+  const res = await fetch('/api/users', {
     method: 'POST',
     headers: { 
       "Content-Type": "application/json",
@@ -14,7 +14,7 @@ export const signup = async user => {
 };
 
 export const login = async user => {
-  const res = await fetch('api/session', {
+  const res = await fetch('/api/session', {
     method: 'POST',
     headers: { 
       "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const login = async user => {
 };
 
 export const logout = async ({session_token}) => {
-  const res = await fetch('api/session', {
+  const res = await fetch('/api/session', {
     method: 'DELETE',
     headers: { 
       "Content-Type": "application/json",
