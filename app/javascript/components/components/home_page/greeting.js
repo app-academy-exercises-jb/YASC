@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Greeting({ user }) {
+export default function Greeting({ user, logoutUser }) {
   if (user) {
     return (<div className='greeting'>
       Hello {user.email}
-      <button onClick={() => {this.props.logoutUser(user)}}>Log out</button>
+      <button onClick={() => {logoutUser(user)}}>Log out</button>
     </div>)
   } else {
     return (<div className='greeting'>
