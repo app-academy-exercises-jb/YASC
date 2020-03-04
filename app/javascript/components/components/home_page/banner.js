@@ -3,9 +3,27 @@ import BannerPoster from 'images/banner_poster'
 import BannerVideo from 'images/banner_video'
 import { Link } from 'react-router-dom'
 
-const Banner = (props) => {
-  return (
-    <div className="banner">
+class Banner extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.demoLogin = this.demoLogin.bind(this);
+  }
+
+  componentWillUnmount() {
+    if (this.props.user.email !== "demo@example.com") return;
+    this.props.logoutUser(this.props.user.session_token);
+  }
+  
+  demoLogin(e) {
+    e.preventDefault();
+    if (this.props.user) return;
+    this.props.loginUser({ email: "demo@example.com", password: "abcd1234" });
+  }
+
+  render() {
+    return (
+      <div className="banner">
         <video 
           autoPlay={true}
           loop={true}
@@ -24,14 +42,16 @@ const Banner = (props) => {
           </span>
           <div className="button-box">
             <Link id="try-us" to="/signup">try yasc</Link>
-            <Link id="demo" to="/">see the demo</Link>
+            <Link onClick={this.demoLogin} id="demo" to="#">see the demo</Link>
           </div>
           <p>
             Already using yasc? <Link to="/login">Log on</Link>.
           </p>
         </div>
       </div>
-  )
+    )  
+  }
+
 };
 
 export default Banner;

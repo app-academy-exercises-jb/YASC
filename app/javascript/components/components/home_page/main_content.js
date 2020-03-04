@@ -1,7 +1,7 @@
 import React from 'react'
 import YoutubeVid from 'images/channels_video'
 import YoutubeModal from './youtube_modal'
-import Banner from './banner'
+import BannerContainer from './banner_container'
 
 class MainContent extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class MainContent extends React.Component {
 
   render() {
     return (<main>
-      <Banner />
+      <BannerContainer />
 
       <div className="break-the-inbox">
         <h2>Break out of the inbox</h2>

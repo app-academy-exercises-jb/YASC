@@ -20,7 +20,7 @@ class YoutubeModal extends React.Component {
   componentDidMount() {
     if (!window.YT) {
       const tag = document.createElement('script');
-      tag.src = "http://www.youtube.com/iframe_api";
+      tag.src = "https://www.youtube.com/iframe_api";
 
       window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
 
