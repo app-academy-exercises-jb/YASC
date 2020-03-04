@@ -26,6 +26,10 @@
   flex-direction: column;
 }
 
+.signup-page>h2 {
+  align-self: center;
+}
+
 .signup-form {
   align-self: center;
   display: flex;
