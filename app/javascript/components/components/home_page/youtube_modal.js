@@ -20,7 +20,7 @@ class YoutubeModal extends React.Component {
   componentDidMount() {
     if (!window.YT) {
       const tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
+      tag.src = "http://www.youtube.com/iframe_api";
 
       window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
 
@@ -32,12 +32,15 @@ class YoutubeModal extends React.Component {
   }
 
   onYouTubeIframeAPIReady() {
+    const origin = location.origin;
     this.player = new YT.Player('player', {
       height: '360',
       width: '640',
       videoId: 'EYqxQGmQkVw',
       fs: 1,
       autoplay: 1,
+      enablejsapi: 1,
+      origin,
       events: {
         'onReady': this.onPlayerReady
       }
