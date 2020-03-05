@@ -1,56 +1,82 @@
-class WorkspacesController < ApplicationController
-  before_action :set_workspace, only: [:show, :edit, :update, :destroy]
+class Api::WorkspacesController < ApplicationController
+  before_action :require_authentication
+  before_action :set_workspace, only: [:show, :join, :leave, :destroy, :update]
+  before_action :require_authorization, only: [:destroy, :update]
+  
+  skip_before_action :verify_authenticity_token
 
-  # GET /workspaces
-  def index
+  # GET /workspaces/1/counts
+  def counts
+      render json: { ok: true, current_user: current_user.id}
+  end
+
+  # POST /workspaces/1/members
+  def join
+    if current_user.teams.exists?(id: @workspace.id)
+      render json: { ok: false }, status: 400
+    else
+      current_user.teams << @workspace
+      render :show, status: 200
+    end
+  end
+
+  # DELETE /workspaces/1/members
+  def leave
+    if current_user.teams.exists?(id: @workspace.id)
+      current_user.teams.delete @workspace
+      render json: { ok: true }, status: 200
+    else
+      render json: { ok: false }, status: 400
+    end
   end
 
   # GET /workspaces/1
   def show
   end
 
-  # GET /workspaces/new
-  def new
-  end
-
-  # GET /workspaces/1/edit
-  def edit
-  end
-
-  # POST /workspaces
-  def create
-    @workspace = Workspace.new(workspace_params)
-
-    if @workspace.save
-      render :show, status: :created, location: @workspace
+  # PUT/PATCH /workspaces/1/update
+  def update
+    if @workspace.update(workspace_params)
+      render :show, status: :ok
     else
       render json: @workspace.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /workspaces/1
-  # PATCH/PUT /workspaces/1.json
-  def update
-    if @workspace.update(workspace_params)
-      render :show, status: :ok, location: @workspace
+  # POST /workspaces
+  def create
+    @workspace = Workspace.new(workspace_params)
+    @workspace.owner_id = current_user&.id
+
+    if @workspace.save
+      render :show, status: :created
     else
       render json: @workspace.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /workspaces/1
-  # DELETE /workspaces/1.json
   def destroy
+    @workspace.destroy
+    render json: { ok: true }, status: 200
   end
 
   private
+    # Require these actions to only be done by the owner of the workspace
+    def require_authorization
+      @workspace ||= Workspace.find(params[:id])
+      unless current_user.id == @workspace.owner_id
+        render json: {errors: "authorization required"}, status: 400
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_workspace
-      @workspace = Workspace.find(params[:id])
+      @workspace ||= Workspace.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def workspace_params
-      params.fetch(:workspace, {})
+      params.require(:workspace).permit(:name)
     end
 end

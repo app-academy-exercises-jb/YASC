@@ -1,11 +1,13 @@
 class Api::SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  
   def create
     @user = User.find_by_credentials(user_params[:email], user_params[:password])
     if @user.nil?
       render json: {login: 'incorrect credentials'}, status: 401
     else
       login!(@user)
+      puts "i am in here"
       redirect_to api_user_url(@user), status: :found
     end
   end
@@ -14,7 +16,7 @@ class Api::SessionsController < ApplicationController
     @session = Session.find_by(session_token: session_params)
     if @session 
       @session.destroy!
-      render json: {}
+      render json: { ok: false }
     else
       render json: ["session not found"], status: 404
     end

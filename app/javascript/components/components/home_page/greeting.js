@@ -37,6 +37,11 @@ class Greeting extends React.Component {
 
           {this.state.dropdownVisible && (
             <div ref={this.dropdownRef} id="workspaces-dropdown">
+              <ul id="workspaces-list">
+
+              </ul>
+              <Link to="/login">Sign Into Another Workspace</Link>
+              <Link to="/create">Create Workspace</Link>
               <Link 
                 onClick={() => {
                   this.setState({dropdownVisible: false});
