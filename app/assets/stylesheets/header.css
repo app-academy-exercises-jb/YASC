@@ -17,6 +17,7 @@
 }
 
 .greeting {
+  position: relative;
   justify-self: flex-end;
   padding-right: 2rem;
 }
@@ -73,12 +74,43 @@
 }
 
 #your-workspaces {
+  position: relative;
+  z-index: 2;
   text-transform: capitalize;
   font-weight: 500;
+}
+
+#your-workspaces:hover {
+  border: 0;
 }
 
 #get-started:hover {
   background-color: #4a154b;
   padding: 0.8rem;
   border: 0;
+}
+
+#workspaces-dropdown {
+  position: absolute;
+  z-index: 10;
+  top: 3rem;
+  right: 2rem;
+  text-align: left;
+  padding: 1.25rem;
+  width: auto;
+  min-width: 17rem;
+  border-top: 1px solid #fff;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 2rem rgba(0,0,0,.1);
+  font-size: 1rem;
+}
+
+#workspaces-dropdown>a {
+  text-decoration: none;
+  color: rgb(69,69,69);
+}
+
+#workspaces-dropdown>a:hover {
+  color: #1264a3;
+  text-decoration: none;
 }

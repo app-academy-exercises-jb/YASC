@@ -4,6 +4,10 @@ import MainContent from './main_content';
 import Footer from './footer'
 
 class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
 
   render() {
     return (<div className="front-page">
