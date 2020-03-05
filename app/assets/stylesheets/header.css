@@ -1,19 +1,25 @@
-.top-header {
+.front-page-header {
   padding: 0.5rem;
-  margin-left: 15%;
-  margin-right: 15%;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  max-width: 76.875rem;
+  /* max-width: 76.875rem; */
   width: inherit;
 }
 
+.top-header {
+  max-width: 100vw;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .greeting {
+  position: relative;
   justify-self: flex-end;
+  padding-right: 2rem;
 }
 
 .greeting>a {
@@ -44,6 +50,7 @@
   color: black;
   font-weight: 900;
   font-size: 2rem;
+  padding-left: 2rem;
 }
 
 #logo > span {
@@ -55,7 +62,7 @@
   height: 1.5rem;
 }
 
-#get-started {
+#get-started, #your-workspaces {
   background-color: #611f69;
   padding: 0.8rem;
   border-radius: 5px;
@@ -66,8 +73,45 @@
   transition: background 420ms cubic-bezier(.165,.84,.44,1)
 }
 
+#your-workspaces {
+  position: relative;
+  z-index: 2;
+  text-transform: capitalize;
+  font-weight: 500;
+  margin-right: 0;
+}
+
+#your-workspaces:hover {
+  border: 0;
+}
+
 #get-started:hover {
   background-color: #4a154b;
   padding: 0.8rem;
   border: 0;
+}
+
+#workspaces-dropdown {
+  position: absolute;
+  z-index: 10;
+  top: 3rem;
+  right: 2rem;
+  text-align: left;
+  padding: 1.25rem;
+  width: auto;
+  min-width: 17rem;
+  border-top: 1px solid #fff;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 2rem rgba(0,0,0,.1);
+  font-size: 1rem;
+}
+
+#workspaces-dropdown>a {
+  text-decoration: none;
+  color: rgb(69,69,69);
+}
+
+#workspaces-dropdown>a:hover {
+  color: #1264a3;
+  text-decoration: none;
 }
