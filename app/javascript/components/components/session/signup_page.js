@@ -11,7 +11,7 @@ const SignupWrapper = () => {
       <h2>Let's get started</h2>
       
       <div id="signup-buttons" className="button-box" style={{flexDirection: "column"}}>
-        <Link id="find-team" to="/signup/#/find">
+        <Link id="find-team" to="#">
           <div>
             <h3>My team is on yasc</h3>
             <span>Find and sign in to your team's workspace</span>

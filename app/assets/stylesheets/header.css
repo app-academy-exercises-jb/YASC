@@ -78,6 +78,7 @@
   z-index: 2;
   text-transform: capitalize;
   font-weight: 500;
+  margin-right: 0;
 }
 
 #your-workspaces:hover {
