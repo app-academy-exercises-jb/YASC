@@ -1,5 +1,5 @@
 import React from 'react'
-import HeaderContainer from '../home_page/header_container'
+import Error from './error'
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -28,18 +28,24 @@ class SessionForm extends React.Component {
   }
 
   handleSubmit(e) {
+    const that = this;
     e.preventDefault();
     const { email, password } = this.state;
     this.props.processForm({
       email, password
     })
+      .then(function (res) {
+        if (that.props.redirect) {
+          that.props.pushHistory('/create');
+        }
+      })
   }
 
   render() {
     const { errors, type } = this.props;
     return (
       <>
-        <form onSubmit={this.handleSubmit} className="signup-form">
+        <form onSubmit={this.handleSubmit} className="session-form">
           <span>Enter your <b>email address</b> and <b>password.</b></span>
           <label>
             <input type="text" name="email" placeholder="name@example.com" onChange={this.handleChange}/>
@@ -55,7 +61,7 @@ class SessionForm extends React.Component {
 
         <ul>
           {Object.keys(errors).map((err,idx) => (
-            <li key={idx}>{err}: {errors[err]}</li>
+            <Error err={{ [err]: errors[err] }} key={idx} />
           ))}
         </ul>
       </>

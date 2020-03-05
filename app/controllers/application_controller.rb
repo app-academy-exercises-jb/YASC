@@ -15,10 +15,17 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticated?
-    !!(session[:session_token] && Session.find_by(session_token: session[:session_token]))
+    if session[:session_token] && Session.find_by(session_token: session[:session_token])
+      puts "authenticated"
+      true
+    else
+      puts "not authenticated"
+      false
+    end
   end
 
   def login!(user)
+    puts "logged in"
     @session = Session.new(user_id: user.id)
     if @session.save
       user.session_token = @session.session_token

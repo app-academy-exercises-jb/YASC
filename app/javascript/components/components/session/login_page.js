@@ -11,7 +11,7 @@ class LoginPage extends React.Component {
         <HeaderContainer className="front-page-header top-header" />
 
         <div className="session-wrapper">
-          <div className="session-content">
+          <div id="login-page" className="session-content">
             <h2>Sign in to your workspace</h2>
             <LoginFormContainer />
           </div>
