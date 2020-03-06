@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_182724) do
     t.bigint "owner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_workspaces_on_name", unique: true
     t.index ["owner_id"], name: "index_workspaces_on_owner_id"
   end
 
