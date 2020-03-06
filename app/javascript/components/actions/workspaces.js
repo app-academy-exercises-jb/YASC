@@ -1,9 +1,19 @@
-import { createWorkspace, getCurrentWorkspaces } from '../util/workspaces_api';
+import { 
+  create,
+  getCurrent,
+  del,
+  update } from '../util/workspaces_api';
 
 export const RECEIVE_WORKSPACES = "RECEIVE_WORKSPACES",
   receiveWorkspaces = workspaces => ({
   type: RECEIVE_WORKSPACES,
   workspaces
+});
+
+export const DELETE_WORKSPACE = "DELETE_WORKSPACE",
+  removeWorkspace = workspace => ({
+  type: DELETE_WORKSPACE,
+  workspace
 });
 
 export const RECEIVE_WORKSPACE = "RECEIVE_WORKSPACE",
@@ -24,15 +34,22 @@ export const CLEAR_WORKSPACE_ERRORS = "CLEAR_WORKSPACE_ERRORS",
   });
 
 
-export const createNewWorkspace = workspace => dispatch => createWorkspace(workspace)
+export const createNewWorkspace = workspace => dispatch => create(workspace)
   .then(({ok, res}) => ok 
     ? dispatch(receiveWorkspace(res)) 
     : dispatch(receiveWorkspaceErrors(res)));
 
-export const getWorkspaces = user => dispatch => getCurrentWorkspaces(user)
+export const getWorkspaces = user => dispatch => getCurrent(user)
   .then(({ok, res}) => ok 
     ? dispatch(receiveWorkspaces(res)) 
     : dispatch(receiveWorkspaceErrors(res)))
-  // .catch((err) => {
-  //   debugger
-  // });
+
+export const deleteWorkspace = workspace => dispatch => del(workspace)
+.then(({ok, res}) => ok 
+  ? dispatch(removeWorkspace(workspace)) 
+  : dispatch(receiveWorkspaceErrors(res)));
+
+export const updateWorkspace = workspace => dispatch => update(workspace)
+  .then(({ok, res}) => ok 
+    ? dispatch(receiveWorkspace(res)) 
+    : dispatch(receiveWorkspaceErrors(res)));

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import banner from './banner'
+import Banner from './banner'
 import { loginUser } from '../../actions/session'
 
 const mapStateToProps = (state) => ({
@@ -9,4 +9,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { loginUser})
-  (banner)
+  (Banner)

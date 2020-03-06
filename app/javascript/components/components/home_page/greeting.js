@@ -47,7 +47,7 @@ class Greeting extends React.Component {
               {Object.keys(this.props.workspaces).length > 0 && 
                 <ul id="workspaces-dropdown-list">
                   {Object.keys(this.props.workspaces).map(ws => (
-                    <li>
+                    <li key={ws}>
                       <Link to="#">{this.props.workspaces[ws].name}</Link>
                     </li>
                   ))}
@@ -56,6 +56,7 @@ class Greeting extends React.Component {
 
               <Link to="/find">See Your Workspaces</Link>
               <Link to="/create">Create Workspace</Link>
+              <Link to="/admin">Settings</Link>
               <Link 
                 onClick={() => {
                   this.setState({dropdownVisible: false});

@@ -32,7 +32,7 @@ class SignupPage extends React.Component {
   render() {
     return (
       <div className="front-page">
-        <HeaderContainer className="front-page-header top-header" />
+        <HeaderContainer className="front-page-header" />
 
         <div className="session-wrapper">
           <div id="signup-page" className="session-content">

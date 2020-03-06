@@ -4,6 +4,7 @@ import SignupPage from './session/signup_page'
 import LoginPage from './session/login_page'
 import CreatePageContainer from './workspaces/create_page_container'
 import FindPageContainer from './workspaces/find_page_container'
+import AdminPageContainer from './admin/admin_page_container'
 import { Route, Redirect } from 'react-router-dom'
 import { ProtectedRoute, PublicRoute } from '../util/routes'
 
@@ -15,6 +16,7 @@ class YASC extends React.Component {
       <PublicRoute path="/signup" component={SignupPage} />
       <ProtectedRoute path="/create" component={CreatePageContainer} />
       <ProtectedRoute path="/find" component={FindPageContainer} />
+      <ProtectedRoute path="/admin" component={AdminPageContainer} />
       <Redirect from="*" to="/" />
     </>)
   }
