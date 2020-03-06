@@ -15,7 +15,12 @@ class Header extends React.Component {
           <img src={slackLogo} /> 
           <span>yasc</span>
         </Link>
-        <Greeting user={user} logoutUser={this.props.logoutUser}/>
+        <Greeting
+          user={user} 
+          logoutUser={this.props.logoutUser}
+          getWorkspaces={this.props.getWorkspaces}
+          workspaces={this.props.workspaces}
+        />
       </header>
     )
   }

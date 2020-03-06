@@ -13,6 +13,12 @@ class Greeting extends React.Component {
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
   }
+
+  componentDidMount() {
+    if (this.props.user) {
+      this.props.getWorkspaces(this.props.user);
+    }
+  }
   
   hideDropdown(e) {
     if (this.dropdownRef.current && !this.dropdownRef.current.contains(e.target)) {
@@ -37,9 +43,17 @@ class Greeting extends React.Component {
 
           {this.state.dropdownVisible && (
             <div ref={this.dropdownRef} id="workspaces-dropdown">
-              <ul id="workspaces-list">
+              
+              {Object.keys(this.props.workspaces).length > 0 && 
+                <ul id="workspaces-dropdown-list">
+                  {Object.keys(this.props.workspaces).map(ws => (
+                    <li>
+                      <Link to="#">{this.props.workspaces[ws].name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              }
 
-              </ul>
               <Link to="/find">See Your Workspaces</Link>
               <Link to="/create">Create Workspace</Link>
               <Link 

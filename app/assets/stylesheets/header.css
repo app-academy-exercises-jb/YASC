@@ -112,16 +112,53 @@
 
 #workspaces-dropdown>a {
   padding: 0.5rem;
-}
-
-
-
-#workspaces-dropdown>a {
   text-decoration: none;
   color: rgb(69,69,69);
+}
+
+#workspaces-dropdown>a:first-of-type {
+  margin-top: 0.5rem;
 }
 
 #workspaces-dropdown>a:hover {
   color: #1264a3;
   text-decoration: none;
+}
+
+#workspaces-dropdown-list {
+  list-style: none;
+  overflow-y: auto;
+  max-height: 8rem;
+  padding: 0;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.125rem;
+  text-align: left;
+  border-bottom: 1px solid #ebeaeb;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+#workspaces-dropdown-list>li {
+  cursor: pointer;
+  list-style-type: none;
+  display: flex;
+}
+
+#workspaces-dropdown-list>li>a {
+  width: 100%;
+  color: #1d1d1d;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin: 0, 0, 0.5rem;
+  border: none;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+#workspaces-dropdown-list>li>a:hover {
+  text-decoration: none;
+  background-color: #f5f5f5;
+  outline: 0;
 }

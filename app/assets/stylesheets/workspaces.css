@@ -12,11 +12,14 @@
 }
 
 .create-panel-left {
+  flex-direction: column;
+  max-width: unset;
   background-color: white;
   flex: 1
 }
 
 .create-panel-left > form {
+  position: relative;
   margin-left: 1.5rem;
 }
 
@@ -55,10 +58,21 @@
 .workspaces-list {
   display: flex;
   flex-direction: column;
+  max-width: 33rem;
 }
 
 .workspaces-list > div {
   align-self: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.workspaces-list > div > h1 {
+  margin-bottom: 0.25rem;
+  color: #1d1c1d;
+}
+
+.workspaces-list > div > p {
+  color: #616061;
   margin-bottom: 1rem;
 }
 
@@ -69,9 +83,67 @@
   justify-content: space-between;
   align-items: center;
   background-color: rgba(0,0,0,0);
-  
+  box-sizing: border-box;
+  text-decoration: none;
+  color: rgb(29, 28, 29);
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-top: 1px solid rgb(221,221,221);
+}
+
+.workspaces-list > a:nth-last-child(-n+1) {
+  border-bottom: 1px solid rgb(221,221,221);
+}
+
+.workspaces-list > a > span {
+  color: #1d1c1d;
+  font-weight: 700;
+  font-size: 0.9375rem;
 }
 
 .workspaces-list > a > button {
+  font-size: 0.8rem;
+  height: 2.25rem;
+  min-width: 5;
+  padding: 0 0.75rem 0.0625rem;
+  color: rgba(var(--sk_primary_foreground,29,28,29),1);
+  transition: all 80ms linear;
+  background-color: rgba(var(--sk_primary_background,255,255,255),1);
+  --saf-0: rgba(var(--sk_primary_foreground,29,28,29),0.3);
+  border: 1px solid var(--saf-0);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+}
 
+.workspaces-list > a > button:hover {
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.08);
+  background-color: rgba(var(--sk_foreground_min,29,28,29),.04);
+  text-decoration: none;
+}
+
+.workspaces-list > span {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #616061;
+  font-size: 1rem;
+  width: inherit;
+}
+
+.workspaces-list > span > a, #workspaces-no-content>p>a {
+  text-decoration: none;
+  color: rgb(18,100,163);
+  text-decoration-color: rgb(18,100,163);
+  background-color: rgba(0,0,0,0);
+}
+
+.workspaces-list > span > a:hover, #workspaces-no-content>p>a:hover {
+  text-decoration: underline;
+}
+
+#workspaces-no-content > p {
+  margin-top: 1rem;
 }
