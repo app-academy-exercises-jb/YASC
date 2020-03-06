@@ -20,7 +20,7 @@ export const createWorkspace = async workspace => {
 // GET    /api/workspaces/:id/counts => workspaces#counts
 
 // GET   /api/users/:id/workspaces => users#workspaces
-export const getCurrentWorkspaces = async id => {
+export const getCurrentWorkspaces = async ({ id }) => {
   const res = await fetch(`/api/users/${id}/workspaces`)
   return {
     ok: res.ok,

@@ -25,6 +25,11 @@ export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS",
 
 export const clearSessionErrors = () => dispatch => dispatch(clearSessionErrs());
 
+export const CLEAR_ENTITIES = "CLEAR_ENTITIES";
+const clearEntities = () => ({
+  type: CLEAR_ENTITIES
+})
+
 export const loginUser = user => dispatch => login(user)
   .then(({ok, res}) => ok 
     ? dispatch(receiveCurrentUser(res)) 
@@ -32,7 +37,7 @@ export const loginUser = user => dispatch => login(user)
 
 export const logoutUser = user => dispatch => logout(user)
   .then(({ok, res}) => ok 
-    ? dispatch(logoutCurrentUser(res)) 
+    ? (dispatch(logoutCurrentUser(res)) && dispatch(clearEntities()))
     : dispatch(receiveSessionErrors(res)));
 
 export const createNewUser = user => dispatch => signup(user)

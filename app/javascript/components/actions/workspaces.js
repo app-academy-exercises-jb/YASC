@@ -18,12 +18,21 @@ export const RECEIVE_WORKSPACE_ERRORS = "RECEIVE_WORKSPACE_ERRORS",
     errors
   });
 
+export const CLEAR_WORKSPACE_ERRORS = "CLEAR_WORKSPACE_ERRORS",
+  clearWorkspaceErrors = () => dispatch => dispatch({
+    type: CLEAR_WORKSPACE_ERRORS
+  });
+
+
 export const createNewWorkspace = workspace => dispatch => createWorkspace(workspace)
   .then(({ok, res}) => ok 
     ? dispatch(receiveWorkspace(res)) 
     : dispatch(receiveWorkspaceErrors(res)));
 
-export const getWorkspaces = userId => dispatch => getCurrentWorkspaces(userId)
+export const getWorkspaces = user => dispatch => getCurrentWorkspaces(user)
   .then(({ok, res}) => ok 
     ? dispatch(receiveWorkspaces(res)) 
-    : dispatch(receiveWorkspaceErrors(res)));
+    : dispatch(receiveWorkspaceErrors(res)))
+  // .catch((err) => {
+  //   debugger
+  // });
