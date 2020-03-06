@@ -2,8 +2,6 @@ class Api::WorkspacesController < ApplicationController
   before_action :require_authentication
   before_action :set_workspace, only: [:show, :join, :leave, :destroy, :update]
   before_action :require_authorization, only: [:destroy, :update]
-  
-  skip_before_action :verify_authenticity_token
 
   # GET /workspaces/1/counts
   def counts
@@ -48,10 +46,20 @@ class Api::WorkspacesController < ApplicationController
     @workspace = Workspace.new(workspace_params)
     @workspace.owner_id ||= current_user&.id
 
-    if @workspace.save
-      render :show, status: :created
-    else
-      render json: @workspace.errors, status: :unprocessable_entity
+    begin
+      if @workspace.save
+        @current_user.teams << @workspace
+        render :show, status: :created
+      else
+        errors = {}
+        @workspace.errors.each { |err| errors[err] = @workspace.errors.full_messages_for(err) }
+        render json: errors, status: :unprocessable_entity
+      end
+    rescue ActiveRecord::RecordNotUnique => error
+      # @workspace.name += "-#{SecureRandom.urlsafe_base64(3)}"
+      # @workspace.save
+      # @current_user.teams << @workspace
+      render json: {workspaces: "That workspace name has already been taken."}, status: :unprocessable_entity
     end
   end
 

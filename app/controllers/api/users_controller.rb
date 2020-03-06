@@ -1,5 +1,4 @@
 class Api::UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token
   before_action :set_user, only: [:show, :edit, :update, :destroy, :workspaces]
 
   # GET /users
@@ -27,7 +26,9 @@ class Api::UsersController < ApplicationController
       login!(@user)
       render :show, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      errors = {}
+      @user.errors.each { |err| errors[err] = @user.errors.full_messages_for(err) }
+      render json: errors, status: :unprocessable_entity
     end
   end
 
