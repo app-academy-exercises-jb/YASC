@@ -9,8 +9,8 @@ class FindPage extends React.Component {
   }
 
   componentDidMount() {
-    const { workspaces, getWorkspaces, currentUser } = this.props;
-    Object.keys(workspaces).length === 0 && getWorkspaces(currentUser)
+    const { workspaces, getWorkspaces, user } = this.props;
+    Object.keys(workspaces).length === 0 && getWorkspaces(user)
   }
 
   render() {
@@ -19,8 +19,14 @@ class FindPage extends React.Component {
       <>
         <HeaderContainer className="front-page-header" />
         <div id="find-page">
-          <div className="find-page-contents">
-            
+          <div className="find-page-contents"> 
+
+            {Object.keys(workspaces).length === 0 && <div className="workspaces-list">
+              <div id="workspaces-no-content">
+                <h1>Uh oh, there's nothing here...</h1>
+                <p>Perhaps you'd like to <Link to="#">find</Link> an existing workspace or <Link to="/create">create</Link> a new one.</p>
+              </div>
+            </div>}
 
             {Object.keys(workspaces).length !== 0  && <div className="workspaces-list">
               <div>
@@ -34,7 +40,10 @@ class FindPage extends React.Component {
                   <button>Launch</button>
                 </Link>
               ))}
+
+              <span>Looking for a different workspace? You can <Link to="#" onClick={() => this.props.logoutUser(this.props.user) }>try another login</Link> or try seeing which workspaces you can <Link to="#">join</Link>.</span>
             </div>}
+
           </div>
 
           <Footer/>

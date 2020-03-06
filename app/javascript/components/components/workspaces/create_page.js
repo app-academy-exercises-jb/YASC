@@ -2,6 +2,7 @@ import React from 'react';
 import HeaderContainer from '../home_page/header_container'
 import CreateWorkspace from 'images/create-workspace'
 import { Route } from 'react-router-dom';
+import ErrorComponent from '../session/error_wrapper';
 
 class CreatePage extends React.Component {
   constructor(props) {
@@ -18,18 +19,27 @@ class CreatePage extends React.Component {
     this.triggerTada = this.triggerTada.bind(this)
   }
 
+  componentWillUnmount() {
+    this.props.clearWorkspaceErrors();
+  }
+
   handleInput(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
   getChannel(e) {
     e.preventDefault();
-    this.props.history.push('/create/channelname')
+    this.props.clearWorkspaceErrors();
+    this.props.createNewWorkspace({name: this.state.name})
+      .then(res => {
+        if (res.type !== "RECEIVE_WORKSPACE_ERRORS") {
+          this.props.history.push('/create/channelname')
+        }
+      });
   }
 
   triggerTada(e) {
     e.preventDefault();
-    this.props.createNewWorkspace({name: this.state.name})
     this.props.history.push('/create/tada')
   }
 
@@ -44,7 +54,7 @@ class CreatePage extends React.Component {
       <HeaderContainer className="front-page-header top-header create-page-header" />
 
       <Route exact path="/create" render={() => (
-        <div className="session-content create-panel create-panel-left">
+        <div className="create-panel create-panel-left">
           <form onSubmit={this.getChannel} className="session-form">
 
             <h2>What's the name of your company or team?</h2>
@@ -57,11 +67,13 @@ class CreatePage extends React.Component {
             <input type="submit" value="Next" />
 
           </form>
+
+          <ErrorComponent errors={this.props.errors} />
         </div>
       )} />
 
       <Route path="/create/channelname" render={() => (
-        <div className="session-content create-panel create-panel-left">
+        <div className="create-panel create-panel-left">
           <form onSubmit={this.triggerTada} className="session-form">
 
             <h2>What's a project your team is working on?</h2>
@@ -78,7 +90,7 @@ class CreatePage extends React.Component {
       )} />
 
       <Route path="/create/tada" render={() => (
-        <div className="session-content create-panel create-panel-left">
+        <div className="create-panel create-panel-left">
           <form onSubmit={this.createNewWorkspace} className="session-form">
 
             <h2>Tada! Meet your team's first channel: #{this.state.channel}</h2>

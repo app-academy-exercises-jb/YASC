@@ -1,15 +1,11 @@
 import { connect } from 'react-redux'
 import CreatePage from './create_page'
-import { createNewWorkspace } from '../../actions/workspaces'
+import { createNewWorkspace, clearWorkspaceErrors } from '../../actions/workspaces'
 
-const mapStateToProps = (state) => {
-  return (
-    {
-      currentUser: state.session.currentUser
-    }
-  )
-}
+const mapStateToProps = (state) => ({
+  errors: state.errors.workspaces
+})
 
 export default connect(
   mapStateToProps,
-  {createNewWorkspace})(CreatePage)
+  { createNewWorkspace, clearWorkspaceErrors })(CreatePage)

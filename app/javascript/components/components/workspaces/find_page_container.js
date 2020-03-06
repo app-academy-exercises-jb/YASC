@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
 import FindPage from './find_page'
 import { getWorkspaces } from '../../actions/workspaces'
+import { logoutUser } from '../../actions/session'
 
 const mapStateToProps = (state) => {
   return (
     {
-      currentUser: state.session.currentUser,
+      user: state.entities.users[state.session.currentUser],
       workspaces: state.entities.workspaces
     }
   )
@@ -13,4 +14,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  { getWorkspaces })(FindPage)
+  { getWorkspaces, logoutUser })
+  (FindPage)
