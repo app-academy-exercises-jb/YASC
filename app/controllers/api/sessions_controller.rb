@@ -16,9 +16,9 @@ class Api::SessionsController < ApplicationController
     @session = Session.find_by(session_token: session_params)
     if @session 
       @session.destroy!
-      render json: { ok: false }
+      render json: { ok: true }
     else
-      render json: ["session not found"], status: 404
+      render json: { ok: false, error: "session not found" }, status: 404
     end
   end
 

@@ -46,7 +46,7 @@ class Api::WorkspacesController < ApplicationController
   # POST /workspaces
   def create
     @workspace = Workspace.new(workspace_params)
-    @workspace.owner_id = current_user&.id
+    @workspace.owner_id ||= current_user&.id
 
     if @workspace.save
       render :show, status: :created

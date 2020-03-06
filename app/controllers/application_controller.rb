@@ -15,9 +15,10 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticated?
-    if session[:session_token] && Session.find_by(session_token: session[:session_token])
-      puts "authenticated"
-      true
+    if session[:session_token] && 
+      Session.find_by(session_token: session[:session_token])&.user_id == current_user.id.to_s
+        puts "authenticated"
+        true
     else
       puts "not authenticated"
       false

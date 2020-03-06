@@ -1,0 +1,77 @@
+.create-page {
+  display: flex;
+}
+
+.create-page > .create-page-header {
+  position: fixed;
+  width: 100%;
+}
+
+.create-page > .create-page-header > #greeting {
+  padding-right: 2.9025rem;
+}
+
+.create-panel-left {
+  background-color: white;
+  flex: 1
+}
+
+.create-panel-left > form {
+  margin-left: 1.5rem;
+}
+
+.create-panel-right {
+  background-color: #4a154b;
+  flex: 1.5
+}
+
+.create-panel-right > img {
+  background-color: rgba(0,0,0,0);
+  min-height: 40%;
+}
+
+.create-panel {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  padding: 0;
+}
+
+#find-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
+#find-page-contents {
+  margin-left: 7.1875rem;
+  margin-right: 7.1875rem;
+}
+
+.workspaces-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.workspaces-list > div {
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}
+
+.workspaces-list > a {
+  align-self: stretch;
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0,0,0,0);
+  
+}
+
+.workspaces-list > a > button {
+
+}

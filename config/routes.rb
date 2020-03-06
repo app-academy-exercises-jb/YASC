@@ -3,7 +3,12 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     resource :session, only: [:create, :destroy]
+    
     resources :users, only: [:create, :show]
+    namespace :users do
+      get ':id/workspaces', action: 'workspaces'
+    end
+
     resources :workspaces, only: [:show, :create, :destroy, :update]
     namespace :workspaces do
       get ':id/counts', action: 'counts'

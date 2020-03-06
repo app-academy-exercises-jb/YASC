@@ -1,6 +1,6 @@
 class Api::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :workspaces]
 
   # GET /users
   def index
@@ -37,6 +37,10 @@ class Api::UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
+  end
+
+  # GET users/1/workspaces
+  def workspaces
   end
 
   private

@@ -40,7 +40,7 @@ class Greeting extends React.Component {
               <ul id="workspaces-list">
 
               </ul>
-              <Link to="/login">Sign Into Another Workspace</Link>
+              <Link to="/find">See Your Workspaces</Link>
               <Link to="/create">Create Workspace</Link>
               <Link 
                 onClick={() => {

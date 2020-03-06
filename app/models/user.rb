@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :auth_token, presence: true
   validates :password, length: { minimum: 8, allow_nil: true }
 
-  has_many :sessions
+  has_many :sessions, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :workspaces,
     foreign_key: :owner_id

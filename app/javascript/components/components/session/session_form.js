@@ -1,5 +1,6 @@
 import React from 'react'
 import Error from './error'
+import { RECEIVE_SESSION_ERRORS } from '../../actions/session'
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class SessionForm extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.clearErrors();
+    this.props.clearSessionErrors();
   }
 
   handleChange(e) {
@@ -35,8 +36,8 @@ class SessionForm extends React.Component {
       email, password
     })
       .then(function (res) {
-        if (that.props.redirect) {
-          that.props.pushHistory('/create');
+        if (that.props.redirect && res.type !== RECEIVE_SESSION_ERRORS) {
+          that.props.pushHistory(that.props.redirect);
         }
       })
   }
@@ -46,7 +47,7 @@ class SessionForm extends React.Component {
     return (
       <>
         <form onSubmit={this.handleSubmit} className="session-form">
-          <span>Enter your <b>email address</b> and <b>password.</b></span>
+          {this.props.explain && <span>Enter your <b>email address</b> and <b>password.</b></span>}
           <label>
             <input type="text" name="email" placeholder="name@example.com" onChange={this.handleChange}/>
           </label>

@@ -2,6 +2,7 @@ import React from 'react';
 import ErrorImg from 'images/error-img'
 
 const Error = ({ err }) => {
+  debugger
   return (
     <>
       {err["password"] && 
