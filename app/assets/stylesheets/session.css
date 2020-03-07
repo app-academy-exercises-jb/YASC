@@ -29,6 +29,10 @@
   font-size: 1.8125rem;
 }
 
+.errors {
+  padding: 0;
+}
+
 .session-error {
   align-self: flex-start;
   font-size: 0.9rem;

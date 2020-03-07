@@ -34,11 +34,11 @@ const ErrorWrapper = ({ err, type }) => {
 }
 
 const ErrorComponent = ({ errors }) => (
-  <ul>
+  <>{errors && <ul className="errors">
     {Object.keys(errors).map((err,idx) => (
       <ErrorWrapper type={err} err={{ [err]: errors[err] }} key={idx} />
     ))}
-  </ul>
+  </ul>}</>
 )
 
 export default ErrorComponent;

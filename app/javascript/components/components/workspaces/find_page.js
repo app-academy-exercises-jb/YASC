@@ -24,7 +24,7 @@ class FindPage extends React.Component {
             {Object.keys(workspaces).length === 0 && <div className="workspaces-list">
               <div id="workspaces-no-content">
                 <h1>Uh oh, there's nothing here...</h1>
-                <p>Perhaps you'd like to <Link to="#">find</Link> an existing workspace or <Link to="/create">create</Link> a new one.</p>
+                <p>Perhaps you'd like to <Link to="/create">create a new workspace</Link>?</p>
               </div>
             </div>}
 

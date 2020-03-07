@@ -1,5 +1,4 @@
-class Api::SessionsController < ApplicationController
-  
+class Api::SessionsController < ApplicationController  
   def create
     @user = User.find_by_credentials(user_params[:email], user_params[:password])
     if @user.nil?
@@ -21,6 +20,15 @@ class Api::SessionsController < ApplicationController
     end
   end
 
+  def update
+    @session = Session.find_by(session_token: session_params)
+    if @session
+      @session.flush
+      render json: { ok: true }
+    else
+      render json: { ok: false, error: "session not found" }, status: :not_found
+    end
+  end
 
   private
   def session_params

@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   root 'application#root'
 
   namespace :api, defaults: {format: :json} do
-    resource :session, only: [:create, :destroy]
+    resource :session, only: [:create, :destroy, :update]
     
-    resources :users, only: [:create, :show]
+    resources :users, only: [:create, :show, :update]
     namespace :users do
-      get ':id/workspaces', action: 'workspaces'
+      get ':id/teams', action: 'teams'
     end
 
     resources :workspaces, only: [:show, :create, :destroy, :update]

@@ -50,7 +50,7 @@ export const del = async ({ id }) => {
 
 // GET   /api/users/:id/workspaces => users#workspaces
 export const getCurrent = async ({ id }) => {
-  const res = await fetch(`/api/users/${id}/workspaces`)
+  const res = await fetch(`/api/users/${id}/teams`)
   return {
     ok: res.ok,
     res: await res.json()

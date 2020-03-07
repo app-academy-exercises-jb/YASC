@@ -34,10 +34,15 @@ class Api::WorkspacesController < ApplicationController
 
   # PUT/PATCH /workspaces/1/update
   def update
-    if @workspace.update(workspace_params)
-      render :show, status: :ok
-    else
-      render json: @workspace.errors, status: :unprocessable_entity
+    begin
+      if @workspace.update(workspace_params)
+        render :show, status: :ok
+      else
+        render json: @workspace.errors, status: :unprocessable_entity
+      end
+    rescue ActiveRecord::RecordNotUnique => error
+      render json: {@workspace.id => "That workspace name has already been taken."}, 
+        status: :unprocessable_entity
     end
   end
 
@@ -56,10 +61,8 @@ class Api::WorkspacesController < ApplicationController
         render json: errors, status: :unprocessable_entity
       end
     rescue ActiveRecord::RecordNotUnique => error
-      # @workspace.name += "-#{SecureRandom.urlsafe_base64(3)}"
-      # @workspace.save
-      # @current_user.teams << @workspace
-      render json: {workspaces: "That workspace name has already been taken."}, status: :unprocessable_entity
+      render json: {@workspace.id => "That workspace name has already been taken."}, 
+        status: :unprocessable_entity
     end
   end
 
@@ -74,7 +77,7 @@ class Api::WorkspacesController < ApplicationController
     def require_authorization
       @workspace ||= Workspace.find(params[:id])
       unless current_user.id == @workspace.owner_id
-        render json: {errors: "authorization required"}, status: 400
+        render json: {errors: "authorization required"}, status: :unauthorized
       end
     end
 

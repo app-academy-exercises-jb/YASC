@@ -1,4 +1,5 @@
-import { login, logout, signup } from '../util/session_api'
+import { login, logout, signup, logoutOthers } from '../util/session_api'
+import { update } from '../util/users_api'
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER",
   receiveCurrentUser = user => ({
@@ -37,10 +38,22 @@ export const loginUser = user => dispatch => login(user)
 
 export const logoutUser = user => dispatch => logout(user)
   .then(({ok, res}) => ok 
-    ? (dispatch(logoutCurrentUser(res)) && dispatch(clearEntities()))
+    ? (dispatch(logoutCurrentUser(res)) 
+      && dispatch(clearEntities()) 
+      && dispatch(clearSessionErrors()))
+    : dispatch(receiveSessionErrors(res)));
+
+export const logoutOtherSessions = user => dispatch => logoutOthers(user)
+  .then(({ok, res}) => ok 
+    ? null
     : dispatch(receiveSessionErrors(res)));
 
 export const createNewUser = user => dispatch => signup(user)
   .then(({ok, res}) => ok 
+    ? dispatch(receiveCurrentUser(res)) 
+    : dispatch(receiveSessionErrors(res)));
+
+export const updateUser = user => dispatch => update(user)
+  .then(({ok, res}) => ok
     ? dispatch(receiveCurrentUser(res)) 
     : dispatch(receiveSessionErrors(res)));

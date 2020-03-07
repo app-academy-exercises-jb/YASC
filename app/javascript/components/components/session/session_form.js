@@ -1,5 +1,5 @@
 import React from 'react'
-import ErrorWrapper from './error_wrapper'
+import ErrorComponent from './error_wrapper'
 import { RECEIVE_SESSION_ERRORS } from '../../actions/session'
 
 class SessionForm extends React.Component {
@@ -60,11 +60,7 @@ class SessionForm extends React.Component {
           <input type="submit" value="Demo Login" onClick={this.demoLogin}/>
         </form>
 
-        <ul>
-          {Object.keys(errors).map((err,idx) => (
-            <ErrorWrapper type={err} err={{ [err]: errors[err] }} key={idx} />
-          ))}
-        </ul>
+        <ErrorComponent errors={errors}/>
       </>
     )
   } 
