@@ -14,7 +14,7 @@ class CreatePage extends React.Component {
     }
 
     this.getChannel = this.getChannel.bind(this);
-    this.createNewWorkspace = this.createNewWorkspace.bind(this);
+    this.tada = this.tada.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.triggerTada = this.triggerTada.bind(this)
   }
@@ -33,7 +33,8 @@ class CreatePage extends React.Component {
     this.props.createNewWorkspace({name: this.state.name})
       .then(res => {
         if (res.type !== "RECEIVE_WORKSPACE_ERRORS") {
-          this.props.history.push('/create/channelname')
+          this.props.setCurrentWorkspace(res.workspace.id);
+          this.props.history.push('/create/channelname');
         }
       });
   }
@@ -43,9 +44,9 @@ class CreatePage extends React.Component {
     this.props.history.push('/create/tada')
   }
 
-  createNewWorkspace(e) {
+  tada(e) {
     e.preventDefault();
-    this.props.history.push('/')
+    this.props.history.push('/app')
   }
 
   render() {
@@ -91,7 +92,7 @@ class CreatePage extends React.Component {
 
       <Route path="/create/tada" render={() => (
         <div className="create-panel create-panel-left">
-          <form onSubmit={this.createNewWorkspace} className="session-form">
+          <form onSubmit={this.tada} className="session-form">
 
             <h2>Tada! Meet your team's first channel: #{this.state.channel}</h2>
             <input type="submit" value="See Your Channel in YASC" />

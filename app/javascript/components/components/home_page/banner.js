@@ -13,7 +13,10 @@ class Banner extends React.Component {
   demoLogin(e) {
     e.preventDefault();
     if (this.props.user) return;
-    this.props.loginUser({ email: "demo@example.com", password: "abcd1234" });
+    this.props.loginUser({ email: "demo@example.com", password: "abcd1234" })
+      .then(res => {
+        this.props.getWorkspaces(this.props.user);
+      })
   }
 
   render() {

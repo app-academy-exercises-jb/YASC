@@ -19,6 +19,7 @@ class Header extends React.Component {
           user={user} 
           logoutUser={this.props.logoutUser}
           getWorkspaces={this.props.getWorkspaces}
+          setCurrentWorkspace={this.props.setCurrentWorkspace}
           workspaces={this.props.workspaces}
         />
       </header>

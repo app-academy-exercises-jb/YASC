@@ -35,13 +35,18 @@ class FindPage extends React.Component {
               </div>
 
               {Object.keys(workspaces).map(wsId => (
-                <Link key={wsId} className="workspaces-list-item" to="#">
+                <Link 
+                  key={wsId}
+                  className="workspaces-list-item"
+                  to="/app"
+                  onClick={() => {this.props.setCurrentWorkspace(wsId)}}
+                >
                   <span>{workspaces[wsId].name}</span>
                   <button>Launch</button>
                 </Link>
               ))}
 
-              <span>Looking for a different workspace? You can <Link to="#" onClick={() => this.props.logoutUser(this.props.user) }>try another login</Link> or try seeing which workspaces you can <Link to="#">join</Link>.</span>
+              <span>Looking for a different workspace? You can try logging in as <Link to="#" onClick={() => this.props.logoutUser(this.props.user) }>someone else</Link>.</span>
             </div>}
 
           </div>

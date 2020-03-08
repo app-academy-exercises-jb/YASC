@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Header from './header'
 import { logoutUser } from '../../actions/session'
-import { getWorkspaces } from '../../actions/workspaces'
+import { getWorkspaces, setCurrentWorkspace } from '../../actions/workspaces'
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.entities.users[state.session.currentUser],
@@ -11,4 +11,4 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser, getWorkspaces })(Header)
+  { logoutUser, getWorkspaces, setCurrentWorkspace })(Header)

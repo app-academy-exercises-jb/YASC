@@ -12,6 +12,7 @@ class Greeting extends React.Component {
     this.dropdownRef = React.createRef();
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
+    this.loadWorkspace = this.loadWorkspace.bind(this);
   }
 
   componentDidMount() {
@@ -33,8 +34,12 @@ class Greeting extends React.Component {
     document.addEventListener("click", this.hideDropdown);
   }
 
+  loadWorkspace(id) {
+    this.props.setCurrentWorkspace(id)
+  }
+
   render () {
-    const { user, logoutUser } = this.props
+    const { user, logoutUser } = this.props;
     if (user) {
       return (
         <div id="greeting" className='greeting'>
@@ -48,7 +53,9 @@ class Greeting extends React.Component {
                 <ul id="workspaces-dropdown-list">
                   {Object.keys(this.props.workspaces).map(ws => (
                     <li key={ws}>
-                      <Link to="#">{this.props.workspaces[ws].name}</Link>
+                      <Link to="/app" onClick={() => this.loadWorkspace(ws)}>
+                        {this.props.workspaces[ws].name}
+                      </Link>
                     </li>
                   ))}
                 </ul>

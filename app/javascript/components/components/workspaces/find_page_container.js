@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import FindPage from './find_page'
-import { getWorkspaces } from '../../actions/workspaces'
+import { getWorkspaces, setCurrentWorkspace } from '../../actions/workspaces'
 import { logoutUser } from '../../actions/session'
 
 const mapStateToProps = (state) => {
@@ -14,5 +14,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  { getWorkspaces, logoutUser })
+  { getWorkspaces, logoutUser, setCurrentWorkspace })
   (FindPage)
