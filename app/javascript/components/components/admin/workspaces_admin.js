@@ -43,8 +43,6 @@ class WorkspacesAdmin extends React.Component {
 
   render() {
     const { workspaces, user, errors, clearErrors, deleteWorkspace } = this.props;
-    console.log(errors)
-    console.log("those were it")
     return (<>
       <span id="admin-page-nav">
         <Link to="/admin/account"><h3>Account</h3></Link>
