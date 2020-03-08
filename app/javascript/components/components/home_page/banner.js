@@ -24,6 +24,7 @@ class Banner extends React.Component {
       <div className="banner">
         <video 
           autoPlay={true}
+          muted={true}
           loop={true}
           playsInline={true}
           poster={BannerPoster}
