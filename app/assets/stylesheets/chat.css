@@ -1,0 +1,97 @@
+.chat-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.chat-sidebar {
+  flex: 1;
+  background-color: #3F0E40;
+  display: flex;
+  min-width: 19rem;
+}
+
+.workspaces-sidebar {
+  background-color: #2b002c;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  max-width: 3.25rem;
+}
+
+.workspaces-icon {
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.workspaces-icon>.tooltip-container {
+  display: none;
+  position: absolute;
+  top: 0.5rem;
+  left: 4rem;
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  font-size: 0.925rem;
+}
+
+.workspaces-icon:hover>.tooltip-container {
+  display: block;
+}
+
+.workspaces-icon>.tooltip-container:hover { 
+  display: none;
+}
+
+.workspaces-icon>.tooltip-container>.tooltip-tail {
+  position: absolute;
+  left: -1.25rem;
+  border: 10px solid;
+  border-color: transparent black transparent transparent;
+}
+
+.workspaces-icon>.tooltip-container>.tooltip-content {
+  position: relative;
+}
+
+.workspaces-icon > img {
+  padding: 0.25rem;
+  width: 2.375rem;
+  border-radius: 1rem;
+  border: 3px solid rgba(0,0,0,0);
+  cursor: pointer;
+}
+
+.workspaces-icon>img:hover {
+  border: 3px solid rgba(255,255,255,0.5);
+}
+
+.workspaces-sidebar:last-child {
+  margin: 0;
+}
+
+.workspaces-icon > .workspaces-sidebar-active {
+  border: 3px solid white;
+}
+
+.workspaces-icon > .workspaces-sidebar-active:hover {
+  border: 3px solid white;
+  border-radius: 1rem;
+}
+
+.main-sidebar {
+  flex: 3;
+}
+
+.channel-content {
+  flex: 4;
+}
+
+.thread-content {
+  display: none;
+  flex: 4;
+}
