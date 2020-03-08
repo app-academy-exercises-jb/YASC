@@ -37,7 +37,7 @@ class Api::UsersController < ApplicationController
           render :show
         else
           errors = {}
-          @user.errors.each { |err| errors[err] = user.errors.full_messages_for(err) }
+          @user.errors.each { |err| errors[err] = @user.errors.full_messages_for(err) }
           render json: errors, status: :unprocessable_entity
         end
       elsif user_params[:new_password]

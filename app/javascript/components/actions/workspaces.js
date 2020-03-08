@@ -33,14 +33,11 @@ export const CLEAR_WORKSPACE_ERRORS = "CLEAR_WORKSPACE_ERRORS",
     type: CLEAR_WORKSPACE_ERRORS
   });
 
-
 export const createNewWorkspace = workspace => dispatch => create(workspace)
   .then(({ok, res}) => ok 
     ? dispatch(receiveWorkspace(res)) 
     : dispatch(receiveWorkspaceErrors(res)));
 
-// getWorkspaces must be updated to work with getCurrentTeams, instead. we want to getCurrent only when we are looking at /admin
-// dude all memberships of teams are also memberships of workspace ownerships. just tell the session at the beginning which workspaces which were sent over belong to the user requesting
 export const getWorkspaces = user => dispatch => getCurrent(user)
     .then(({ok, res}) => ok
       ? dispatch(receiveWorkspaces(res)) 
@@ -55,3 +52,9 @@ export const updateWorkspace = workspace => dispatch => update(workspace)
   .then(({ok, res}) => ok 
     ? dispatch(receiveWorkspace(res)) 
     : dispatch(receiveWorkspaceErrors(res)));
+
+export const SET_CURRENT_WORKSPACE = "SET_CURRENT_WORKSPACE",
+  setCurrentWorkspace = id => dispatch => dispatch({
+    type: SET_CURRENT_WORKSPACE,
+    id
+  });
