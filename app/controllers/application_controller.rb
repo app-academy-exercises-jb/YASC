@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   helper_method :authenticated?
+  skip_before_action :verify_authenticity_token
 
   def root
   end
@@ -41,5 +42,11 @@ class ApplicationController < ActionController::Base
     unless current_user?
       render json: {errors: "authentication required"}
     end
+  end
+
+  def enumerate_errors(entity)
+    errs = {}
+    entity.errors.each { |err| errs[err] = {entity.id => entity.errors.full_messages_for(err)} }
+    errs
   end
 end

@@ -1,7 +1,12 @@
 class Api::WorkspacesController < ApplicationController
   before_action :require_authentication
-  before_action :set_workspace, only: [:show, :join, :leave, :destroy, :update]
+  before_action :set_workspace, only: [:show, :join, :leave, :boot, :channels, :destroy, :update]
+  before_action :require_membership, only: [:boot, :leave]
   before_action :require_authorization, only: [:destroy, :update]
+
+  # GET /workspaces/1/boot
+  def boot
+  end
 
   # GET /workspaces/1/counts
   def counts
@@ -10,22 +15,17 @@ class Api::WorkspacesController < ApplicationController
 
   # POST /workspaces/1/members
   def join
-    if current_user.teams.exists?(id: @workspace.id)
-      render json: { ok: false }, status: 400
-    else
-      current_user.teams << @workspace
+    if current_user.teams << @workspace
       render :show, status: 200
+    else
+      render json: enumerate_errors(current_user), status: 400
     end
   end
 
   # DELETE /workspaces/1/members
   def leave
-    if current_user.teams.exists?(id: @workspace.id)
-      current_user.teams.delete @workspace
-      render json: { ok: true }, status: 200
-    else
-      render json: { ok: false }, status: 400
-    end
+    current_user.teams.delete @workspace
+    render json: { ok: true }, status: 200
   end
 
   # GET /workspaces/1
@@ -34,15 +34,10 @@ class Api::WorkspacesController < ApplicationController
 
   # PUT/PATCH /workspaces/1/update
   def update
-    begin
-      if @workspace.update(workspace_params)
-        render :show, status: :ok
-      else
-        render json: @workspace.errors, status: :unprocessable_entity
-      end
-    rescue ActiveRecord::RecordNotUnique => error
-      render json: {@workspace.id => "That workspace name has already been taken."}, 
-        status: :unprocessable_entity
+    if @workspace.update(workspace_params)
+      render :show, status: :ok
+    else
+      render json: enumerate_errors(@workspace), status: :unprocessable_entity
     end
   end
 
@@ -51,18 +46,11 @@ class Api::WorkspacesController < ApplicationController
     @workspace = Workspace.new(workspace_params)
     @workspace.owner_id ||= current_user&.id
 
-    begin
-      if @workspace.save
-        @current_user.teams << @workspace
-        render :show, status: :created
-      else
-        errors = {}
-        @workspace.errors.each { |err| errors[err] = @workspace.errors.full_messages_for(err) }
-        render json: errors, status: :unprocessable_entity
-      end
-    rescue ActiveRecord::RecordNotUnique => error
-      render json: {@workspace.id => "That workspace name has already been taken."}, 
-        status: :unprocessable_entity
+    if @workspace.save
+      @current_user.teams << @workspace
+      render :show, status: :created
+    else
+      render json: enumerate_errors(@workspace), status: :unprocessable_entity
     end
   end
 
@@ -77,6 +65,13 @@ class Api::WorkspacesController < ApplicationController
     def require_authorization
       @workspace ||= Workspace.find(params[:id])
       unless current_user.id == @workspace.owner_id
+        render json: {errors: "authorization required"}, status: :unauthorized
+      end
+    end
+
+    def require_membership
+      @workspace ||= Workspace.find(params[:id])
+      unless @workspace.users.includes(current_user)
         render json: {errors: "authorization required"}, status: :unauthorized
       end
     end

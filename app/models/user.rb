@@ -20,7 +20,6 @@ class User < ApplicationRecord
     source_type: :Workspace
 
 
-
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     return nil unless user

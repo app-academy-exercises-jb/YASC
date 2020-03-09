@@ -11,7 +11,14 @@ Rails.application.routes.draw do
 
     resources :workspaces, only: [:show, :create, :destroy, :update]
     namespace :workspaces do
+      get ':id/boot', action: 'boot'
       get ':id/counts', action: 'counts'
+      post ':id/members', action: 'join'
+      delete ':id/members', action: 'leave'
+    end
+
+    resources :channels, only: [:show, :create, :destroy, :update]
+    namespace :channels do
       post ':id/members', action: 'join'
       delete ':id/members', action: 'leave'
     end

@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_04_182724) do
+ActiveRecord::Schema.define(version: 2020_03_09_152814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "channels", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "workspace_id"
+    t.string "channel_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_channels_on_name"
+    t.index ["workspace_id", "name"], name: "index_channels_on_workspace_id_and_name", unique: true
+  end
 
   create_table "memberships", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -51,6 +61,7 @@ ActiveRecord::Schema.define(version: 2020_03_04_182724) do
     t.index ["owner_id"], name: "index_workspaces_on_owner_id"
   end
 
+  add_foreign_key "channels", "workspaces"
   add_foreign_key "memberships", "users"
   add_foreign_key "workspaces", "users", column: "owner_id"
 end
