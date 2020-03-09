@@ -13,6 +13,7 @@ class Banner extends React.Component {
   demoLogin(e) {
     e.preventDefault();
     if (this.props.user) {
+      debugger
       this.props.history.push("/app");
     } else {
       this.props.loginUser({ email: "demo@example.com", password: "abcd1234" })
