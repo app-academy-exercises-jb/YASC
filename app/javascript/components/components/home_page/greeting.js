@@ -51,8 +51,9 @@ class Greeting extends React.Component {
               
               {Object.keys(this.props.workspaces).length > 0 && 
                 <ul id="workspaces-dropdown-list">
-                  {Object.keys(this.props.workspaces).map(ws => (
+                  {Object.keys(this.props.workspaces).map((ws,idx) => (
                     <li key={ws}>
+                      <img src={require(`images/default_workspace_icons/${idx}`)} />
                       <Link to="/app" onClick={() => this.loadWorkspace(ws)}>
                         {this.props.workspaces[ws].name}
                       </Link>

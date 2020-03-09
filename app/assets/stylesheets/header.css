@@ -138,6 +138,20 @@
   cursor: pointer;
   list-style-type: none;
   display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+#workspaces-dropdown-list>li:hover {
+  text-decoration: none;
+  background-color: #f5f5f5;
+  outline: 0;
+  border-radius: 4px;
+}
+
+#workspaces-dropdown-list>li>img {
+  width: 2rem;
+  height: 2rem;
 }
 
 #workspaces-dropdown-list>li>a {
@@ -149,10 +163,4 @@
   border: none;
   text-decoration: none;
   background-color: transparent;
-}
-
-#workspaces-dropdown-list>li>a:hover {
-  text-decoration: none;
-  background-color: #f5f5f5;
-  outline: 0;
 }
