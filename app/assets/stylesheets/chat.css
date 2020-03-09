@@ -8,8 +8,8 @@
   flex: 1;
   background-color: #3F0E40;
   display: flex;
-  min-width: 19rem;
-  max-width: 19rem;
+  min-width: fit-content;
+  width: 19rem;
 }
 
 .workspaces-sidebar {
@@ -137,6 +137,7 @@
   font-weight: 900;
   display: flex;
   position: relative;
+  padding-right: 1rem;
 }
 
 #header-dropdown-icon {
