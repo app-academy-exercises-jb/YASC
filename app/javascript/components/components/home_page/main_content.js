@@ -21,7 +21,7 @@ class MainContent extends React.Component {
 
   render() {
     return (<main>
-      <BannerContainer />
+      <BannerContainer history={this.props.history} />
 
       <div className="break-the-inbox">
         <h2>Break out of the inbox</h2>

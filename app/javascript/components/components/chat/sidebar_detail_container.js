@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SideBarDetail from './sidebar_detail';
-import { setCurrentWorkspace } from '../../actions/workspaces';
+import { logoutUser } from '../../actions/session';
 
 const mapStateToProps = (state) => ({
   user: state.entities.users[state.session.currentUser],
@@ -10,5 +10,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  null)
-  (SideBarDetail);
+  { logoutUser })(SideBarDetail);

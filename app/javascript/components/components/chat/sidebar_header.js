@@ -30,7 +30,7 @@ class SideBarHeader extends React.Component {
   }
 
   render() {
-    const { user, currentWorkspace, iconId } = this.props;
+    const { logoutUser, user, currentWorkspace, iconId } = this.props;
     return (
       <div className="sidebar-header">
         <h2 onClick={this.showDropdown}>
@@ -61,11 +61,19 @@ class SideBarHeader extends React.Component {
                   <div id="workspace-location">{`${location.origin}/app/${currentWorkspace.id}`}</div>
                 </span>
               </div>
+              <Link to="#">Invite people</Link>
               {/* put total messages count here */}
             </section>
 
             <section id="user-actions">
-              <Link to="#">Sign out</Link>
+              <Link 
+                to="#"
+                onClick={() => {
+                  this.setState({dropdownVisible: false});
+                  document.removeEventListener("click", this.hideDropdown);
+                  logoutUser(user)
+                }}
+              >Sign out</Link>
               <Link to="/">Home Page</Link>
             </section>
           </div>
