@@ -2,10 +2,11 @@ import { connect } from 'react-redux';
 import WorkspacesSidebar from './workspaces_sidebar';
 import { setCurrentWorkspace } from '../../actions/workspaces';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   user: state.entities.users[state.session.currentUser],
   currentWorkspace: state.entities.workspaces[state.session.currentWorkspace],
-  workspaces: state.entities.workspaces
+  workspaces: state.entities.workspaces,
+  history: ownProps.history
 });
 
 export default connect(
