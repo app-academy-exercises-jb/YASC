@@ -1,8 +1,18 @@
 import React from 'react';
 
 class SideBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.switchWorkspace = this.switchWorkspace.bind(this);
+  }
+
+  switchWorkspace(id) {
+    this.props.setCurrentWorkspace(id);
+    this.props.history.push(`/app/${id}`);
+  }
+
   render() {
-    const { workspaces, setCurrentWorkspace, currentWorkspace } = this.props;
+    const { workspaces, currentWorkspace } = this.props;
     if (currentWorkspace === undefined) return null;
     return (
       <div className="workspaces-sidebar">
@@ -10,7 +20,7 @@ class SideBar extends React.Component {
           <div 
             key={ws}
             className="workspaces-icon"
-            onClick={() => {setCurrentWorkspace(ws)}}
+            onClick={() => this.switchWorkspace(ws)}
           >
             <img 
               className={ws == currentWorkspace.id ? "workspaces-sidebar-active" : ""} 

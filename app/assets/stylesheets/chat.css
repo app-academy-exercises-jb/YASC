@@ -9,7 +9,7 @@
   background-color: #3F0E40;
   display: flex;
   min-width: fit-content;
-  width: 19rem;
+  max-width: fit-content;
 }
 
 .workspaces-sidebar {
@@ -61,8 +61,8 @@
 }
 
 .workspaces-icon > img {
-  padding: 0.25rem;
-  width: 2.375rem;
+  padding: 0.125rem;
+  width: 2rem;
   border-radius: 1rem;
   border: 3px solid rgba(0,0,0,0);
   cursor: pointer;
@@ -103,8 +103,16 @@
   margin-bottom: 0.5rem;
 }
 
-.sidebar-detail h3 {
-  font-size: 1rem;
+.sidebar-detail>*>h2 {
+  font-size: 1.15rem;
+}
+
+.sidebar-detail>*>h3, .sidebar-detail>*>*>h3 {
+  font-size: 0.925rem;
+}
+
+.sidebar-detail>*>span {
+  font-size: 0.85rem;
 }
 
 .sidebar-header {
@@ -342,6 +350,10 @@
 #direct-messages-header>h3 {
   position: relative;
   cursor: pointer;
+}
+
+#direct-messages-header>h3:first-of-type {
+  margin-right: 0.5rem;
 }
 
 #direct-messages-header>h3:hover>#dms-tooltip-container {

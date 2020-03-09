@@ -35,7 +35,8 @@ class AdminPage extends React.Component {
                 updateWorkspace={this.props.updateWorkspace}
                 clearErrors={this.props.clearWorkspaceErrors}
                 errors={this.props.workspaceErrors}
-                workspaces={this.props.workspaces}/>} 
+                workspaces={this.props.workspaces}
+                history={this.props.history}/>} 
             />
 
           </div>
