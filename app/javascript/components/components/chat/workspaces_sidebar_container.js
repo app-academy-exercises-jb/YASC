@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import ChatClient from './client';
-import { setCurrentWorkspace, getWorkspaces } from '../../actions/workspaces';
+import WorkspacesSidebar from './workspaces_sidebar';
+import { setCurrentWorkspace } from '../../actions/workspaces';
 
 const mapStateToProps = (state) => ({
   user: state.entities.users[state.session.currentUser],
@@ -10,5 +10,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { setCurrentWorkspace, getWorkspaces })
-  (ChatClient);
+  { setCurrentWorkspace })
+  (WorkspacesSidebar);

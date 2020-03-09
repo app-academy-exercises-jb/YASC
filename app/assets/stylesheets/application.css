@@ -14,7 +14,7 @@
  *= require_self
  */
 
- body,p,h2 {
+ body,p,h2,h3 {
    margin: 0px;
    font-family: Arial, Helvetica, sans-serif;
  }
