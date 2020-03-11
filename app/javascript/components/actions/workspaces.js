@@ -60,7 +60,7 @@ export const bootClient = id => dispatch => boot(id)
   .then(({ok, res}) => ok
     ? (dispatch(receiveChannels(res.channels)) && 
       dispatch(setCurrentChannel(res.team.default_channel)) &&
-      dispatch(setJoinedChannels(res.self.joined_channel_ids)))
+      dispatch(setJoinedChannels(res.self.joined_channels)))
     : dispatch(receiveWorkspaceErrors(res)));
 
 export const SET_CURRENT_WORKSPACE = "SET_CURRENT_WORKSPACE",

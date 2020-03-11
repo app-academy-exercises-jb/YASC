@@ -29,7 +29,7 @@ class AddChannelForm extends React.Component {
     createNewChannel(this.state)
       .then(res => {
         if (res.type !== "RECEIVE_CHANNEL_ERRORS") {
-          addJoinedChannel(res.channel.id);
+          addJoinedChannel(res.channel);
           setCurrentChannel(res.channel.id);
           clearChannelErrors();
           document.removeEventListener("click", hideAddModal);

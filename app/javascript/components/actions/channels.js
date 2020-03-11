@@ -84,12 +84,12 @@ export const updateChannel = channel => dispatch => update(channel)
     ? dispatch(receiveChannel(res)) 
     : dispatch(receiveChannelErrors(res)));
 
-export const joinChannel = id => dispatch => join(id)
+export const joinChannel = channel => dispatch => join(channel.id)
   .then(({ok, res}) => ok 
-    ? dispatch(addJoinedChannel(id))
+    ? dispatch(addJoinedChannel(channel))
     : dispatch(receiveChannelErrors(res)));
 
-export const leaveChannel = id => dispatch => leave(id)
+export const leaveChannel = channel => dispatch => leave(channel.id)
   .then(({ok, res}) => ok 
-    ? dispatch(removeJoinedChannel(id)) 
+    ? dispatch(removeJoinedChannel(channel)) 
     : dispatch(receiveChannelErrors(res)));

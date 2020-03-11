@@ -11,6 +11,7 @@ class SideBar extends React.Component {
     setCurrentWorkspace(id);
     bootClient(id)
       .then(res => history.push(`/app/${id}`));
+    
   }
 
   render() {

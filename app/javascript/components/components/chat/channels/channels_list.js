@@ -52,7 +52,11 @@ class ChannelsList extends React.Component {
   }
 
   render() {
-    const { channels, joinChannel, setCurrentChannel, joinedChannels, getChannelCounts } = this.props;
+    const { channels, joinChannel, setCurrentChannel, 
+      joinedChannels, getChannelCounts, currentWorkspace } = this.props;
+
+    if (Object.keys(joinedChannels).length === 0) return null;
+
     return (<>
       <div id="channels-list">
         <div id="channels-list-header" onClick={(e) => this.displayModal("Channels",e)}>
@@ -71,11 +75,15 @@ class ChannelsList extends React.Component {
           </h3>
         </div>
 
-        {joinedChannels.map(ws => (
-          <span key={ws} onClick={(e) => this.changeChannel(e,ws)}>
-            # <div>{channels[ws].name}</div>
-          </span>
-        ))}
+        {joinedChannels[currentWorkspace.id] && (
+          joinedChannels[currentWorkspace.id].every(i => Object.keys(channels).includes(i.toString(10))) && (
+            joinedChannels[currentWorkspace.id].map(ws => (
+              <span key={ws} onClick={(e) => this.changeChannel(e,ws)}>
+                # <div>{channels[ws].name}</div>
+              </span>
+            ))
+          )
+        )}
 
         <span onClick={() => this.displayModal("Channels")}>
           <span>+ Add a channel</span>

@@ -18,8 +18,14 @@ class ChannelHeader extends React.Component {
     this.chooseDefaultChannel = this.chooseDefaultChannel.bind(this);
   }
 
+  componentWillReceiveProps() {
+    this.setState({dropdownVisible: false})
+    document.removeEventListener("click", this.hideDropdown);
+  }
+
   chooseDefaultChannel(id) {
-    const { setCurrentChannel, currentChannels } = this.props;
+    let { setCurrentChannel, currentChannels, currentWorkspace } = this.props;
+    currentChannels = currentChannels[currentWorkspace.id];
 
     if (currentChannels.length === 1) {
       setCurrentChannel(currentChannels[0]);
@@ -33,13 +39,13 @@ class ChannelHeader extends React.Component {
   deleteChannel(e) {
     const { deleteChannel, currentChannel, removeJoinedChannel } = this.props;
     deleteChannel(currentChannel)
-      .then(res => {debugger; this.chooseDefaultChannel(currentChannel.id)});
-    removeJoinedChannel(currentChannel.id);
+      .then(res => this.chooseDefaultChannel(currentChannel.id));
+    removeJoinedChannel(currentChannel);
   }
 
   leaveChannel() {
     const { leaveChannel, currentChannel } = this.props;
-    leaveChannel(currentChannel.id)
+    leaveChannel(currentChannel)
       .then(res => this.chooseDefaultChannel(currentChannel.id));
   }
 
@@ -57,10 +63,14 @@ class ChannelHeader extends React.Component {
   }
 
   render() {
-    const { currentChannel, currentChannels, getChannelCounts } = this.props;
-    if (!currentChannel) return null;
+    const { currentChannel, currentChannels, getChannelCounts, currentWorkspace } = this.props;
+    
+    if (!currentChannel || 
+      !currentWorkspace || 
+      Object.keys(currentChannels).length === 0) return null;
+
     if (currentChannel.member_count === undefined && 
-      currentChannels.findIndex(el => el === currentChannel.id) !== -1) {
+      currentChannels[currentWorkspace.id].findIndex(el => el === currentChannel.id) !== -1) {
         getChannelCounts(currentChannel.id);
       }
     
@@ -74,7 +84,7 @@ class ChannelHeader extends React.Component {
           <div id="channel-header-details">
             <div id="channel-member-count">
               <img src={MemberCountIcon} />
-              {currentChannel["member_count"] || 0}
+              {currentChannel["member_count"] || ""}
             </div>
             <div id="channel-topic">
               {currentChannel.topic}

@@ -31,6 +31,7 @@ class SideBarDetail extends React.Component {
           getChannelCounts={getChannelCounts}
           joinChannel={joinChannel}
           joinedChannels={joinedChannels}
+          currentWorkspace={currentWorkspace}
         />
 
         <DirectMessagesList />

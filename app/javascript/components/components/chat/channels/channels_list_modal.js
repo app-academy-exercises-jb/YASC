@@ -30,10 +30,10 @@ const ChannelsListModal = ({ channels, hideModal, displayModal, hideAddModal, jo
           <div className="channels-modal-list">
             {Object.keys(channels).map(ws => (
               <div 
-                key={ws}
+                key={[channels[ws].workspace_id, ws]}
                 className="channels-modal-item"
                 onClick={() => {
-                  joinChannel(ws);
+                  joinChannel(channels[ws]);
                   setCurrentChannel(ws);
                   hideModal("Channels");
                 }}
