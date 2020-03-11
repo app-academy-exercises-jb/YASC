@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import AddChannelForm from './add_channel_form'
-import { createNewChannel, clearChannelErrors } from '../../actions/channels'
+import { createNewChannel, clearChannelErrors } from '../../../actions/channels'
 
 const mapStateToProps = (state, {hideAddModal, hideModal}) => {
   return (

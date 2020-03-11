@@ -1,6 +1,6 @@
 import React from 'react';
 import SideBarHeader from './sidebar_header';
-import ChannelsList from './channels_list';
+import ChannelsList from '../channels/channels_list';
 import DirectMessagesList from './direct_messages_list';
 import ThreadsImg from 'images/threads.png';
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import WorkspacesSidebar from './workspaces_sidebar';
-import { setCurrentWorkspace, bootClient } from '../../actions/workspaces';
+import { setCurrentWorkspace, bootClient } from '../../../actions/workspaces';
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.entities.users[state.session.currentUser],

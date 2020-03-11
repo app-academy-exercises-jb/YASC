@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SideBarDetail from './sidebar_detail';
-import { logoutUser } from '../../actions/session';
+import { logoutUser } from '../../../actions/session';
 
 const mapStateToProps = (state) => ({
   user: state.entities.users[state.session.currentUser],

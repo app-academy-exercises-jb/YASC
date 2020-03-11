@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorComponent from '../session/error_wrapper'
+import ErrorComponent from '../../session/error_wrapper'
 
 class AddChannelForm extends React.Component {
   constructor(props) {
