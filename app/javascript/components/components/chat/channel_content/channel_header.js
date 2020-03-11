@@ -19,16 +19,10 @@ class ChannelHeader extends React.Component {
   }
 
   chooseDefaultChannel(id) {
-    const { currentChannel, setCurrentChannel, currentChannels } = this.props,
-      idGiven = !!id;
-
-    
-    if (!id) {
-      id = currentChannel.id;
-    }
+    const { setCurrentChannel, currentChannels } = this.props;
 
     if (currentChannels.length === 1) {
-      idGiven ? setCurrentChannel(currentChannels[0]) : setCurrentChannel(null);
+      setCurrentChannel(currentChannels[0]);
     } else if (id === currentChannels[0]) {
       setCurrentChannel(currentChannels[1]);
     } else {
@@ -44,9 +38,9 @@ class ChannelHeader extends React.Component {
   }
 
   leaveChannel() {
-    const { leaveChannel, currentChannel, currentChannels, setCurrentChannel } = this.props;
+    const { leaveChannel, currentChannel } = this.props;
     leaveChannel(currentChannel.id)
-      .then(res => this.chooseDefaultChannel());
+      .then(res => this.chooseDefaultChannel(currentChannel.id));
   }
 
   showDropdown() {
