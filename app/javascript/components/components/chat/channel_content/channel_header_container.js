@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { setCurrentChannel, getChannelCounts, 
-  leaveChannel, deleteChannel } from '../../../actions/channels';
+  leaveChannel, deleteChannel, removeJoinedChannel } from '../../../actions/channels';
 import ChannelHeader from './channel_header';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -12,5 +12,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(
   mapStateToProps,
-  { setCurrentChannel, getChannelCounts, leaveChannel, deleteChannel })
+  { setCurrentChannel, getChannelCounts, leaveChannel, deleteChannel, removeJoinedChannel })
   (ChannelHeader);

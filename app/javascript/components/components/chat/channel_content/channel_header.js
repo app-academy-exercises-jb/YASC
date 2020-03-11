@@ -15,19 +15,38 @@ class ChannelHeader extends React.Component {
     this.hideDropdown = this.hideDropdown.bind(this);
     this.deleteChannel = this.deleteChannel.bind(this);
     this.leaveChannel = this.leaveChannel.bind(this);
+    this.chooseDefaultChannel = this.chooseDefaultChannel.bind(this);
+  }
+
+  chooseDefaultChannel(id) {
+    const { currentChannel, setCurrentChannel, currentChannels } = this.props,
+      idGiven = !!id;
+
+    
+    if (!id) {
+      id = currentChannel.id;
+    }
+
+    if (currentChannels.length === 1) {
+      idGiven ? setCurrentChannel(currentChannels[0]) : setCurrentChannel(null);
+    } else if (id === currentChannels[0]) {
+      setCurrentChannel(currentChannels[1]);
+    } else {
+      setCurrentChannel(currentChannels[0])
+    }
   }
 
   deleteChannel(e) {
-    const { deleteChannel, currentChannel } = this.props;
+    const { deleteChannel, currentChannel, removeJoinedChannel } = this.props;
     deleteChannel(currentChannel)
+      .then(res => {debugger; this.chooseDefaultChannel(currentChannel.id)});
+    removeJoinedChannel(currentChannel.id);
   }
 
   leaveChannel() {
     const { leaveChannel, currentChannel, currentChannels, setCurrentChannel } = this.props;
-    leaveChannel(currentChannel.id);
-    if (currentChannels.length === 1) setCurrentChannel(null);
-    if (currentChannel.id === currentChannels[0]) setCurrentChannel(currentChannels[1]);
-    setCurrentChannel(currentChannels[0])
+    leaveChannel(currentChannel.id)
+      .then(res => this.chooseDefaultChannel());
   }
 
   showDropdown() {

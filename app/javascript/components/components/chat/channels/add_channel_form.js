@@ -21,7 +21,7 @@ class AddChannelForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { currentWorkspace, createNewChannel,
+    const { currentWorkspace, createNewChannel, addJoinedChannel, setCurrentChannel,
       clearChannelErrors, hideAddModal, hideModal} = this.props,
       channel = this.state;
 
@@ -29,6 +29,8 @@ class AddChannelForm extends React.Component {
     createNewChannel(this.state)
       .then(res => {
         if (res.type !== "RECEIVE_CHANNEL_ERRORS") {
+          addJoinedChannel(res.channel.id);
+          setCurrentChannel(res.channel.id);
           clearChannelErrors();
           document.removeEventListener("click", hideAddModal);
           hideModal("Add");
