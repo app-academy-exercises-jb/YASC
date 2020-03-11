@@ -6,7 +6,8 @@ import ThreadsImg from 'images/threads.png';
 
 class SideBarDetail extends React.Component {
   render() {
-    const { channels, workspaces, user, logoutUser, currentWorkspace } = this.props;
+    const { channels, workspaces, user, logoutUser, currentWorkspace,
+      setCurrentChannel, getChannelCounts, joinChannel, joinedChannels } = this.props;
     if (currentWorkspace === undefined) return null;
     let iconId = Object.keys(workspaces).findIndex(k => k == currentWorkspace.id);
     
@@ -24,7 +25,13 @@ class SideBarDetail extends React.Component {
           <h3>Threads</h3>
         </div>
         
-        <ChannelsList channels={channels} />
+        <ChannelsList
+          channels={channels}
+          setCurrentChannel={setCurrentChannel}
+          getChannelCounts={getChannelCounts}
+          joinChannel={joinChannel}
+          joinedChannels={joinedChannels}
+        />
 
         <DirectMessagesList />
       </div>

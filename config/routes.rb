@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     namespace :channels do
       post ':id/members', action: 'join'
       delete ':id/members', action: 'leave'
+      get ':id/counts', action: 'counts'
     end
   end
 

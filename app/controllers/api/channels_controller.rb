@@ -1,7 +1,7 @@
 class Api::ChannelsController < ApplicationController
   before_action :require_authentication
-  before_action :set_channel, only: [:show, :edit, :update, :destroy, :join, :leave]
-  before_action :require_channel_membership, only: [:show, :destroy, :update, :leave]
+  before_action :set_channel, only: [:show, :edit, :update, :destroy, :join, :leave, :counts]
+  # before_action :require_channel_membership, only: [:show, :destroy, :update, :leave]
   before_action :require_workspace_membership, only: [:join]
 
   # POST /channels/1/members
@@ -17,7 +17,11 @@ class Api::ChannelsController < ApplicationController
   # DELETE /channels/1/members
   def leave
     @channel.users.delete current_user
-    head :ok
+    render json: {}, status: :ok
+  end
+
+  # GET /channels/1/counts
+  def counts
   end
 
   # GET /channels/1
@@ -50,7 +54,7 @@ class Api::ChannelsController < ApplicationController
   # DELETE /channels/1
   def destroy
     @channel.destroy
-    head :no_content
+    render json: {}, status: :ok
   end
 
   private

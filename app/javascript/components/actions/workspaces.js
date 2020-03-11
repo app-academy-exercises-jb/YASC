@@ -5,7 +5,7 @@ import {
   update,
   boot } from '../util/workspaces_api';
 
-import { receiveChannels } from './channels'
+import { receiveChannels, setCurrentChannel, setJoinedChannels } from './channels'
 
 export const RECEIVE_WORKSPACES = "RECEIVE_WORKSPACES",
   receiveWorkspaces = workspaces => ({
@@ -58,7 +58,9 @@ export const updateWorkspace = workspace => dispatch => update(workspace)
 
 export const bootClient = id => dispatch => boot(id)
   .then(({ok, res}) => ok
-    ? dispatch(receiveChannels(res.channels))
+    ? (dispatch(receiveChannels(res.channels)) && 
+      dispatch(setCurrentChannel(res.team.default_channel)) &&
+      dispatch(setJoinedChannels(res.self.joined_channel_ids)))
     : dispatch(receiveWorkspaceErrors(res)));
 
 export const SET_CURRENT_WORKSPACE = "SET_CURRENT_WORKSPACE",

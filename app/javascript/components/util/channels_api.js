@@ -23,6 +23,15 @@ export const get = async id => {
   };
 }
 
+// GET    /api/channels/:id/counts => channels#counts
+export const getCounts = async id => {
+  const res = await fetch(`/api/channels/${id}/counts`)
+  return {
+    ok: res.ok,
+    res: await res.json()
+  };
+}
+
 // PUT    /api/channels/:id => channels#update
 export const update = async channel => {
   const { name, workspace_id, channel_type } = channel,

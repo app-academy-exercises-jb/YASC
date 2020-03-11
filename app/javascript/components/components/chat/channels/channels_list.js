@@ -15,7 +15,7 @@ class ChannelsList extends React.Component {
     this.hideModal = this.hideModal.bind(this);
     this.hideAddModal = this.hideAddModal.bind(this);
     this.channelsTooltip = this.channelsTooltip.bind(this);
-    this.channelMenu = this.channelMenu.bind(this);
+    this.changeChannel = this.changeChannel.bind(this);
     this.addChannelRef = React.createRef();
   }
 
@@ -46,14 +46,13 @@ class ChannelsList extends React.Component {
     )
   }
 
-  channelMenu(e) {
-    if (e.button == 1) {
-      
-    }
+  changeChannel(e,id) {
+    this.props.setCurrentChannel(id);
+    this.props.getChannelCounts(id);
   }
 
   render() {
-    const { channels } = this.props;
+    const { channels, joinChannel, setCurrentChannel, joinedChannels, getChannelCounts } = this.props;
     return (<>
       <div id="channels-list">
         <div id="channels-list-header" onClick={(e) => this.displayModal("Channels",e)}>
@@ -72,8 +71,8 @@ class ChannelsList extends React.Component {
           </h3>
         </div>
 
-        {Object.keys(channels).map(ws => (
-          <span key={ws} onMouseDown={this.channelMenu}>
+        {joinedChannels.map(ws => (
+          <span key={ws} onClick={(e) => this.changeChannel(e,ws)}>
             # <div>{channels[ws].name}</div>
           </span>
         ))}
@@ -89,6 +88,9 @@ class ChannelsList extends React.Component {
           hideModal={this.hideModal}
           displayModal={this.displayModal}
           hideAddModal={this.hideAddModal}
+          joinChannel={joinChannel}
+          setCurrentChannel={setCurrentChannel}
+          getChannelCounts={getChannelCounts}
         />
       }
 

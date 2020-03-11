@@ -19,6 +19,10 @@ class User < ApplicationRecord
     source: :membershipable,
     source_type: :Workspace
 
+  has_many :joined_channels,
+    through: :memberships,
+    source: :membershipable,
+    source_type: :Channel
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)

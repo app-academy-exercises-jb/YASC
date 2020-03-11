@@ -1,5 +1,6 @@
-import React from 'react'
-import SideBar from './sidebar/sidebar'
+import React from 'react';
+import SideBar from './sidebar/sidebar';
+import ChannelContent from './channel_content/channel_content';
 
 class ChatPage extends React.Component {
   render() {
@@ -7,9 +8,7 @@ class ChatPage extends React.Component {
       <div className="chat-page">
         <SideBar />
 
-        <div className="channel-content">
-
-        </div>
+        <ChannelContent />
 
         <div className="thread-content">
           

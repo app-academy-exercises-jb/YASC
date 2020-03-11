@@ -134,6 +134,8 @@
 
 .channels-modal-item:hover>.modal-item-second {
   display: flex;
+  flex-direction: column;
+  align-self: center;
 }
 
 .modal-item-second>img {

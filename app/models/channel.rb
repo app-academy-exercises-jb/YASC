@@ -7,4 +7,8 @@ class Channel < ApplicationRecord
   validates :name, presence: true, allow_blank: false, uniqueness: { scope: :workspace }
   validates :workspace, presence: true
   validates :channel_type, presence: true, inclusion: { in: ["public", "private", "direct"] }
+
+  def member_count
+    self.users.size
+  end
 end

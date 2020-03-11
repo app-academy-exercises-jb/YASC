@@ -6,6 +6,7 @@ const _nullSession = {
   currentUser: null,
   currentWorkspace: null,
   currentChannel: null,
+  currentTeams: null,
   sessionToken: null
 };
 
