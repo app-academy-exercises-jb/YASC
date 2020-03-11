@@ -1,7 +1,7 @@
 class Api::WorkspacesController < ApplicationController
   before_action :require_authentication
   before_action :set_workspace, only: [:show, :join, :leave, :boot, :channels, :destroy, :update]
-  before_action :require_membership, only: [:boot, :leave]
+  before_action :require_workspace_membership, only: [:boot, :leave]
   before_action :require_authorization, only: [:destroy, :update]
 
   # GET /workspaces/1/boot
@@ -29,8 +29,8 @@ class Api::WorkspacesController < ApplicationController
   end
 
   # GET /workspaces/1
-  def show
-  end
+  # def show
+  # end
 
   # PUT/PATCH /workspaces/1/update
   def update
@@ -61,6 +61,12 @@ class Api::WorkspacesController < ApplicationController
   end
 
   private
+    def require_workspace_membership
+      unless @workspace.users.exists?(current_user.id)
+        render json: {errors: "authorization required"}, status: :unauthorized
+      end
+    end
+    
     # Require these actions to only be done by the owner of the workspace
     def require_authorization
       @workspace ||= Workspace.find(params[:id])
@@ -69,16 +75,11 @@ class Api::WorkspacesController < ApplicationController
       end
     end
 
-    def require_membership
-      @workspace ||= Workspace.find(params[:id])
-      unless @workspace.users.includes(current_user)
-        render json: {errors: "authorization required"}, status: :unauthorized
-      end
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_workspace
       @workspace ||= Workspace.find(params[:id])
+      return @workspace if @workspace 
+      render json: {errors: "workspace not found"}
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,12 +1,12 @@
 import React from 'react';
-import ThreadsImg from 'images/threads.png';
 import SideBarHeader from './sidebar_header';
 import ChannelsList from './channels_list';
 import DirectMessagesList from './direct_messages_list';
+import ThreadsImg from 'images/threads.png';
 
 class SideBarDetail extends React.Component {
   render() {
-    const { workspaces, user, logoutUser, currentWorkspace } = this.props;
+    const { channels, workspaces, user, logoutUser, currentWorkspace } = this.props;
     if (currentWorkspace === undefined) return null;
     let iconId = Object.keys(workspaces).findIndex(k => k == currentWorkspace.id);
     
@@ -24,7 +24,7 @@ class SideBarDetail extends React.Component {
           <h3>Threads</h3>
         </div>
         
-        <ChannelsList />
+        <ChannelsList channels={channels} />
 
         <DirectMessagesList />
       </div>

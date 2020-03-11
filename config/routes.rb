@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get ':id/teams', action: 'teams'
     end
 
-    resources :workspaces, only: [:show, :create, :destroy, :update]
+    resources :workspaces, only: [:create, :destroy, :update]
     namespace :workspaces do
       get ':id/boot', action: 'boot'
       get ':id/counts', action: 'counts'

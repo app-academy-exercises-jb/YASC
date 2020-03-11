@@ -7,8 +7,10 @@ class SideBar extends React.Component {
   }
 
   switchWorkspace(id) {
-    this.props.setCurrentWorkspace(id);
-    this.props.history.push(`/app/${id}`);
+    const { setCurrentWorkspace, bootClient, history } = this.props;
+    setCurrentWorkspace(id);
+    bootClient(id)
+      .then(res => history.push(`/app/${id}`));
   }
 
   render() {

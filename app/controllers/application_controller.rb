@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   def root
   end
 
+  private
   def current_user
     @current_user ||= session[:current_user] ?
         User.find(session[:current_user]["id"]) :

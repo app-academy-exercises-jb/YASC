@@ -19,6 +19,7 @@ class YASC extends React.Component {
         <ProtectedRoute path="/create" component={CreatePageContainer} />
         <ProtectedRoute path="/find" component={FindPageContainer} />
         <ProtectedRoute path="/admin" component={AdminPageContainer} />
+        <ProtectedRoute path="/app/:id" component={ChatClientContainer} />
         <ProtectedRoute path="/app" component={ChatClientContainer} />
         <Redirect from="*" to="/" />
       </Switch>
