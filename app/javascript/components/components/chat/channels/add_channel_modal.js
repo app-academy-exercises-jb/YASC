@@ -16,7 +16,7 @@ class AddChannelModal extends React.Component {
     const { hideModal, hideAddModal } = this.props;
 
     return (
-      <div id="add-modal">
+      <div id="modal">
         <div className="add-modal-wrapper" ref={this.ref}>
           <div className="add-modal-content">
             <span>

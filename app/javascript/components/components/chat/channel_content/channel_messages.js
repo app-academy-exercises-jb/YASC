@@ -1,4 +1,5 @@
 import React from 'react'
+import DefaultUserImg from 'images/default_user';
 
 class ChannelMessages extends React.Component {
   constructor(props) {
@@ -49,17 +50,33 @@ class ChannelMessages extends React.Component {
 
   render() {
     const { messages } = this.state,
-     { currentChannel } = this.props;
+      { currentChannel, users } = this.props;
+    
     return (
       <div id="channel-messages-wrapper">
 
+        <div id="channel-messages-content">
         {messages && messages.map(m => (
-          <div key={m.id} id="channel-messages-content">
-            <div className="channel-message-item">
-              {m.body}
+            <div key={m.id} className="channel-message-wrapper">
+              <div className="channel-message-item">
+                <div className="message-icon">
+                  <img src={DefaultUserImg} />
+                </div>
+                <div className="message-content-wrapper">
+                  <span className="message-header">
+                    <p className="user-id">{users[m.author_id] && users[m.author_id].email}</p>
+                    <p className="message-time">
+                      {new Date(Date.parse(m.created_at)).toLocaleTimeString()}
+                    </p>
+                  </span>
+                  <span className="message-content">
+                    {m.body}
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
         ))}
+        </div>
 
 
         <div id="text-editor-wrapper">

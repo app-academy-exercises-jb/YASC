@@ -1,4 +1,5 @@
 import { create, del, get, update} from '../util/messages_api';
+import { receiveUsers } from './users'
 
 export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES",
   receiveMessages = ({messages, channel_id}) => ({
@@ -32,7 +33,7 @@ export const CLEAR_MESSAGE_ERRORS = "CLEAR_MESSAGE_ERRORS",
 
 export const createNewMessage = message => dispatch => create(message)
   .then(({ok, res}) => ok 
-    ? dispatch(receiveMessage(res)) 
+    ? dispatch({type: "ok"}) 
     : dispatch(receiveMessageErrors(res)));
 
 export const deleteMessage = message => dispatch => del(message)
@@ -47,6 +48,7 @@ export const updateMessage = message => dispatch => update(message)
   
 export const getMessages = ({ id }) => dispatch => get(id)
   .then(({ok, res}) => ok
-    ? dispatch(receiveMessages(res))
+    ? (dispatch(receiveUsers(res.users)) &&
+      dispatch(receiveMessages(res.history)))
     : dispatch(receiveMessageErrors(res)))
   .catch(res => {debugger})

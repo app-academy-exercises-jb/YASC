@@ -5,7 +5,8 @@ class Api::MessagesController < ApplicationController
 
   # GET /messages
   def index
-    @messages = @channel.messages
+    @messages = @channel.messages.order(:created_at)
+    @users = @channel.users
   end
 
   # # GET /messages/1
@@ -20,7 +21,11 @@ class Api::MessagesController < ApplicationController
     @message.channel_id = @channel.id;
 
     if @message.save
-      render :show, status: :created
+      # later we can require only broadcasting to 'live' users
+      @channel.users.each do |user|
+        UserChannel.broadcast_to(user, {message: @message})
+      end
+      render json: {ok: true}, status: :created
     else
       errors = {}
       @message.errors.each { |err| errors[err] = @message.errors.full_messages_for(err) }

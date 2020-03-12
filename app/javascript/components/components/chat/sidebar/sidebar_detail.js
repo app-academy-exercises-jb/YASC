@@ -8,7 +8,7 @@ class SideBarDetail extends React.Component {
   render() {
     const { channels, workspaces, user, logoutUser, currentWorkspace,
       setCurrentChannel, getChannelCounts, joinChannel, joinedChannels } = this.props;
-    if (currentWorkspace === undefined) return null;
+    if (currentWorkspace === undefined || !user) return null;
     let iconId = Object.keys(workspaces).findIndex(k => k == currentWorkspace.id);
     
     return (

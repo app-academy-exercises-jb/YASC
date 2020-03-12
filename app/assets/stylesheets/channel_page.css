@@ -45,18 +45,6 @@
   height: 1rem;
 }
 
-#channel-messages-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-#channel-message-content {
-
-}
-
 #text-editor-wrapper {
   padding: 0;
   position: absolute;

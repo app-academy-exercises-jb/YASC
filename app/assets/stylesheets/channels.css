@@ -187,7 +187,7 @@
 }
 
 
-#add-modal {
+#modal {
   background-color: rgba(0,0,0,.6);
   position: fixed;
   left: 0;
@@ -219,6 +219,10 @@
   box-shadow: 0 0 0 1px var(--saf-0),0 18px 48px 0 rgba(0,0,0,.35);
 }
 
+#invite-modal {
+  width: 85%;
+}
+
 .add-modal-content {
   width: 100%;
   display: flex;
@@ -245,6 +249,10 @@
 
 .add-modal-content>span>h1 {
   margin: 0;
+}
+
+#invite-modal>.add-modal-content>span>h1 {
+  font-size: 1.5rem;
 }
 
 .add-modal-content>span>button {

@@ -5,23 +5,30 @@ import MemberCountIcon from 'images/member_count'
 class ChannelHeader extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      dropdownVisible: false
-    }
-
+    
     this.dropdownRef = React.createRef();
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
-    window.hideDropdown = this.hideDropdown.bind(this);
     this.deleteChannel = this.deleteChannel.bind(this);
     this.leaveChannel = this.leaveChannel.bind(this);
     this.chooseDefaultChannel = this.chooseDefaultChannel.bind(this);
+
+    this.state = {
+      dropdownVisible: false,
+      currentChannel: this.props.currentChannel,
+      hideDropdown: this.hideDropdown
+    };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    document.removeEventListener("click", window.hideDropdown);
-    return {dropdownVisible: false};
+    if (prevState.currentChannel !== nextProps.currentChannel) {
+      document.removeEventListener("click", prevState.hideDropdown);
+      return {
+        dropdownVisible: false,
+        currentChannel: nextProps.currentChannel
+      };
+    }
+    return prevState;
   }
 
   chooseDefaultChannel(id) {
@@ -74,7 +81,7 @@ class ChannelHeader extends React.Component {
       currentChannels[currentWorkspace.id].findIndex(el => el === currentChannel.id) !== -1) {
         getChannelCounts(currentChannel.id);
       }
-    
+      
     return (
       <div id="channel-content-header">
 
@@ -96,6 +103,7 @@ class ChannelHeader extends React.Component {
         <div className="channel-header-tools">
           <div id="options-icon">
             <img src={GearIcon} onClick={this.showDropdown}/>
+
             {this.state.dropdownVisible && 
             <div id="options-dropdown" ref={this.dropdownRef}>
               <section>

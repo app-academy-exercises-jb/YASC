@@ -1,12 +1,18 @@
 import React from 'react'
 import ChatPageContainer from './chat_page_container'
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { boot } from '../../util/workspaces_api';
+import consumer from '../../../channels/consumer'
 
 class ChatClient extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {}
     this.fetchChannels = this.fetchChannels.bind(this);
+    this.receiveMessage = this.receiveMessage.bind(this);
+  }
+
+  receiveMessage(data) {
+    this.props.receiveMessage(data.message);
   }
 
   fetchChannels(id, firstWsId) {
@@ -33,6 +39,13 @@ class ChatClient extends React.Component {
     } else {
       bootClient(currentWorkspace.id);
     }
+
+    const socket = consumer.subscriptions.create("UserChannel", {
+      connected() {},
+      disconnected() {},
+      received: this.receiveMessage
+    });
+    this.setState({socket});
   }
 
   render() {
