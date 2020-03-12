@@ -13,14 +13,15 @@ class ChannelHeader extends React.Component {
     this.dropdownRef = React.createRef();
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
+    window.hideDropdown = this.hideDropdown.bind(this);
     this.deleteChannel = this.deleteChannel.bind(this);
     this.leaveChannel = this.leaveChannel.bind(this);
     this.chooseDefaultChannel = this.chooseDefaultChannel.bind(this);
   }
 
-  componentWillReceiveProps() {
-    this.setState({dropdownVisible: false})
-    document.removeEventListener("click", this.hideDropdown);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    document.removeEventListener("click", window.hideDropdown);
+    return {dropdownVisible: false};
   }
 
   chooseDefaultChannel(id) {

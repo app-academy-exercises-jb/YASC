@@ -17,12 +17,18 @@ Rails.application.routes.draw do
       delete ':id/members', action: 'leave'
     end
 
-    resources :channels, only: [:show, :create, :destroy, :update]
-    namespace :channels do
-      post ':id/members', action: 'join'
-      delete ':id/members', action: 'leave'
-      get ':id/counts', action: 'counts'
+    resources :channels, only: [:create, :destroy, :update] do
+      post 'members', action: 'join'
+      delete 'members', action: 'leave'
+      get 'counts', action: 'counts'
+
+      resources :messages, only: [:index, :create, :destroy, :update]
     end
+    # namespace :channels do
+    #   # get ':id/messages', action: 'show'
+    #   # post ':id/messages', action: 'post_message'
+
+    # end
   end
 
   get '*path', to: 'application#root', contraints: lambda { |req| 
