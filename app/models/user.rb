@@ -21,6 +21,11 @@ class User < ApplicationRecord
     through: :memberships,
     source: :membershipable,
     source_type: :Channel
+
+  has_many :sent_messages, ->(u) { where(author_id: u.id) },
+    through: :joined_channels,
+    source: :messages,
+    dependent: :destroy
   
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :auth_token, presence: true

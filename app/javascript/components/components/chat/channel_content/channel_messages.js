@@ -6,10 +6,13 @@ class ChannelMessages extends React.Component {
     super(props);
 
     this.state = {
-      messages: []
+      messages: [],
+      currentChannel: null,
+      loading: false
     }
 
     this.inputRef = React.createRef();
+    this.chatBoxRef = React.createRef();
     this.inputHandler = this.inputHandler.bind(this);
   }
 
@@ -21,6 +24,14 @@ class ChannelMessages extends React.Component {
     // remove above event listener
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    let ref = this.chatBoxRef.current;
+    if (!ref) return;
+    ref.scroll({
+      top: ref.scrollHeight,
+      behavior: this.state.loading ? "auto" : "smooth"});
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const { currentChannel, messages, getMessages } = nextProps;
     if (!currentChannel || !messages) return null;
@@ -28,7 +39,19 @@ class ChannelMessages extends React.Component {
       getMessages(currentChannel);
       return null;
     } else {
-      return { messages: messages[currentChannel.id] }
+      if (prevState.currentChannel !== nextProps.currentChannel.id) {
+        return { 
+          messages: messages[currentChannel.id],
+          currentChannel: nextProps.currentChannel.id,
+          loading: true
+        }
+      } else {
+        return { 
+          messages: messages[currentChannel.id],
+          currentChannel: nextProps.currentChannel.id,
+          loading: false
+        }
+      }
     }
   }
 
@@ -55,7 +78,7 @@ class ChannelMessages extends React.Component {
     return (
       <div id="channel-messages-wrapper">
 
-        <div id="channel-messages-content">
+        <div ref={this.chatBoxRef} id="channel-messages-content">
         {messages && messages.map(m => (
             <div key={m.id} className="channel-message-wrapper">
               <div className="channel-message-item">

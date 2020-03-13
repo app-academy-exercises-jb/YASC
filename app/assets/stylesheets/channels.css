@@ -25,6 +25,7 @@
   max-height: 75%;
   position: absolute;
   top: 5rem;
+  overflow-y: auto;
 }
 
 .channels-modal-content {

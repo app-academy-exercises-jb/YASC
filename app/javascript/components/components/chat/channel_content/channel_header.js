@@ -16,8 +16,23 @@ class ChannelHeader extends React.Component {
     this.state = {
       dropdownVisible: false,
       currentChannel: this.props.currentChannel,
-      hideDropdown: this.hideDropdown
+      hideDropdown: this.hideDropdown,
+      loading: false
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // debugger
+    if (prevProps.currentChannel === undefined
+      || Object.keys(prevProps.currentChannels).length === 0) return;
+    if (prevProps.currentChannel.member_count === undefined) {
+      prevProps.getChannelCounts(prevProps.currentChannel.id);
+    }
+
+    // if (currentChannel.member_count === undefined && 
+    //   currentChannels[currentWorkspace.id].findIndex(el => el === currentChannel.id) !== -1) {
+    //     getChannelCounts(currentChannel.id);
+    //   }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -75,15 +90,8 @@ class ChannelHeader extends React.Component {
   render() {
     const { currentChannel, currentChannels, getChannelCounts, currentWorkspace } = this.props;
     
-    if (!currentChannel || 
-      !currentWorkspace || 
-      Object.keys(currentChannels).length === 0) return null;
-
-    if (currentChannel.member_count === undefined && 
-      currentChannels[currentWorkspace.id].findIndex(el => el === currentChannel.id) !== -1) {
-        getChannelCounts(currentChannel.id);
-      }
-      
+    if (!currentChannel) return null;
+    
     return (
       <div id="channel-content-header">
 

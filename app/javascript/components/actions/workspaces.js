@@ -69,7 +69,7 @@ export const bootClient = (id, c_id) => dispatch => boot(id)
 
 export const inviteMember = data => dispatch => invite(data)
   .then(({ok, res}) => ok
-    ? dispatch(receiveUser(res))
+    ? dispatch({type: "ok"})
     : dispatch(receiveUserErrors(res)));
 
 export const SET_CURRENT_WORKSPACE = "SET_CURRENT_WORKSPACE",

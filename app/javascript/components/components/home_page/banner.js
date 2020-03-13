@@ -12,15 +12,15 @@ class Banner extends React.Component {
   
   demoLogin(e) {
     if (this.props.user) {
-      // this.props.history.push("/app/67");
     } else {
+      e.preventDefault();
       this.props.loginUser({ email: "demo@example.com", password: "abcd1234" })
         .then(res => {
           this.props.getWorkspaces(this.props.user);
         })
-        // .then(res => {
-        //   this.props.history.push("/app/67");
-        // })
+        .then(res => {
+          this.props.history.push("/app/");
+        })
     }
 
   }
