@@ -8,6 +8,7 @@
   flex: 2;
   background-color: #3F0E40;
   display: flex;
+  max-width: 18rem;
 }
 
 .workspaces-sidebar {
