@@ -25,7 +25,6 @@ class Workspace < ApplicationRecord
     uniqueness: true
 
   def ensure_channels
-    debugger
     c1 = Channel.create!(name: "general", workspace_id: self.id, channel_type: "public")
     c2 = Channel.create!(name: "random", workspace_id: self.id, channel_type: "public")
     self.channels << [c1, c2]
