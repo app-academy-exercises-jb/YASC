@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   helper_method :authenticated?
-  skip_before_action :verify_authenticity_token
 
   def root
   end
