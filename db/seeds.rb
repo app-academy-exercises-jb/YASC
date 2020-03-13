@@ -52,7 +52,7 @@ demo.teams << acme
   end
 
   c_id = acme.channels.first.id
-  rand(2).times do
+  rand(3).times do
     Message.create!(
       author_id: u.id,
       channel_id: c_id,
