@@ -1,24 +1,22 @@
 # YASC (Yet Another Slack Clone)
 
-YASC aims to be a lightweight, team-oriented messaging solution with strong guarantees around message integrity and availability. The following features represent the bare minimum in terms of what is required to make this project a reality. After this, close attention must be paid to matters of data privacy, among other things.
+YASC aims to be a lightweight, team-oriented messaging solution with strong guarantees around message integrity and availability. The following features represent the bare minimum in terms of what is required to make this project a reality. Not all of the features are yet fully operational. This notice will be removed when they are.
 
 ## <u>MVP Feature Set</u>:
 
-1. Hosting on Heroku (3/2/20 -- ~4hrs)
-
-2. Authentication Functionality (3/3/20 -- ~16hrs)
+1. Authentication Functionality
 	- Registration
 	- Multiple login
 	- Demo login
 	- __BONUS:__ Implement Auth0 login/registration functionality
   
-3. Workspace Functionality (3/7/20 -- ~16hrs)
+2. Workspace Functionality
 	- Workspace creation
 	- Workspace un/registration
 	- Slack-like styling
 	- __BONUS:__ Channel/User search
 
-4. Channel Functionality (3/9/20 -- ~24hrs)
+3. Channel Functionality 
 	- Channel creation
 	- Channel un/subscription
 	- Slack-like styling
@@ -26,25 +24,23 @@ YASC aims to be a lightweight, team-oriented messaging solution with strong guar
 	- __BONUS:__ Auto-completing user mentions
 	- __BONUS:__ Lazy Channels: as opposed to loading the full history of a given channel/thread, only load some of it, loading the rest on demand (ie, user scrolling)
 
-5. Live Chat (3/5/20 -- ~24hrs)
+4. Live Chat
 	- Websocket functionality for client communication, with client storage of last known event_ts
 	- Eventual consistency model around messages (see [Atomic Broadcast notes](#atomic-broadcast-notes)).
 	- [Real-time Messaging Server](#architectural-design)
 	- Client side pub/sub: client subscribes to list of users/channels that they are 'interested in', and only receive real-time notifications from those. this reduces the amount of events clients have to handle. examples include: presence updates
 
-6. Direct Messages (p2p, p2group) (3/11/20 -- ~24hrs)
+5. Direct Messages (p2p, p2group)
 	- Users can dm anyone in the same workspace
 	- Users can enter/leave dms
 
-7. Production Readme (3/13/20 -- ~4hrs)
-
-8. __BONUS:__ Authorization Functionality (workspace, channel) (3/12/20 -- ~12hrs)
+6. __BONUS:__ Authorization Functionality (workspace, channel)
 	- Workspace creators are workspace admin
 	- Workspace admin may set permissions of other workspace users
 	- Workspace users w/ clearance (ie. channel admins) may create channels
 	- Channel admins may boot/mute channel users
 
-9. __BONUS:__ Asynchronous Job Queue (~30hrs)
+7. __BONUS:__ Asynchronous Job Queue 
 	- A central server which collects jobs in a queue and dispatches them to its collection of workers, on a first-available basis. The server returns the worker's results to the original caller.
 	- Use cases:
 		- Async URL unfurling for links shared in chat
