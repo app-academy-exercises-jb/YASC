@@ -28,7 +28,7 @@ class MainContent extends React.Component {
         <p>Working in channels gives everyone on the team a shared view of progress and purpose.</p>
 
         <a href="https://www.youtube.com/embed/EYqxQGmQkVw" onClick={this.toggleModal}>
-          <video autoPlay={true} loop={true} src={YoutubeVid} type="video/mp4"></video>
+          <video autoPlay={true} muted={true} loop={true} src={YoutubeVid} type="video/mp4"></video>
           <svg xmlns="http://www.w3.org/2000/svg" height="60" width="84">
             <g fill="none" transform="translate(0 .564)">
               <rect height="59" rx="4" width="84"></rect>
