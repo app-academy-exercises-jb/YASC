@@ -94,6 +94,7 @@ class SideBarHeader extends React.Component {
                 onClick={() => {
                   this.setState({dropdownVisible: false});
                   document.removeEventListener("click", this.hideDropdown);
+                  user.session_token = this.props.sessionToken;
                   logoutUser(user)
                 }}
               >Sign out</Link>

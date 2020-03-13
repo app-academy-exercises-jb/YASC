@@ -16,14 +16,14 @@ class ChatClient extends React.Component {
   }
 
   fetchChannels(id, firstWsId) {
-    const { setCurrentWorkspace, bootClient } = this.props;
-    id ? setCurrentWorkspace(id) : setCurrentWorkspace(firstWsId);
+    const { setCurrentWorkspace, bootClient, currentWorkspace } = this.props;
+    currentWorkspace ? null : (id ? setCurrentWorkspace(id) : setCurrentWorkspace(firstWsId));
     bootClient(id || firstWsId);
   }
 
   componentDidMount() {
     const { 
-      user, match: { params: {id} }, bootClient,
+      user, match: { params: {id} }, bootClient, currentChannel, setCurrentChannel,
       workspaces, currentWorkspace, getWorkspaces } = this.props;
 
     if (Object.keys(workspaces).length === 0) {
@@ -37,7 +37,11 @@ class ChatClient extends React.Component {
       let firstWorkspace = workspaces[Object.keys(workspaces)[0]];
       this.fetchChannels(id, firstWorkspace.id);
     } else {
-      bootClient(currentWorkspace.id);
+      if (currentChannel) {
+        bootClient(currentWorkspace.id, currentChannel);
+      } else {
+        bootClient(currentWorkspace.id);
+      }
     }
 
     const socket = consumer.subscriptions.create("UserChannel", {

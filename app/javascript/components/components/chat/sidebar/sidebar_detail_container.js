@@ -6,6 +6,7 @@ import { clearUserErrors } from '../../../actions/users'
 
 const mapStateToProps = (state) => ({
   user: state.entities.users[state.session.currentUser],
+  sessionToken: state.session.sessionToken,
   workspaces: state.entities.workspaces,
   currentWorkspace: state.entities.workspaces[state.session.currentWorkspace],
   channels: state.entities.channels,

@@ -41,7 +41,22 @@ class CreatePage extends React.Component {
 
   triggerTada(e) {
     e.preventDefault();
-    this.props.history.push('/create/tada')
+    const { history, clearChannelErrors,
+      createNewChannel, currentWorkspace, 
+      setCurrentChannel } = this.props;
+
+    clearChannelErrors();
+    createNewChannel({
+      name: this.state.channel,
+      channel_type: "public",
+      workspace_id: currentWorkspace
+    })
+      .then(res => {
+        if (res.type !== "RECEIVE_CHANNEL_ERRORS") {
+          setCurrentChannel(res.channel.id);
+          history.push('/create/tada');
+        }
+      })
   }
 
   tada(e) {
@@ -87,6 +102,8 @@ class CreatePage extends React.Component {
             <input type="submit" value="Create Team" />
 
           </form>
+
+          <ErrorComponent errors={this.props.errors} />
         </div>
       )} />
 

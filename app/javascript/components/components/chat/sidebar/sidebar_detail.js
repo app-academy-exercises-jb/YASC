@@ -8,7 +8,7 @@ class SideBarDetail extends React.Component {
   render() {
     const { channels, workspaces, user, logoutUser, currentWorkspace,
       setCurrentChannel, getChannelCounts, joinChannel, joinedChannels,
-      clearUserErrors } = this.props;
+      clearUserErrors, sessionToken } = this.props;
     if (currentWorkspace === undefined || !user) return null;
     let iconId = Object.keys(workspaces).findIndex(k => k == currentWorkspace.id);
     
@@ -20,6 +20,7 @@ class SideBarDetail extends React.Component {
           iconId={iconId}
           logoutUser={logoutUser}
           clearUserErrors={clearUserErrors}
+          sessionToken={sessionToken}
         />
 
         <div className="sidebar-threads">

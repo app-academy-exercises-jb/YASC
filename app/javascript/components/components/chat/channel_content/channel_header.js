@@ -32,10 +32,12 @@ class ChannelHeader extends React.Component {
   }
 
   chooseDefaultChannel(id) {
-    let { setCurrentChannel, currentChannels, currentWorkspace } = this.props;
+    let { setCurrentChannel, currentChannels, currentWorkspace, currentChannel } = this.props;
     currentChannels = currentChannels[currentWorkspace.id];
 
-    if (currentChannels.length === 1) {
+    if (currentChannel) {
+      setCurrentChannel(currentChannel)
+    } else if (currentChannels.length === 1) {
       setCurrentChannel(currentChannels[0]);
     } else if (id === currentChannels[0]) {
       setCurrentChannel(currentChannels[1]);
