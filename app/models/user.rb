@@ -1,28 +1,30 @@
 class User < ApplicationRecord
   attr_reader :password
   attr_accessor :session_token
-
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :auth_token, presence: true
-  validates :password, length: { minimum: 8, allow_nil: true }
-
-  has_many :sessions, dependent: :destroy
-
-  has_many :memberships, dependent: :destroy
-
+  
+  has_many :sessions, 
+    dependent: :destroy
+  
+  has_many :memberships,
+    dependent: :destroy
+  
   has_many :workspaces,
     foreign_key: :owner_id,
     dependent: :destroy
-
-  has_many :teams, 
+  
+  has_many :teams, -> { distinct },
     through: :memberships,
     source: :membershipable,
     source_type: :Workspace
-
+  
   has_many :joined_channels,
     through: :memberships,
     source: :membershipable,
     source_type: :Channel
+  
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :auth_token, presence: true
+  validates :password, length: { minimum: 8, allow_nil: true }
 
   def joined_channel_ids_by_workspace
     workspace_hash = Hash.new { |h,k| h[k] = [] }

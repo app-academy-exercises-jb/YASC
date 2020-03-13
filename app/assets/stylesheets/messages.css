@@ -52,3 +52,15 @@
   font-weight: 600;
   margin-right: 1rem;
 }
+
+#invite-modal .session-form>span {
+  display: flex;
+}
+
+#invite-modal .session-form input[type="text"] {
+  font-size: 1rem;
+}
+
+#invite-modal .session-form>span>div>input[type="text"]:first-of-type {
+  margin-right: 0.5rem;
+}

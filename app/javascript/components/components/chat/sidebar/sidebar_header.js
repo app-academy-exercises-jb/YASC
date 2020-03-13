@@ -2,6 +2,7 @@ import React from 'react';
 import AvailableImg from 'images/available';
 import DefaultUserImg from 'images/default_user';
 import { Link } from 'react-router-dom';
+import InviteFormContainer from './invite_form_container'
 
 class SideBarHeader extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class SideBarHeader extends React.Component {
 
     this.dropdownRef = React.createRef();
     this.inviteModalRef = React.createRef();
+    this.inviteFormRef = React.createRef();
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
     this.hideModal = this.hideModal.bind(this);
@@ -33,8 +35,9 @@ class SideBarHeader extends React.Component {
   }
 
   hideModal(e) {
-    if (this.inviteModalRef.current && !this.inviteModalRef.current.contains(e.target)) {
+    if ((e && this.inviteModalRef.current && !this.inviteModalRef.current.contains(e.target)) || !e) {
       this.setState({inviteModalVisible: false});
+      this.props.clearUserErrors()
       document.removeEventListener("click", this.hideModal);
     }
   }
@@ -74,6 +77,7 @@ class SideBarHeader extends React.Component {
               <Link 
                 to="#"
                 onClick={() => {
+                  document.removeEventListener("click", this.hideDropdown);
                   document.addEventListener("click", this.hideModal);
                   this.setState({
                     inviteModalVisible: true,
@@ -105,15 +109,19 @@ class SideBarHeader extends React.Component {
               <span>
                 <h1>Invite people to {currentWorkspace.name}</h1>
                 <button id="add-modal-button" onClick={() => {
-                  this.setState({inviteModalVisible: false})
+                  this.setState({inviteModalVisible: false});
+                  this.props.clearUserErrors();
+                  document.removeEventListener("click", this.hideModal);
                 }}>
                   <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="-255 347 100 100" aria-hidden="true"><path d="M-160.4 434.2l-37.2-37.2 37.1-37.1-7-7-37.1 37.1-37.1-37.1-7 7 37.1 37.1-37.2 37.2 7.1 7 37.1-37.2 37.2 37.2"></path>
                   </svg>
                 </button>
               </span>
 
-
-
+              <InviteFormContainer
+                ref={ref => this.inviteFormRef = ref} 
+                hideModal={this.hideModal}
+              />
             </div>
           </div>
         </div>
