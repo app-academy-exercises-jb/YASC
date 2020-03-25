@@ -2,16 +2,16 @@
   "name": "yasc",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.8.6",
+    "@babel/core": "^7",
     "@babel/preset-react": "^7.8.3",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "4.2.2",
+    "@rails/webpacker": "^5",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "prop-types": "^15.7.2",
-    "rails-erb-loader": "^5.5.2",
+    "rails-erb-loader": "^5",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
@@ -20,7 +20,7 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "turbolinks": "^5.2.0",
-    "webpack": "^4.41.6"
+    "webpack": "^4"
   },
   "version": "0.1.0",
   "devDependencies": {
