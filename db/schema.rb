@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_09_152814) do
+ActiveRecord::Schema.define(version: 2020_03_11_225627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,18 @@ ActiveRecord::Schema.define(version: 2020_03_09_152814) do
     t.index ["membershipable_type", "membershipable_id"], name: "index_memberships_on_membershipable_type_and_membershipable_id"
     t.index ["user_id", "membershipable_type", "membershipable_id"], name: "by_unique_membership_type", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "author_id"
+    t.bigint "channel_id", null: false
+    t.bigint "parent_message_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_messages_on_author_id"
+    t.index ["channel_id"], name: "index_messages_on_channel_id"
+    t.index ["parent_message_id"], name: "index_messages_on_parent_message_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -63,5 +75,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_152814) do
 
   add_foreign_key "channels", "workspaces"
   add_foreign_key "memberships", "users"
+  add_foreign_key "messages", "channels"
+  add_foreign_key "messages", "users", column: "author_id"
   add_foreign_key "workspaces", "users", column: "owner_id"
 end

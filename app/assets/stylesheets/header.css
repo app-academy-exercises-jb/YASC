@@ -122,7 +122,7 @@
 #workspaces-dropdown-list {
   list-style: none;
   overflow-y: auto;
-  max-height: 8rem;
+  max-height: 8.5rem;
   padding: 0;
   background-color: #fff;
   display: flex;

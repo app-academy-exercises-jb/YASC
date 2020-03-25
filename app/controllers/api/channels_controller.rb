@@ -1,6 +1,6 @@
 class Api::ChannelsController < ApplicationController
   before_action :require_authentication
-  before_action :set_channel, only: [:show, :edit, :update, :destroy, :join, :leave, :counts]
+  before_action :set_channel, only: [:show, :edit, :update, :destroy, :join, :leave, :counts, :post_message]
   # before_action :require_channel_membership, only: [:show, :destroy, :update, :leave]
   before_action :require_workspace_membership, only: [:join]
 
@@ -24,8 +24,13 @@ class Api::ChannelsController < ApplicationController
   def counts
   end
 
-  # GET /channels/1
+  # GET /channels/1/messages
   def show
+  end
+
+  # for the love of god put this shit in the messages controller
+  # POST /channels/1/messages
+  def post_message
   end
 
   # POST /channels
@@ -74,11 +79,17 @@ class Api::ChannelsController < ApplicationController
     def set_channel
       @channel = Channel.find_by(id: params[:id])
       return @channel if @channel 
+      @channel = Channel.find_by(id: params[:channel_id])
+      return @channel if @channel 
       render json: {errors: "channel not found"}
     end
 
     # Only allow a list of trusted parameters through.
     def channel_params
       params.require(:channel).permit(:name, :workspace_id, :channel_type)
+    end
+
+    def message_params
+      params.require(:message).permit(:body, :parent_message_id)
     end
 end

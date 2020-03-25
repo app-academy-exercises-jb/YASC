@@ -5,29 +5,54 @@ import MemberCountIcon from 'images/member_count'
 class ChannelHeader extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      dropdownVisible: false
-    }
-
+    
     this.dropdownRef = React.createRef();
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
     this.deleteChannel = this.deleteChannel.bind(this);
     this.leaveChannel = this.leaveChannel.bind(this);
     this.chooseDefaultChannel = this.chooseDefaultChannel.bind(this);
+
+    this.state = {
+      dropdownVisible: false,
+      currentChannel: this.props.currentChannel,
+      hideDropdown: this.hideDropdown,
+      loading: false
+    };
   }
 
-  componentWillReceiveProps() {
-    this.setState({dropdownVisible: false})
-    document.removeEventListener("click", this.hideDropdown);
+  componentDidUpdate(prevProps, prevState) {
+    // debugger
+    if (prevProps.currentChannel === undefined
+      || Object.keys(prevProps.currentChannels).length === 0) return;
+    if (prevProps.currentChannel.member_count === undefined) {
+      prevProps.getChannelCounts(prevProps.currentChannel.id);
+    }
+
+    // if (currentChannel.member_count === undefined && 
+    //   currentChannels[currentWorkspace.id].findIndex(el => el === currentChannel.id) !== -1) {
+    //     getChannelCounts(currentChannel.id);
+    //   }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.currentChannel !== nextProps.currentChannel) {
+      document.removeEventListener("click", prevState.hideDropdown);
+      return {
+        dropdownVisible: false,
+        currentChannel: nextProps.currentChannel
+      };
+    }
+    return prevState;
   }
 
   chooseDefaultChannel(id) {
-    let { setCurrentChannel, currentChannels, currentWorkspace } = this.props;
+    let { setCurrentChannel, currentChannels, currentWorkspace, currentChannel } = this.props;
     currentChannels = currentChannels[currentWorkspace.id];
 
-    if (currentChannels.length === 1) {
+    if (currentChannel) {
+      setCurrentChannel(currentChannel)
+    } else if (currentChannels.length === 1) {
       setCurrentChannel(currentChannels[0]);
     } else if (id === currentChannels[0]) {
       setCurrentChannel(currentChannels[1]);
@@ -65,14 +90,7 @@ class ChannelHeader extends React.Component {
   render() {
     const { currentChannel, currentChannels, getChannelCounts, currentWorkspace } = this.props;
     
-    if (!currentChannel || 
-      !currentWorkspace || 
-      Object.keys(currentChannels).length === 0) return null;
-
-    if (currentChannel.member_count === undefined && 
-      currentChannels[currentWorkspace.id].findIndex(el => el === currentChannel.id) !== -1) {
-        getChannelCounts(currentChannel.id);
-      }
+    if (!currentChannel) return null;
     
     return (
       <div id="channel-content-header">
@@ -95,6 +113,7 @@ class ChannelHeader extends React.Component {
         <div className="channel-header-tools">
           <div id="options-icon">
             <img src={GearIcon} onClick={this.showDropdown}/>
+
             {this.state.dropdownVisible && 
             <div id="options-dropdown" ref={this.dropdownRef}>
               <section>

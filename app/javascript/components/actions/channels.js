@@ -1,4 +1,5 @@
-import { create, del, get, getCounts, join, leave, update } from '../util/channels_api'
+import { create, del, getCounts, join, leave, update } from '../util/channels_api'
+import { getMessages } from './messages';
 
 export const RECEIVE_CHANNELS = "RECEIVE_CHANNELS",
   receiveChannels = channels => ({
@@ -63,11 +64,6 @@ export const createNewChannel = channel => dispatch => create(channel)
   .then(({ok, res}) => ok 
     ? dispatch(receiveChannel(res)) 
     : dispatch(receiveChannelErrors(res)));
-
-export const getChannelInfo = id => dispatch => get(id)
-  .then(({ok, res}) => ok
-    ? dispatch(receiveChannel(res)) 
-    : dispatch(receiveChannelErrors(res))); 
 
 export const getChannelCounts = id => dispatch => getCounts(id)
   .then(({ok, res}) => ok

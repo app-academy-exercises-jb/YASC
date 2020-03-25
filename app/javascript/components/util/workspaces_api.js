@@ -66,4 +66,19 @@ export const getCurrent = async ({ id }) => {
 };
 
 // POST   /api/workspaces/:id/members => workspaces#join
+export const invite = async ({id, user}) => {
+  const res = await fetch(`/api/workspaces/${id}/members`, {
+    method: 'POST',
+    headers: { 
+      "Content-Type": "application/json",
+      'X-CSRF-TOKEN': window.csrf
+    },
+    body: JSON.stringify({user})
+  })
+  return {
+    ok: res.ok,
+    res: await res.json()
+  };
+};
+
 // DELETE /api/workspaces/:id/members => workspaces#leave

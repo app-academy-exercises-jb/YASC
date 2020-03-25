@@ -14,15 +14,6 @@ export const create = async channel => {
   };
 };
 
-// GET    /api/channels/:id => channels#show
-export const get = async id => {
-  const res = await fetch(`/api/channels/${id}`)
-  return {
-    ok: res.ok,
-    res: await res.json()
-  };
-}
-
 // GET    /api/channels/:id/counts => channels#counts
 export const getCounts = async id => {
   const res = await fetch(`/api/channels/${id}/counts`)
@@ -42,7 +33,7 @@ export const update = async channel => {
       'X-CSRF-TOKEN': window.csrf
     },
     body: JSON.stringify({name, workspace_id, channel_type})
-  })
+  });
   return {
     ok: res.ok,
     res: await res.json()

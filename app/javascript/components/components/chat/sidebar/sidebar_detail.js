@@ -7,8 +7,9 @@ import ThreadsImg from 'images/threads.png';
 class SideBarDetail extends React.Component {
   render() {
     const { channels, workspaces, user, logoutUser, currentWorkspace,
-      setCurrentChannel, getChannelCounts, joinChannel, joinedChannels } = this.props;
-    if (currentWorkspace === undefined) return null;
+      setCurrentChannel, getChannelCounts, joinChannel, joinedChannels,
+      clearUserErrors, sessionToken } = this.props;
+    if (currentWorkspace === undefined || !user) return null;
     let iconId = Object.keys(workspaces).findIndex(k => k == currentWorkspace.id);
     
     return (
@@ -18,6 +19,8 @@ class SideBarDetail extends React.Component {
           currentWorkspace={currentWorkspace}
           iconId={iconId}
           logoutUser={logoutUser}
+          clearUserErrors={clearUserErrors}
+          sessionToken={sessionToken}
         />
 
         <div className="sidebar-threads">

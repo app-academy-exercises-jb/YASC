@@ -112,7 +112,7 @@ return current view for requested channel/thread. seemingly, this is only hit on
 				reply_count:,
 				latest_reply_ts:,
 				reply_users:["<user_ids>"],
-				replies: [{user_id:, ts:}, ...]}, ...],
+				replies: [{user_id:, ts:}, ...],
 				subscribed: false
 			}, ...],
 			has_more: true,

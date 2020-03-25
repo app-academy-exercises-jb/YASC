@@ -15,10 +15,24 @@ class Api::WorkspacesController < ApplicationController
 
   # POST /workspaces/1/members
   def join
-    if current_user.teams << @workspace
-      render :show, status: 200
-    else
-      render json: enumerate_errors(current_user), status: 400
+    if params[:user]
+      @user ||= User.find_by(email: user_params[:email])
+      if @user.nil?
+        render json: {errors: "user not found"}, status: :not_found
+        return
+      end
+      @current_user = @user
+    end
+
+    begin
+      if @current_user.teams << @workspace
+        @workspace.channels.first.users << @current_user
+        render :show, status: 200
+      else
+        render json: enumerate_errors(user), status: 400
+      end
+    rescue ActiveRecord::RecordInvalid => exception
+      render json: {errors: "User already a member of this team"}, status: :unprocessable_entity
     end
   end
 
@@ -79,11 +93,15 @@ class Api::WorkspacesController < ApplicationController
     def set_workspace
       @workspace ||= Workspace.find(params[:id])
       return @workspace if @workspace 
-      render json: {errors: "workspace not found"}
+      render json: {errors: "workspace not found"}, status: :not_found
     end
 
     # Only allow a list of trusted parameters through.
     def workspace_params
       params.require(:workspace).permit(:name)
+    end
+
+    def user_params
+      params.require(:user).permit(:email)
     end
 end

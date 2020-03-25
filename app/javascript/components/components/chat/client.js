@@ -1,23 +1,29 @@
 import React from 'react'
 import ChatPageContainer from './chat_page_container'
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { boot } from '../../util/workspaces_api';
+import consumer from '../../../channels/consumer'
 
 class ChatClient extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {}
     this.fetchChannels = this.fetchChannels.bind(this);
+    this.receiveMessage = this.receiveMessage.bind(this);
+  }
+
+  receiveMessage(data) {
+    this.props.receiveMessage(data.message);
   }
 
   fetchChannels(id, firstWsId) {
-    const { setCurrentWorkspace, bootClient } = this.props;
-    id ? setCurrentWorkspace(id) : setCurrentWorkspace(firstWsId);
+    const { setCurrentWorkspace, bootClient, currentWorkspace } = this.props;
+    currentWorkspace ? null : (id ? setCurrentWorkspace(id) : setCurrentWorkspace(firstWsId));
     bootClient(id || firstWsId);
   }
 
   componentDidMount() {
     const { 
-      user, match: { params: {id} }, bootClient,
+      user, match: { params: {id} }, bootClient, currentChannel, setCurrentChannel,
       workspaces, currentWorkspace, getWorkspaces } = this.props;
 
     if (Object.keys(workspaces).length === 0) {
@@ -31,8 +37,19 @@ class ChatClient extends React.Component {
       let firstWorkspace = workspaces[Object.keys(workspaces)[0]];
       this.fetchChannels(id, firstWorkspace.id);
     } else {
-      bootClient(currentWorkspace.id);
+      if (currentChannel) {
+        bootClient(currentWorkspace.id, currentChannel);
+      } else {
+        bootClient(currentWorkspace.id);
+      }
     }
+
+    const socket = consumer.subscriptions.create("UserChannel", {
+      connected() {},
+      disconnected() {},
+      received: this.receiveMessage
+    });
+    this.setState({socket});
   }
 
   render() {

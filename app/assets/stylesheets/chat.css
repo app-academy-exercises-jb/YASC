@@ -5,11 +5,10 @@
 }
 
 .chat-sidebar {
-  flex: 1;
+  flex: 2;
   background-color: #3F0E40;
   display: flex;
-  min-width: fit-content;
-  max-width: fit-content;
+  max-width: 18rem;
 }
 
 .workspaces-sidebar {
@@ -171,7 +170,8 @@
   z-index: 10;
   padding: 1.5rem 0;
   border-radius: 8px;
-  left: -60px;
+  left: -30px;
+  border: 1px solid rgba(28,29,28,0.3);
   color: rgb(28,29,28);
 }
 
@@ -261,6 +261,7 @@
 }
 
 .channels-tooltip-container {
+  z-index: 100;
   display: none;
   position: absolute;
 }
@@ -419,12 +420,12 @@
 }
 
 .channel-content {
-  flex: 4;
+  flex: 5;
   display: flex;
   flex-direction: column;
 }
 
 .thread-content {
   display: none;
-  flex: 4;
+  flex: 5;
 }

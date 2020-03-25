@@ -3,9 +3,11 @@ import {
   getCurrent,
   del,
   update,
-  boot } from '../util/workspaces_api';
+  boot,
+  invite } from '../util/workspaces_api';
 
 import { receiveChannels, setCurrentChannel, setJoinedChannels } from './channels'
+import { receiveUser, receiveUserErrors } from './users';
 
 export const RECEIVE_WORKSPACES = "RECEIVE_WORKSPACES",
   receiveWorkspaces = workspaces => ({
@@ -56,12 +58,19 @@ export const updateWorkspace = workspace => dispatch => update(workspace)
     ? dispatch(receiveWorkspace(res)) 
     : dispatch(receiveWorkspaceErrors(res)));
 
-export const bootClient = id => dispatch => boot(id)
+export const bootClient = (id, c_id) => dispatch => boot(id)
   .then(({ok, res}) => ok
     ? (dispatch(receiveChannels(res.channels)) && 
-      dispatch(setCurrentChannel(res.team.default_channel)) &&
+      (c_id ? 
+        dispatch(setCurrentChannel(c_id)): 
+        dispatch(setCurrentChannel(res.team.default_channel))) &&
       dispatch(setJoinedChannels(res.self.joined_channels)))
     : dispatch(receiveWorkspaceErrors(res)));
+
+export const inviteMember = data => dispatch => invite(data)
+  .then(({ok, res}) => ok
+    ? dispatch({type: "ok"})
+    : dispatch(receiveUserErrors(res)));
 
 export const SET_CURRENT_WORKSPACE = "SET_CURRENT_WORKSPACE",
   setCurrentWorkspace = id => dispatch => dispatch({
