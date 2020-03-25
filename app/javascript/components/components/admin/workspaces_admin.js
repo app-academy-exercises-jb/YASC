@@ -91,7 +91,12 @@ class WorkspacesAdmin extends React.Component {
           
                       <input type="submit" value="Update Name" />
                     </form>
-                    <ErrorComponent errors={{workspace: errors[ws]}}/>
+                    <ErrorComponent
+                      errors={errors}
+                      errorClass="workspace"
+                      errorType="name"
+                      errorId={ws}
+                    />
                   </>} />
 
                   <div className="admin-page-item-wrapper">

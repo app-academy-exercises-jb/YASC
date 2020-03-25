@@ -28,6 +28,7 @@
 
 .workspaces-icon>.tooltip-container {
   display: none;
+  width: max-content;
   position: absolute;
   top: 0.5rem;
   left: 4rem;
@@ -259,8 +260,9 @@
   margin-right: 0.5rem;
 }
 
-#channels-tooltip-container {
+.channels-tooltip-container {
   display: none;
+  position: absolute;
 }
 
 #channels-tooltip {
@@ -293,8 +295,8 @@
   cursor: pointer;
   padding: 0.5rem 1rem;
   margin-top: 0.25rem;
-  margin-left: -1rem;
-  margin-right: -1rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
 }
 
 #channels-list>*:last-child {
@@ -309,23 +311,41 @@
   background-color: #3F0E40;
 }
 
-#channels-list>h3:hover>#channels-tooltip-container {
+#channels-list-header>h3:hover>.channels-tooltip-container {
   display: block;
 }
 
-#channels-list>h3>#channels-tooltip-container:hover {
+#channels-list h3 .channels-tooltip-container:hover {
   display: none;
 }
 
-#channels-list>h3 {
+#channels-list-header .plus-sign>.channels-tooltip-container {
+  left: -24px;
+}
+
+#channels-list-header {
+  display: flex;
+  justify-content: space-between;
   margin: 0;
+  margin-bottom: 0.25rem;
   padding: 0;
+}
+
+#channels-list-header>h3 {
   cursor: pointer;
   position: relative;
 }
 
-.plus-sign {
+#channels-list>span {
+  display: flex;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  margin-top: 0;
+  font-size: 0.9rem;
+}
 
+#channels-list>span>div {
+  margin-left: 0.5rem;
 }
 
 .direct-messages-list {
@@ -338,12 +358,13 @@
   align-items: center;
 }
 
-#direct-messages-header>.plus-sign {
-  border: 2px solid;
+.plus-sign {
+  border: 1.25px solid;
   border-radius: 3rem;
-  padding-left: 4px;
-  padding-right: 4px;
-  font-size: 0.9rem;
+  padding-left: 4.176px;
+  padding-right: 4.176px;
+  margin-right: 0.25rem;
+  font-size: 0.7rem;
   cursor: pointer;
 }
 
@@ -399,6 +420,8 @@
 
 .channel-content {
   flex: 4;
+  display: flex;
+  flex-direction: column;
 }
 
 .thread-content {

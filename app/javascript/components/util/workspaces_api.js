@@ -14,7 +14,15 @@ export const create = async workspace => {
   };
 };
 
-// GET    /api/workspaces/:id => workspaces#show
+// GET    /api/workspaces/:id/boot => workspaces#boot
+export const boot = async id => {
+  const res = await fetch(`/api/workspaces/${id}/boot`)
+  return {
+    ok: res.ok,
+    res: await res.json()
+  };
+}
+
 // PUT    /api/workspaces/:id => workspaces#update
 export const update = async workspace => {
   const res = await fetch(`/api/workspaces/${workspace.id}`, {

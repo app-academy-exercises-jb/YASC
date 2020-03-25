@@ -1,33 +1,41 @@
 import React from 'react'
 import ChatPageContainer from './chat_page_container'
 import { Route, Redirect, Switch } from 'react-router-dom';
+import { boot } from '../../util/workspaces_api';
 
 class ChatClient extends React.Component {
+  constructor(props) {
+    super(props);
+    this.fetchChannels = this.fetchChannels.bind(this);
+  }
+
+  fetchChannels(id, firstWsId) {
+    const { setCurrentWorkspace, bootClient } = this.props;
+    id ? setCurrentWorkspace(id) : setCurrentWorkspace(firstWsId);
+    bootClient(id || firstWsId);
+  }
+
   componentDidMount() {
     const { 
-      history, user, match: { url}, location: { pathname },
-      workspaces, currentWorkspace,
-      setCurrentWorkspace, getWorkspaces } = this.props;
+      user, match: { params: {id} }, bootClient,
+      workspaces, currentWorkspace, getWorkspaces } = this.props;
 
-    //ensure there are workspaces, ensure there is a current workspace
     if (Object.keys(workspaces).length === 0) {
-      if (pathname === "/app") {
-        getWorkspaces(user)
-          .then((function(res) {
-            if (res.type !== "RECEIVE_WORKSPACE_ERRORS" && !this.props.currentWorkspace) {
-              setCurrentWorkspace(res.workspaces[0].id);
-            }
-          }).bind(this));
-      }
+      getWorkspaces(user)
+        .then((function(res) {
+          if (res.type !== "RECEIVE_WORKSPACE_ERRORS" && !this.props.currentWorkspace) {
+            this.fetchChannels(id, res.workspaces[0].id);
+          }
+        }).bind(this));
     } else if (!currentWorkspace) {
-      const firstWorkspace = workspaces[Object.keys(workspaces)[0]];
-      setCurrentWorkspace(firstWorkspace.id);
-      history.push(url + `/${firstWorkspace.id}`)
+      let firstWorkspace = workspaces[Object.keys(workspaces)[0]];
+      this.fetchChannels(id, firstWorkspace.id);
+    } else {
+      bootClient(currentWorkspace.id);
     }
   }
 
   render() {
-    // /app should redirect to /app/:id
     const { currentWorkspace } = this.props;
     return (
       <Switch>

@@ -19,7 +19,20 @@ class User < ApplicationRecord
     source: :membershipable,
     source_type: :Workspace
 
+  has_many :joined_channels,
+    through: :memberships,
+    source: :membershipable,
+    source_type: :Channel
 
+  def joined_channel_ids_by_workspace
+    workspace_hash = Hash.new { |h,k| h[k] = [] }
+    
+    joined_channels.each do |ch|
+      workspace_hash[ch.workspace_id] << ch.id
+    end
+    
+    workspace_hash
+  end
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)

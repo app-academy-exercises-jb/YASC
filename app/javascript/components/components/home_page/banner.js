@@ -11,17 +11,16 @@ class Banner extends React.Component {
   }
   
   demoLogin(e) {
-    e.preventDefault();
     if (this.props.user) {
-      this.props.history.push("/app");
+      // this.props.history.push("/app/67");
     } else {
       this.props.loginUser({ email: "demo@example.com", password: "abcd1234" })
         .then(res => {
           this.props.getWorkspaces(this.props.user);
         })
-        .then(res => {
-          this.props.history.push("/app");
-        })
+        // .then(res => {
+        //   this.props.history.push("/app/67");
+        // })
     }
 
   }
@@ -48,7 +47,7 @@ class Banner extends React.Component {
           </span>
           <div className="button-box">
             <Link id="try-us" to="/signup">try yasc</Link>
-            <Link onClick={this.demoLogin} id="demo" to="#">see the demo</Link>
+            <Link onClick={this.demoLogin} id="demo" to="/app">see the demo</Link>
           </div>
           <p>
             Already using yasc? <Link to="/login">Log on</Link>.
