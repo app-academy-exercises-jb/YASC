@@ -46,36 +46,40 @@ The following is a schema for the organization of React components in our fronte
 	* register new user
 * `PUT api/users/:id` => `Api::UsersController#update`
 	* update user info
-* `DELETE api/users/:id` => `Api::UsersController#delete`
+* `DELETE api/users/:id` => `Api::UsersController#destroy`
 	* delete user
 
 ### Session
 * `POST api/session` => `Api::SessionsController#create`
 	* login
-* `DELETE api/session` => `Api::SessionsController#delete`
+* `DELETE api/session` => `Api::SessionsController#destroy`
 	* logout
 
 ### Workspaces
 * `GET api/workspaces/:id` => `Api::WorkspacesController#show`
 	* get current snapshot of workspace. first route the client hits when bootstrapping. similar to slack: `client.boot` or `rtm.start`
-* `GET api/workspaces/:id/counts` => `Api::WorkspacesController#show`
+* `GET api/workspaces/:id/counts` => `Api::WorkspacesController#counts`
 	* get current snapshot of workspace-level info for a given user. similar to slack: `client.count`
 * `POST api/workspaces` => `Api::WorkspacesController#create`
 	* create new workspace
-* `DELETE api/workspaces/:id` => `Api::WorkspacesController#delete`
+* `POST api/workspaces/:id/members` => `Api::WorkspacesController#join`
+	* add a member to a workspace
+* `POST api/workspaces/:id/members` => `Api::WorkspacesController#leave`
+	* remove a member to a workspace
+* `DELETE api/workspaces/:id` => `Api::WorkspacesController#destroy`
 	* delete a workspace
 
 ### Channels
-* `GET api/workspaces/:id/channels` => `Api::ChannelsController#index`
-	* get list of channels in workspace
 * `GET api/channels/:id` => `Api::ChannelsController#show`
 	* get specific channel state. similar to slack: `channels.info`, or `conversations.view`
 * `POST api/channels` => `Api::ChannelsController#create`
 	* create new channel
-* `PUT api/channels/:id` => `Api::ChannelsController#update`
-	* update a channel -- eg, a new user joins it
 * `DELETE api/channels/:id` => `Api::ChannelsController#delete`
 	* delete a channel
+* `POST api/channels/:id/members` => `Api::ChannelsController#create`
+	* make a user a member of a channel
+* `DELETE api/channels/:id/members` => `Api::ChannelsController#delete`
+	* delete a user from a channel
 
 ### Messages
 * `GET api/channel/:id/messages` => `Api::MessagesController#index`
@@ -84,15 +88,9 @@ The following is a schema for the organization of React components in our fronte
 	* create new message. similar to slack: `chat.postMessage`
 * `PUT api/messages/:id` => `Api::MessagesController#update`
 	* edit a message. 
-* `DELETE api/channels/:id` => `Api::MessagesController#delete`
+* `DELETE api/messages/:id` => `Api::MessagesController#delete`
 	* delete a message
-
-### Memberships
-* `POST api/workspaces/:id/memberships` => `Api::MembershipsController#create`
-	* make a user a member of a workspace
-* `DELETE api/workspaces/:id/memberships` => `Api::MembershipsController#delete`
-	* delete a user from a workspace
-* `POST api/channels/:id/memberships` => `Api::MembershipsController#create`
-	* make a user a member of a channel
-* `DELETE api/channels/:id/memberships` => `Api::MembershipsController#delete`
-	* delete a user from a channel
+* `POST api/messages/:id/members` => `Api::MessagesController#join`
+	* make a user a member of a thread
+* `DELETE api/messages/:id/members` => `Api::MessagesController#leave`
+	* delete a user from a thread

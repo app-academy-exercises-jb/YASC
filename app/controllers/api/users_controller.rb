@@ -1,25 +1,12 @@
 class Api::UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy, :teams]
 
-  # GET /users
-  def index
-  end
-
-  # GET /users/1
+# GET /users/1
   def show
     @user.session_token = session[:session_token]
   end
 
-  # GET /users/new
-  def new
-  end
-
-  # GET /users/1/edit
-  def edit
-  end
-
-  # POST /users
+# POST /users
   def create
     @user = User.new(user_params)
 
@@ -27,16 +14,46 @@ class Api::UsersController < ApplicationController
       login!(@user)
       render :show, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      errors = {}
+      @user.errors.each { |err| errors[err] = @user.errors.full_messages_for(err) }
+      render json: errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /users/1
   def update
+    user = User.find_by_credentials(user_params[:email], user_params[:password])
+    if user.nil? || user.id != @user.id
+      render json: {login: 'Incorrect password.'}, 
+        status: :unauthorized
+    else
+      if user_params[:new_email]
+        if @user.update(email: user_params[:new_email])
+          session[:current_user] = {
+            id: @user.id,
+            email: @user.email,
+            session_token: session[:session_token]
+          }
+          render :show
+        else
+          errors = {}
+          @user.errors.each { |err| errors[err] = @user.errors.full_messages_for(err) }
+          render json: errors, status: :unprocessable_entity
+        end
+      elsif user_params[:new_password]
+        if @user.update(auth_token: BCrypt::Password.create(user_params[:new_password]))
+          render :show
+        else
+          errors = {}
+          @user.errors.each { |err| errors[err] = user.errors.full_messages_for(err) }
+          render json: errors, status: :unprocessable_entity
+        end
+      end
+    end
   end
 
-  # DELETE /users/1
-  def destroy
+  # GET users/1/teams
+  def teams
   end
 
   private
@@ -45,6 +62,6 @@ class Api::UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email, :password)
+      params.require(:user).permit(:email, :password, :new_password, :new_email)
     end
 end

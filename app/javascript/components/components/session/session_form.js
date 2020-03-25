@@ -1,5 +1,6 @@
 import React from 'react'
-import HeaderContainer from '../home_page/header_container'
+import ErrorComponent from './error_wrapper'
+import { RECEIVE_SESSION_ERRORS } from '../../actions/session'
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class SessionForm extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.clearErrors();
+    this.props.clearSessionErrors();
   }
 
   handleChange(e) {
@@ -28,19 +29,25 @@ class SessionForm extends React.Component {
   }
 
   handleSubmit(e) {
+    const that = this;
     e.preventDefault();
     const { email, password } = this.state;
     this.props.processForm({
       email, password
     })
+      .then(function (res) {
+        if (that.props.redirect && res.type !== RECEIVE_SESSION_ERRORS) {
+          that.props.pushHistory(that.props.redirect);
+        }
+      })
   }
 
   render() {
     const { errors, type } = this.props;
     return (
       <>
-        <form onSubmit={this.handleSubmit} className="signup-form">
-          <span>Enter your <b>email address</b> and <b>password.</b></span>
+        <form onSubmit={this.handleSubmit} className="session-form">
+          {this.props.explain && <span>Enter your <b>email address</b> and <b>password.</b></span>}
           <label>
             <input type="text" name="email" placeholder="name@example.com" onChange={this.handleChange}/>
           </label>
@@ -53,11 +60,7 @@ class SessionForm extends React.Component {
           <input type="submit" value="Demo Login" onClick={this.demoLogin}/>
         </form>
 
-        <ul>
-          {Object.keys(errors).map((err,idx) => (
-            <li key={idx}>{err}: {errors[err]}</li>
-          ))}
-        </ul>
+        <ErrorComponent errors={errors}/>
       </>
     )
   } 

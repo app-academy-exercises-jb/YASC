@@ -9,4 +9,8 @@ class Session < ApplicationRecord
   def set_token
     self.session_token = SecureRandom.urlsafe_base64(32)
   end
+
+  def flush
+    Session.where(user_id: self.user_id).where.not(id: self.id).delete_all
+  end
 end

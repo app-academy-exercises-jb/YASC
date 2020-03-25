@@ -10,13 +10,14 @@
 
 .session-content {
   background-color: white;
-  max-width: 29.25rem;
-  min-width: fit-content;
+  max-width: fit-content;
+  min-width: 29.25rem;
   border-radius: 10px;
   border: 1px solid #ddd;
   display: flex;
   flex-direction: column;
   align-content: center;
+  align-items: center;
   justify-content: center;
   padding: 4rem 4rem 1rem;
   box-shadow: 0 10px 25px #ddd;
@@ -24,13 +25,48 @@
 
 .session-content h2 {
   align-self: center;
-  font-weight: 500;
-  font-size: 2rem;
+  font-weight: 600;
+  font-size: 1.8125rem;
 }
 
-.signup-page {
+.errors {
+  padding: 0;
+}
+
+.session-error {
+  align-self: flex-start;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  padding: .75rem 1rem .75rem 1rem;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #1d1c1d;
+  border-left-width: 5px;
+  border-left-color: #e01e5a;
+  border-radius: .25rem;
+  margin-bottom: 0.5rem;
+}
+
+.session-error>img {
+  width: 1.5rem;
+  height: 1.525rem;
+  margin-right: 0.5rem;
+}
+
+#signup-page {
   display: flex;
   flex-direction: column;
+}
+#signup-page>h2 {
+  align-self: center;
+  margin-bottom: 2rem;
+}
+
+.signup-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: fit-content;
 }
 
 .signup-wrapper>#signup-buttons>a>div {
@@ -43,12 +79,23 @@
   display: flex;
 }
 
-.signup-wrapper>.signup-page>h2 {
-  align-self: center;
+.signup-wrapper>h2 {
+  align-self: flex-start;
   margin-bottom: 2rem;
 }
 
-.signup-form {
+.signup-wrapper > ul {
+  align-self: flex-start;
+  padding-left: 0;
+}
+
+.signup-wrapper > .session-form {
+  width: 100%;
+  max-width: unset;
+  align-self: flex-start;
+}
+
+.session-form {
   align-self: center;
   display: flex;
   flex-direction: column;
@@ -56,16 +103,16 @@
   max-width: 70%;
 }
 
-.signup-form > * {
+.session-form > * {
   margin-bottom: 1rem;
 }
 
-.signup-form > label {
+.session-form > label {
   display: flex;
   flex-direction: column;
 }
 
-.signup-form > input[type=submit] {
+.session-form > input[type="submit"] {
   background-color: #007a5a;
   color: white;
   height: 2.875rem;
@@ -79,12 +126,12 @@
   text-transform: capitalize;
 }
 
-.signup-form > input[type=submit]:hover {
+.session-form > input[type="submit"]:hover {
   background-color: #148567;
   box-shadow: 0 1px 4px rgba(0,0,0,.3);
 }
 
-.signup-form input[type=text], .signup-form input[type=password] {
+.session-form input[type=text], .session-form input[type=password] {
   font-size: 1.25rem;
   padding: .75rem;
   border: 1px solid #868686;
@@ -95,26 +142,22 @@
   height: 1.5rem;
 }
 
-.signup-form input[type=text]:hover, .signup-form input[type=password]:hover {
+.session-form input[type=text]:hover, .session-form input[type=password]:hover {
   border-color: #616061;
 }
 
-.signup-form input[type=text]:active, .signup-form input[type=password]:active {
+.session-form input[type=text]:active, .session-form input[type=password]:active {
   border-color: #616061;
   outline-offset: 0;
   outline: 0;
   box-shadow: none;
 }
 
-.signup-form > span {
+.session-form > span {
   margin: 0 0 1rem;
   font-size: 0.9rem;
 }
 
-.signup-wrapper>h2 {
-  align-self: flex-start;
-  margin-bottom: 2rem;
-}
 
 #signup-buttons {
   max-width: 25.375rem;
@@ -167,4 +210,10 @@
 
 #signup-buttons>#create-team > h3 {
   font-size: 1rem;
+}
+
+#login-page {
+  min-width: 40rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }

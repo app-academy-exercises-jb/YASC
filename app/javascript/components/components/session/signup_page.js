@@ -7,11 +7,12 @@ import SignupFormContainer from './signup_form_container'
 import FindTeamImg from 'images/find_team'
 
 const SignupWrapper = () => {
-  return (<div className="signup-wrapper">
+  return (
+    <div className="signup-wrapper">
       <h2>Let's get started</h2>
       
       <div id="signup-buttons" className="button-box" style={{flexDirection: "column"}}>
-        <Link id="find-team" to="#">
+        <Link id="find-team" to="/signup/find">
           <div>
             <h3>My team is on yasc</h3>
             <span>Find and sign in to your team's workspace</span>
@@ -23,29 +24,38 @@ const SignupWrapper = () => {
           <span>Create a workspace for your team</span>
         </Link>
       </div>
-  </div>)
+    </div>
+  )
 }
 
 class SignupPage extends React.Component {
   render() {
     return (
       <div className="front-page">
-        <HeaderContainer className="front-page-header top-header" />
+        <HeaderContainer className="front-page-header" />
 
         <div className="session-wrapper">
-          <div className="session-content">
-            <div className="signup-page">
-              <Route exact path="/signup" component={SignupWrapper} />
+          <div id="signup-page" className="session-content">
+            <Route exact path="/signup" component={SignupWrapper} />
 
-              <Route path="/signup/create" render={() => (
-                <>
-                  <h2>Start using yasc today</h2>
-                  <SignupFormContainer />
-                </>
-              )} />
+            <Route exact path="/signup/find" render={() => (
+              <div className="signup-wrapper">
+                <h2>Find your workspace</h2>
+                <span>Log on and we'll find the existing workspaces you've joined.</span>
+                <LoginFormContainer 
+                  redirect={"/find"} 
+                  pushHistory={this.props.history.push} 
+                  explain={false} 
+                />
+              </div>
+            )} />
 
-              <Route path="/signup/find" component={LoginFormContainer} />
-            </div>
+            <Route path="/signup/create" render={() => (
+              <div className="signup-wrapper">
+                <h2>First, let's create your account</h2>
+                <SignupFormContainer redirect={'/create'} pushHistory={this.props.history.push} />
+              </div>
+            )} />
           </div>
         </div>
         

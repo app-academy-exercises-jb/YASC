@@ -12,7 +12,7 @@ class HomePage extends React.Component {
   render() {
     return (<div className="front-page">
       <HeaderContainer className="front-page-header" />
-      <MainContent />
+      <MainContent history={this.props.history} />
       <Footer />
     </div>)
   }

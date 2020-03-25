@@ -12,6 +12,13 @@ class Greeting extends React.Component {
     this.dropdownRef = React.createRef();
     this.showDropdown = this.showDropdown.bind(this);
     this.hideDropdown = this.hideDropdown.bind(this);
+    this.loadWorkspace = this.loadWorkspace.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.user) {
+      this.props.getWorkspaces(this.props.user);
+    }
   }
   
   hideDropdown(e) {
@@ -27,8 +34,12 @@ class Greeting extends React.Component {
     document.addEventListener("click", this.hideDropdown);
   }
 
+  loadWorkspace(id) {
+    this.props.setCurrentWorkspace(id)
+  }
+
   render () {
-    const { user, logoutUser } = this.props
+    const { user, logoutUser } = this.props;
     if (user) {
       return (
         <div id="greeting" className='greeting'>
@@ -37,6 +48,23 @@ class Greeting extends React.Component {
 
           {this.state.dropdownVisible && (
             <div ref={this.dropdownRef} id="workspaces-dropdown">
+              
+              {Object.keys(this.props.workspaces).length > 0 && 
+                <ul id="workspaces-dropdown-list">
+                  {Object.keys(this.props.workspaces).map((ws,idx) => (
+                    <li key={ws}>
+                      <img src={require(`images/default_workspace_icons/${idx}`)} />
+                      <Link to="/app" onClick={() => this.loadWorkspace(ws)}>
+                        {this.props.workspaces[ws].name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              }
+
+              <Link to="/find">See Your Workspaces</Link>
+              <Link to="/create">Create Workspace</Link>
+              <Link to="/admin">Settings</Link>
               <Link 
                 onClick={() => {
                   this.setState({dropdownVisible: false});

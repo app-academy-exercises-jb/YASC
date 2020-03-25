@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_01_175859) do
+ActiveRecord::Schema.define(version: 2020_03_04_182724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "membershipable_type", null: false
+    t.bigint "membershipable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["membershipable_type", "membershipable_id"], name: "index_memberships_on_membershipable_type_and_membershipable_id"
+    t.index ["user_id", "membershipable_type", "membershipable_id"], name: "by_unique_membership_type", unique: true
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.string "user_id", null: false
@@ -31,4 +42,15 @@ ActiveRecord::Schema.define(version: 2020_03_01_175859) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "workspaces", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "owner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_workspaces_on_name", unique: true
+    t.index ["owner_id"], name: "index_workspaces_on_owner_id"
+  end
+
+  add_foreign_key "memberships", "users"
+  add_foreign_key "workspaces", "users", column: "owner_id"
 end

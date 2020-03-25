@@ -12,8 +12,18 @@ class Banner extends React.Component {
   
   demoLogin(e) {
     e.preventDefault();
-    if (this.props.user) return;
-    this.props.loginUser({ email: "demo@example.com", password: "abcd1234" });
+    if (this.props.user) {
+      this.props.history.push("/app");
+    } else {
+      this.props.loginUser({ email: "demo@example.com", password: "abcd1234" })
+        .then(res => {
+          this.props.getWorkspaces(this.props.user);
+        })
+        .then(res => {
+          this.props.history.push("/app");
+        })
+    }
+
   }
 
   render() {
@@ -21,6 +31,7 @@ class Banner extends React.Component {
       <div className="banner">
         <video 
           autoPlay={true}
+          muted={true}
           loop={true}
           playsInline={true}
           poster={BannerPoster}

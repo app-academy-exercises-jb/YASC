@@ -8,12 +8,12 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div className="front-page">
-        <HeaderContainer className="front-page-header top-header" />
+        <HeaderContainer className="front-page-header" />
 
         <div className="session-wrapper">
-          <div className="session-content">
+          <div id="login-page" className="session-content">
             <h2>Sign in to your workspace</h2>
-            <LoginFormContainer />
+            <LoginFormContainer explain={true}/>
           </div>
         </div>
         

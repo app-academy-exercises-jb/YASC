@@ -16,6 +16,7 @@ class App extends React.Component {
       };
       preloadedState.session = {
         currentUser: window.currentUser.id,
+        currentWorkspace: null,
         sessionToken: window.currentUser.session_token
       };
     }
