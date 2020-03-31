@@ -1,0 +1,19 @@
+*docker-compose*
+.git/
+.gitignore
+
+
+# from .gitignore
+/log/*
+/tmp/*
+/storage/*
+.byebug_history
+/public/packs
+/public/packs-test
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+.history/
+node_modules/
+.vscode/
+vendor

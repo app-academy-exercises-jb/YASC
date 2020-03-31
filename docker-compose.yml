@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    image: postgres:11.7-alpine
+    restart: always
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment: 
+      - POSTGRES_PASSWORD=password
+  web:
+    depends_on: 
+      - db
+    build: ./web
+    image: jorgebarreto/yasc
+    ports: 
+      - 3000:3000
+
+volumes:
+  postgres:
+
+
+# bcrypt bootsnap ffi msgpack nio4r nokogiri pg puma sassc websocket-driver
