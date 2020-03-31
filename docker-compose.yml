@@ -12,7 +12,7 @@ services:
   web:
     depends_on: 
       - db
-    build: ./web
+    build: .
     image: jorgebarreto/yasc
     ports: 
       - 3000:3000

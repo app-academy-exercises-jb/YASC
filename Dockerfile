@@ -1,5 +1,5 @@
 ########## Build Stage ##########
-FROM ruby:2.6.5-alpine AS build
+FROM ruby:2.6.5-alpine AS yasc-build
 
 RUN  apk update && apk upgrade \
   && apk add --update --no-cache \
@@ -18,6 +18,8 @@ RUN gem update --system && gem install bundler --version 2.1.4 \
   && bundle config --global frozen 1 \
   && bundle config set without 'development:test:assets' \
   && bundle config set deployment 'true' \
+  && bundle config set specific_platform x86_64-linux \
+  && bundle lock --add-platform x86_64-linux \
   && bundle install -j4 --retry 3 --verbose \
   && yarn install --production
 
@@ -48,8 +50,10 @@ RUN  apk update && apk upgrade \
   postgresql-client nodejs \
   tzdata 
 
-COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /usr/src/app /usr/src/app
+COPY --from=yasc-build /usr/local/bundle /usr/local/bundle
+COPY --from=yasc-build /usr/src/app /usr/src/app
+
+RUN mv vendor/bundle/ruby/2.6.0/extensions/x86_64-linux-musl/ vendor/bundle/ruby/2.6.0/extensions/x86_64-linux
 
 ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
