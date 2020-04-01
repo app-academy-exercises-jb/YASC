@@ -84,5 +84,5 @@ test:
 production:
   <<: *default
   database: yasc_production
-  username: yasc
+  username: postgres
   password: <%= ENV['YASC_DATABASE_PASSWORD'] %>

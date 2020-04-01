@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'application#root'
+  mount ActionCable.server => '/cable'
 
   namespace :api, defaults: {format: :json} do
     resource :session, only: [:create, :destroy, :update]

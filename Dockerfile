@@ -61,4 +61,4 @@ ENV RAILS_LOG_TO_STDOUT=true
 
 RUN bundle config set path vendor/bundler
 
-CMD bundle exec rails s
+CMD dockerinit.sh

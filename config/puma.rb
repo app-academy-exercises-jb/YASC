@@ -12,6 +12,9 @@ threads min_threads_count, max_threads_count
 #
 port        ENV.fetch("PORT") { 3000 }
 
+# Specify the SSL certificates
+ssl_bind '0.0.0.0', '3001', { key: "/etc/letsencrypt/live/jorgebarreto.dev/privkey.pem", cert: "/etc/letsencrypt/live/jorgebarreto.dev/fullchain.pem" }
+
 # Specifies the `environment` that Puma will run in.
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
