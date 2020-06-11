@@ -39,19 +39,16 @@ class ChannelMessages extends React.Component {
       getMessages(currentChannel);
       return null;
     } else {
-      if (prevState.currentChannel !== nextProps.currentChannel.id) {
-        return { 
-          messages: messages[currentChannel.id],
-          currentChannel: nextProps.currentChannel.id,
-          loading: true
-        }
-      } else {
-        return { 
-          messages: messages[currentChannel.id],
-          currentChannel: nextProps.currentChannel.id,
-          loading: false
-        }
+      const state = { 
+        messages: messages[currentChannel.id],
+        currentChannel: nextProps.currentChannel.id
       }
+      if (prevState.currentChannel !== nextProps.currentChannel.id) {
+        state.loading = true;
+      } else {
+        state.loading = false;
+      }
+      return state;
     }
   }
 
