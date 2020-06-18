@@ -20,9 +20,7 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: db
-  username: postgres
-  password: password
+  url: <%= ENV['YASC_DATABASE_URL'] %>
 
 development:
   <<: *default
@@ -84,5 +82,3 @@ test:
 production:
   <<: *default
   database: yasc_production
-  username: postgres
-  password: <%= ENV['YASC_DATABASE_PASSWORD'] %>
