@@ -1,7 +1,24 @@
 TODO
 
+## Needs to Get Done
+
+  * navigation is super slow. pls fix
+
+  * on login, redir to splash is weird -> redir to the default workspace instead
+
+  * logout problems when multiple login/outs from the same user
+
+  * GET /app/[object%20Module]
+    - happens when you click on the dropdown, it seems. harmless?
+
+  * database access is slow AF
+
+## Nice to Have
+
+
 adds
 ----
+
 - channels need topics+descriptions
 - users need names
 
@@ -37,14 +54,3 @@ changes
 - disconnect from websocket on logout and exit
 
 - we should not fetch messages for a channel until we flip to view it
-
-
-done
-----
-✓ /app sidebar should be set at a certain width. names which are too long should ellipsis
-✓ /app channel header gear icon needs cursor:pointer;
-✓ workspaces dropdown on front page should have just enough space to accommodate 3 workspace icons w/out needing scrolling
-✓ do some sort of confirm on confirmation of invite(maybe call /counts again. maybe just broadcast something over ws)
-✓ pushing the history on demo bootstrapping should only happen after we get a response from the server about having been logged in 
-✓ appropriate seeds for demo user
-✓ chatbox at /app should be autoscrolling
