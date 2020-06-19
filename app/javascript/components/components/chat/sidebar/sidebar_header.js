@@ -37,7 +37,7 @@ class SideBarHeader extends React.Component {
   hideModal(e) {
     if ((e && this.inviteModalRef.current && !this.inviteModalRef.current.contains(e.target)) || !e) {
       this.setState({inviteModalVisible: false});
-      this.props.clearUserErrors()
+      this.props.clearUserErrors();
       document.removeEventListener("click", this.hideModal);
     }
   }
@@ -68,7 +68,7 @@ class SideBarHeader extends React.Component {
 
             <section id="workspace-info">
               <div id="workspace-info-header">
-                <img src={require(`images/default_workspace_icons/${iconId}`)}/>
+                <img src={require(`images/default_workspace_icons/${iconId}`).default}/>
                 <span>
                   <div id="workspace-name"><b>{currentWorkspace.name}</b></div>
                   <div id="workspace-location">{`${location.origin}/app/${currentWorkspace.id}`}</div>
