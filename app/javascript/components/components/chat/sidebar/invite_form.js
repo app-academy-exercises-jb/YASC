@@ -28,7 +28,7 @@ class InviteForm extends React.Component {
       .then(res => {
         if (res.type !== "RECEIVE_USER_ERRORS") {
           this.props.hideModal();
-          this.props.getChannelCounts(this.props.currentChannel);
+          // this.props.getChannelCounts(this.props.currentChannel);
         }
       })
   }

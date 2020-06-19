@@ -27,7 +27,7 @@ class SideBar extends React.Component {
           >
             <img 
               className={ws == currentWorkspace.id ? "workspaces-sidebar-active" : ""} 
-              src={require(`images/default_workspace_icons/${idx}`)} 
+              src={require(`images/default_workspace_icons/${idx}`).default} 
             />
             <div className="tooltip-container">
               <div className="tooltip-tail" />

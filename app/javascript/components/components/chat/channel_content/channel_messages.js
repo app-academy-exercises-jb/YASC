@@ -14,7 +14,9 @@ const ChannelMessages = ({
     chatBoxRef = useRef();
 
   const [channelMessages, setChannelMessages] = useState([]);
+  const [loadingMessages, setLoadingMessages] = useState(false);
 
+  const shouldScroll = channelMessages.length;
   useEffect(() => {
     let chatBox = chatBoxRef.current;
     if (!chatBox) return;
@@ -22,14 +24,18 @@ const ChannelMessages = ({
       top: chatBox.scrollHeight,
       behavior: "auto"
     });
-  }, [chatBoxRef.current]);
+  }, [shouldScroll]);
 
   useEffect(() => {
     if (currentChannel && messages) {
       if (!messages[currentChannel.id]) {
-        getMessages(currentChannel);
+        if (!loadingMessages) {
+          getMessages(currentChannel);
+          setLoadingMessages(true);
+        }
       } else {
         setChannelMessages(messages[currentChannel.id]);
+        setLoadingMessages(false);
       }
     }
   }, [messages, currentChannel]);

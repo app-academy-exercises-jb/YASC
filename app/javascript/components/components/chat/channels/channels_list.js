@@ -48,7 +48,7 @@ class ChannelsList extends React.Component {
 
   changeChannel(e,id) {
     this.props.setCurrentChannel(id);
-    this.props.getChannelCounts(id);
+    // this.props.getChannelCounts(id);
   }
 
   render() {

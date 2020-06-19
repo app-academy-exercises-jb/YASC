@@ -1,13 +1,13 @@
 <script type="text/javascript">
-    window.csrf = "<%= form_authenticity_token %>";
+  window.csrf = "<%= form_authenticity_token %>";
 
-    <% if authenticated? %>
-    window.currentUser = {
-      id: "<%= session[:current_user]["id"] %>",
-      email: "<%= session[:current_user]["email"] %>",
-      session_token: "<%= session[:current_user]["session_token"] %>"
-    };
-    <% end %>
+  <% if authenticated? %>
+  window.currentUser = {
+    id: "<%= session[:current_user]["id"] %>",
+    email: "<%= session[:current_user]["email"] %>",
+    session_token: "<%= session[:current_user]["session_token"] %>"
+  };
+  <% end %>
 </script>
 
-<%= react_component("app", {isProduction: Rails.env.production?}, {}) %>
+<%= react_component("app", {isProduction: Rails.env.production?, path: request.path}, {prerender: true}) %>

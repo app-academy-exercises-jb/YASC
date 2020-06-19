@@ -1,16 +1,43 @@
 import React from 'react';
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { StaticRouter, BrowserRouter } from 'react-router-dom'
 import configureStore from './store/store'
-import YASC from './components/yasc'
+// import YASC from './components/yasc'
 
+const Router = ({children, path}) => {
+  try {
+    // ExecJS throws an error as soon as it sees window or document
+    // By checking window, we force the error and catch on the server
+    // side with StaticRouter. client side still works with 
+    // BrowserRouter
+    window === undefined;
+    return (
+      <BrowserRouter>
+        {children}
+      </BrowserRouter>
+    )
+  } catch (error) {
+    return (
+      <StaticRouter location={path} context={{}}>
+        {children}
+      </StaticRouter>
+    )
+  }
+}
 
 class App extends React.Component {
   constructor(props) {
     super(props)
-    const preloadedState = { entities: {}, session: {} }
 
-    if (window && window.currentUser) {
+    this.getYasc = this.getYasc.bind(this);
+    this.YASC = null;
+  }
+
+  componentDidMount() {
+    this.getYasc();
+    const preloadedState = { entities: {}, session: {} };
+
+    if (window.currentUser) {
       preloadedState.entities = {
         users: { [window.currentUser.id]: window.currentUser }
       };
@@ -22,17 +49,27 @@ class App extends React.Component {
       };
     }
 
-    preloadedState.session.isProduction = props.isProduction;
-
+    preloadedState.session.isProduction = this.props.isProduction;
     this.store = configureStore(preloadedState);
+    this.forceUpdate();
+  }
+
+  getYasc() {
+    import('./components/yasc')
+      .then(YASC => {
+        this.YASC = <YASC.default />;
+        this.forceUpdate();
+      });
   }
 
   render() {
+    if (!this.store) return null;
+
     return (
       <Provider store={this.store}>
-        <BrowserRouter>
-          <YASC />
-        </BrowserRouter>
+        <Router>
+          {this.YASC}
+        </Router>
       </Provider>
     );
   }

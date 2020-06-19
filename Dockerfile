@@ -10,6 +10,8 @@ RUN  apk update && apk upgrade \
     tzdata
 
 WORKDIR /usr/src/app
+ENV RAILS_ENV=production
+ENV NODE_ENV=production
 
 COPY Gemfile* package.json ./
 
@@ -30,11 +32,9 @@ RUN rm -rf /usr/local/bundle/cache/*.gem \
 
 COPY . .
 
-ENV RAILS_ENV=production
-
 # Compile assets
 RUN  bundle exec rails assets:precompile \
-  && bin/webpack \
+  && bin/webpack -p \
   && rm -rf node_modules \
   tmp/cache \
   lib/assets \
@@ -56,6 +56,7 @@ COPY --from=yasc-build /usr/src/app /usr/src/app
 RUN mv vendor/bundle/ruby/2.6.0/extensions/x86_64-linux-musl/ vendor/bundle/ruby/2.6.0/extensions/x86_64-linux
 
 ENV RAILS_ENV=production
+ENV NODE_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_LOG_TO_STDOUT=true
 
